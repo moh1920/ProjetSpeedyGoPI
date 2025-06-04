@@ -1,0 +1,175 @@
+/* Floute l'arrière-plan lorsque le formulaire est ouvert */
+.blur {
+    filter: blur(5px);
+    pointer-events: none; /* Empêche d'interagir avec l'arrière-plan */
+  }
+  
+  /* Styles pour la fenêtre modale (popup) */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* S'assurer que la popup est au-dessus */
+  }
+  
+  /* Contenu de la popup */
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  /* Bouton de fermeture */
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  /* Styles généraux */
+  .container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .info-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+  .info {
+    text-align: center;
+    max-width: 300px;
+  }
+  
+  .info img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .cta-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .illustration {
+    width: 300px;
+    margin-right: 30px;
+  }
+  
+  .text-content {
+    max-width: 500px;
+  }
+  
+  .offer-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .offer-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Apparence du formulaire */
+  .carpool-form-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+ /* Style for the 'Offer your ride' button */
+.offer-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensures the button takes the full width */
+    margin-bottom: 30px; /* Adds significant space below the "Offer your ride" button */
+    width: 100%; /* Makes the button stretch full width */
+  }
+  
+  .offer-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the 'Show All Offers' button */
+  .show-all-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensures the button takes the full width */
+    margin-top: 30px; /* Adds space above the "Show All Offers" button */
+    width: 100%; /* Makes the button stretch full width */
+  }
+  
+  .show-all-button:hover {
+    background-color: #0056b3;
+  }
+  

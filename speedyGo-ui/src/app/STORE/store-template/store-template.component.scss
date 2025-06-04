@@ -1,0 +1,25 @@
+.store-container {
+  padding: 20px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.store-header {
+  display: flex;
+  align-items: center;
+}
+
+.store-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.store-info {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 8px;
+}

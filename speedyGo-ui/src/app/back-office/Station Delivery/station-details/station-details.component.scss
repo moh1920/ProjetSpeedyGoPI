@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.card {
+  border-radius: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  .card-header {
+    padding: 1.5rem;
+    
+    h5 {
+      font-weight: 600;
+      color: #566a7f;
+    }
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+}
+
+.detail-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  height: 100%;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  
+  .detail-title {
+    color: #566a7f;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .detail-content {
+    .detail-item {
+      display: flex;
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .label {
+        flex: 0 0 140px;
+        color: #697a8d;
+        font-weight: 500;
+      }
+      
+      .value {
+        color: #566a7f;
+      }
+    }
+  }
+}
+
+.map-container {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  
+  google-map {
+    width: 100%;
+  }
+}
+
+.btn {
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  
+  &.btn-primary {
+    background-color: #696cff;
+    border-color: #696cff;
+    
+    &:hover {
+      background-color: #5f62e6;
+      border-color: #5f62e6;
+    }
+  }
+}
+
+.badge {
+  padding: 0.5em 0.75em;
+  font-weight: 500;
+}

@@ -1,0 +1,147 @@
+<div class="card mb-4 p-3">
+  <div class="card-header bg-white border-bottom">
+    <h4 class="mb-0">
+      <i class="bi bi-wrench-adjustable-circle me-2 text-primary"></i> Maintenance Update
+    </h4>
+  </div>
+
+  <form [formGroup]="maintenanceForm" (ngSubmit)="updateMaintenance()">
+
+    <!-- Maintenance Type -->
+    <div class="form-group mb-3">
+      <label class="form-label">Maintenance Type</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-tools text-primary"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="maintenanceType"
+          placeholder="Enter maintenance type" />
+      </div>
+      <div *ngIf="maintenanceForm.get('maintenanceType')?.invalid && maintenanceForm.get('maintenanceType')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Maintenance type is required.
+      </div>
+    </div>
+
+    <!-- Technician Name -->
+    <div class="form-group mb-3">
+      <label class="form-label">Technician Name</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-person-gear text-primary"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="technicianName"
+          placeholder="Enter technician name" />
+      </div>
+      <div *ngIf="maintenanceForm.get('technicianName')?.invalid && maintenanceForm.get('technicianName')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Technician name is required.
+      </div>
+    </div>
+
+    <!-- Technician Email -->
+    <div class="form-group mb-3">
+      <label class="form-label">Technician Email</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-envelope text-primary"></i>
+        </span>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="emailTechnician"
+          placeholder="Enter technician email" />
+      </div>
+      <div *ngIf="maintenanceForm.get('emailTechnician')?.invalid && maintenanceForm.get('emailTechnician')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Technician email is required.
+      </div>
+    </div>
+
+    <!-- Scheduled Date -->
+    <div class="form-group mb-3">
+      <label class="form-label">Scheduled Date</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-calendar-event text-primary"></i>
+        </span>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="scheduledDate" />
+      </div>
+      <div *ngIf="maintenanceForm.get('scheduledDate')?.invalid && maintenanceForm.get('scheduledDate')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Scheduled date is required.
+      </div>
+    </div>
+
+    <!-- Estimated Completion Time -->
+    <div class="form-group mb-3">
+      <label class="form-label">Estimated Completion Time</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-hourglass-split text-primary"></i>
+        </span>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="estimatedCompletionTime" />
+      </div>
+    </div>
+
+    <!-- Cost -->
+    <div class="form-group mb-3">
+      <label class="form-label">Price</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-currency-euro text-primary"></i>
+        </span>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="cost"
+          placeholder="Enter price" />
+      </div>
+      <div *ngIf="maintenanceForm.get('cost')?.invalid && maintenanceForm.get('cost')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Price must be a positive number.
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group mb-4">
+      <label class="form-label">Status</label>
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-list-check text-primary"></i>
+        </span>
+        <select class="form-select" formControlName="status" required>
+          <option value="Pending">Pending</option>
+          <option value="In_progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div *ngIf="maintenanceForm.get('status')?.invalid && maintenanceForm.get('status')?.touched" class="text-danger mt-1">
+        <i class="bi bi-exclamation-circle me-1"></i> Status is required.
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="maintenanceForm.invalid">
+        <i class="bi bi-check-circle me-2"></i> Save Changes
+      </button>
+      <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+        <i class="bi bi-x-circle me-2"></i> Cancel
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Success Message -->
+  <p *ngIf="successMessage" class="text-success mt-3">
+    <i class="bi bi-check2-circle me-2"></i> {{ successMessage }}
+  </p>
+</div>

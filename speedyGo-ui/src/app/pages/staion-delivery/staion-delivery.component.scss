@@ -1,0 +1,113 @@
+.station-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 51, 0, 0.15);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.station-banner {
+    background: linear-gradient(135deg, #006400 0%, #004d00 100%);
+    padding: 1.5rem;
+    color: white;
+}
+
+.station-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    
+    &:hover {
+        transform: rotate(90deg);
+    }
+}
+
+.station-content {
+    padding: 1.5rem;
+}
+
+.info-block {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    background: rgba(249, 250, 251, 0.8);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(240, 255, 240, 1); // Light green tint on hover
+        transform: translateX(8px);
+        box-shadow: 0 4px 12px rgba(0, 51, 0, 0.1);
+    }
+}
+
+.info-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #006400 0%, #004d00 100%);
+    border-radius: 12px;
+    margin-right: 1rem;
+
+    i {
+        color: white;
+        font-size: 1.25rem;
+    }
+}
+
+.info-text {
+    flex: 1;
+
+    label {
+        display: block;
+        color: #2e512e; // Darker green for labels
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+    }
+
+    p {
+        margin: 0;
+        color: #003300; // Very dark green for text
+        font-weight: 500;
+        font-size: 1rem;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.station-card {
+    animation: slideIn 0.3s ease;
+}

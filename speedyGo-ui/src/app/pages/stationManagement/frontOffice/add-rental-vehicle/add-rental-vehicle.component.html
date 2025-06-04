@@ -1,0 +1,229 @@
+<app-navbar></app-navbar>
+
+
+<div id="git" style="padding: 5% ; ">
+
+  <img
+    id="img"
+    src="./assets/scooter5.jpg"
+    alt=""
+    width="100%"
+    height="475px"
+    style="border-radius: 12px;"
+  >
+</div>
+
+<div>
+  <div class="features-container">
+    <div class="feature-card">
+      <div class="icon-circle">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11H18M8 16H16M7 6H17C18.1046 6 19 6.89543 19 8V16C19 17.1046 18.1046 18 17 18H7C5.89543 18 5 17.1046 5 16V8C5 6.89543 5.89543 6 7 6Z" stroke="#1ED4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="h2-chause">Choose your ride</h2>
+      <p class="p-chause">Select from a wide range of options and get your ride within minutes, or schedule one for later.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon-circle">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 21H17M9 3H15M9 18V21M15 18V21M6 6C6 4.89543 6.89543 4 8 4H16C17.1046 4 18 4.89543 18 6V18H6V6Z" stroke="#1ED4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="h2-chause">Track your ride</h2>
+      <p class="p-chause">Track your ride in real time from the moment a Captain is assigned until you arrive at your destination.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon-circle">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 9H20M15 13H15.01M11 13H11.01M7 13H7.01M4 7H20C21.1046 7 22 7.89543 22 9V17C22 18.1046 21.1046 19 20 19H4C2.89543 19 2 18.1046 2 17V9C2 7.89543 2.89543 7 4 7Z" stroke="#1ED4A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="h2-chause">Pay securely</h2>
+      <p class="p-chause">Card, SpeedyGo Pay, Apple Pay or cash; you can pay securely on SpeedyGo.</p>
+    </div>
+  </div>
+</div>
+
+
+<br><br>
+
+
+<div id="bannerOverflowBG-1561" class="overflowed-bg general">
+  <div class="gradient"></div>
+
+  <div id="box6" class="container">
+    <div class="row gx-5">
+      <div class="col text-center p-4">
+        <img src="assets/scooter4.jpeg" alt="" width="300px">
+      </div>
+    </div>
+    <div class="col">
+      <h1>It's fast.</h1><br>
+      <p>SpeedyGo Bike is perfect for quick trips. A few taps, and you’re off!</p><br>
+      <button class="btn btn-light">Ride now</button>
+    </div>
+
+  </div>
+</div>
+<br>
+<br><br>
+
+<main class="container-form">
+  <div class="row">
+
+
+    <!-- Formulaire de location -->
+    <div class="card-form">
+      <div >
+        <div>
+          <h5>
+            <i class="fas fa-calendar-alt"></i> Rental Schedule
+          </h5>
+        </div>
+        <form [formGroup]="rentalForm" (ngSubmit)="onSubmit()" class="mt-3">
+
+
+
+          <!-- Start Time -->
+          <div class="mb-3">
+            <label for="startTime" class="form-label"><i class="bi bi-clock me-2"></i>Start Time:</label>
+            <input id="startTime" type="datetime-local" class="form-control" formControlName="startTime">
+            <div *ngIf="rentalForm.controls['startTime'].invalid && rentalForm.controls['startTime'].touched" class="text-danger mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i> Start Time is required.
+            </div>
+          </div>
+
+          <!-- End Time -->
+          <div class="mb-3">
+            <label for="endTime" class="form-label"><i class="bi bi-clock-history me-2"></i>End Time:</label>
+            <input id="endTime" type="datetime-local" class="form-control" formControlName="endTime">
+            <div *ngIf="rentalForm.controls['endTime'].invalid && rentalForm.controls['endTime'].touched" class="text-danger mt-1">
+              <i class="bi bi-exclamation-circle me-1"></i> End Time is required.
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="rental-buttons">
+            <a class="btn primary" (click)="onSubmit()">
+              Rent now
+            </a>
+            <a class="btn secondary" [routerLink]="['/scooterBikeList']">
+              View Details
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <br>
+    <br><br><br>
+
+    <div class="card-body p-0 position-relative">
+
+      <!-- Ton div corrigé avec une icône -->
+      <div>
+        <h5>
+          <i class="fas fa-map-marker-alt"></i> Station Destination Selected
+        </h5>
+      </div>
+      <!-- Couche de désactivation -->
+      <div *ngIf="!isMapEnabled" class="map-overlay">
+
+        <div class="text-muted text-center p-4">
+          <i class="bi bi-lock-fill me-2"></i> Please fill out the form to unlock the map.
+        </div>
+      </div>
+
+      <!-- La carte Google -->
+      <google-map [center]="center" [zoom]="zoom" height="400px" width="100%">
+        <ng-container *ngFor="let station of filteredStations">
+          <map-marker *ngIf="station.latitude !== undefined && station.longitude !== undefined"
+                      [position]="{ lat: station.latitude!, lng: station.longitude! }"
+                      [title]="station.name || 'Unknown Station'"
+                      (mapClick)="openMadaleStation(station)">
+          </map-marker>
+        </ng-container>
+      </google-map>
+    </div>
+
+
+
+
+
+
+    <div class="rental-buttons">
+
+
+      <!-- Bouton Calculate Cost -->
+      <button
+        *ngIf="endStationId && rentalDate?.id"
+        class="btn-custom btn-cost"
+        (click)="onCalculateCost(rentalDate.id)">
+        <i class="bi bi-cash-coin me-2"></i> Calculate Cost
+      </button>
+
+      <!-- Bouton Trip Recommendation -->
+      <button
+        *ngIf="endStationId && rentalDate?.id"
+        class="btn-custom btn-recommend"
+        [routerLink]="['/TripRecommandationComponantComponent', rentalDate.id]">
+        <i class="bi bi-compass me-2"></i> Trip Recommendation
+      </button>
+    </div>
+
+
+
+
+
+  </div>
+
+  <!-- Modal pour station sélectionnée -->
+  <ng-template #modaleStationAffected let-modal>
+    <mat-card *ngIf="selectedStation" class="mat-elevation-z4 station-info shadow-sm">
+      <mat-card-header class="bg-primary text-white">
+        <mat-card-title>{{ selectedStation.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="p-3">
+        <p><strong><i class="bi bi-geo-alt me-2"></i> Location:</strong> {{ selectedStation.location }}</p>
+        <p><strong><i class="bi bi-boxes me-2"></i> Capacity:</strong> {{ selectedStation.capacity }} bikes/scooters</p>
+        <p><strong><i class="bi bi-toggle-on me-2"></i> Status:</strong> {{ selectedStation.is_active ? 'Active' : 'Inactive' }}</p>
+      </mat-card-content>
+      <mat-card-actions class="d-flex gap-2 p-3">
+        <button class="btn btn-info flex-grow-1" (click)="affecterEndStation(selectedStation.id)">
+          <i class="bi bi-flag-fill me-2"></i> Add End Station
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+
+
+
+
+
+
+
+</main>
+
+
+
+<section class="green-section">
+  <div class="container">
+    <div class="content">
+      <h1 class="h1-0">It's green.</h1>
+      <p class="p-0">Careem BIKE is the most sustainable way to
+        get where you're going while getting exercise and having fun!</p>
+      <br>
+      <button class="ride-now-btn">Ride now</button>
+    </div>
+    <div class="image">
+      <img src="./assets/rental3.jpg" alt="Person riding a green Careem bike">
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

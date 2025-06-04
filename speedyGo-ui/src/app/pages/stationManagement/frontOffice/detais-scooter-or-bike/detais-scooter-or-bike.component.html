@@ -1,0 +1,198 @@
+<app-navbar></app-navbar>
+
+
+<div id="git" style="padding: 5% ; ">
+
+  <img
+    id="img"
+    src="./assets/2023-Yamaha-BOOSTER-EASY-EU-Aqua-Accessorized-action-006-03.jpg"
+    alt=""
+    width="100%"
+    height="475px"
+    style="border-radius: 12px;"
+  >
+</div>
+
+
+<div class="container">
+  <h1>Vehicle Details and Rental History</h1>
+
+  <div class="two-columns">
+    <div class="left-column">
+      <!-- Vehicle Rental Card -->
+      <div class="vehicle-rental-card">
+        <div class="card-header">
+          <div class="vehicle-image">
+            <img [src]="vehicleRental.imageUrl || 'assets/images/default-vehicle.png'" alt="Vehicle image">
+          </div>
+          <div class="vehicle-basic-info">
+            <h2>{{vehicleRental.typeVehicleRental}} {{vehicleRental.models}}</h2>
+            <span class="vehicle-id">ID: {{vehicleRental.id}}</span>
+            <div class="status-badge" [ngClass]="{'active': vehicleRental.status === 'ACTIVE',
+                                                 'inactive': vehicleRental.status === 'INACTIVE',
+                                                 'maintenance': vehicleRental.status === 'MAINTENANCE'}">
+              {{vehicleRental.status}}
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="info-row">
+            <div class="info-item">
+              <span class="label">Battery Level</span>
+              <div class="battery-indicator">
+                <div class="battery-level" [style.width.%]="vehicleRental.batteryLevel"></div>
+              </div>
+              <span class="value">{{vehicleRental.batteryLevel}}%</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Mileage</span>
+              <span class="value">{{vehicleRental.mileage}} km</span>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-item">
+              <span class="label">Cost per KM</span>
+              <span class="value">{{vehicleRental.costOfVehicleByKm}}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Last Maintenance</span>
+              <span class="value">{{vehicleRental.lastMaintenanceDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="info-row station-info" *ngIf="vehicleRental.station">
+            <div class="info-item full-width">
+              <span class="label">Current Station</span>
+              <span class="value">{{vehicleRental.station.name}}</span>
+              <span class="station-address">{{vehicleRental.station.location}}</span>
+            </div>
+          </div>
+
+          <div class="info-row qr-section">
+            <div class="info-item">
+              <span class="label">QR Code</span>
+              <div class="qr-code-container">
+                <!-- Display QR code as image -->
+                <img [src]="'data:image/png;base64,' + vehicleRental.qrCode" alt="QR Code" class="qr-code-image">
+              </div>
+            </div>
+            <div class="info-item dates">
+              <div class="date-item">
+                <span class="label">Created At</span>
+                <span class="value">{{vehicleRental.createdAt | date:'dd/MM/yyyy HH:mm'}}</span>
+              </div>
+              <div class="date-item">
+                <span class="label">Updated At</span>
+                <span class="value">{{vehicleRental.updatedAt | date:'dd/MM/yyyy HH:mm'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-title">Total Distance</div>
+          <div class="stat-value">{{ calculateTotalDistance() }} km</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Total Revenue</div>
+          <div class="stat-value">${{ calculateTotalRevenue()}}</div>
+        </div>
+      </div>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-title">Avg. Rental Duration</div>
+          <div class="stat-value">{{ calculateTotalRevenue() }} hrs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Active Rentals</div>
+          <div class="stat-value">{{ countActiveRentals() }}</div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="right-column">
+      <h2>Rental History</h2>
+
+      <div class="table-container">
+        <table *ngIf="rentalList && rentalList.length > 0">
+          <thead>
+          <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Distance</th>
+            <th>Cost</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let rental of rentalList">
+
+            <td>{{ rental.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ rental.endTime | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ rental.distanceTraveled }} km</td>
+            <td>${{ rental.cost.toFixed(2) }}</td>
+            <td>
+                                    <span class="status" [ngClass]="rental.rentalStatus ? 'status-active' : 'status-completed'">
+                                        {{ rental.rentalStatus ? 'Active' : 'Completed' }}
+                                    </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="empty-state" *ngIf="!rentalList || rentalList.length === 0">
+          <h3>No rental history found</h3>
+          <p>This vehicle doesn't have any rental records yet.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div id="box3" class="row rounded-5 d-flex" >
+  <div id="go" class="col p-3 m-2 rounded-5">
+    <h1 style="font-weight: bold;">Go</h1><h2 style="font-weight: bold;">anywhere</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i><a href="/scooterBikeList">Scooter</a></li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Taxl</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i><a href="/scooterBikeList">Bike</a></li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> CarRental</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> SchoolRides</li>
+    </ul><div class="arrow1"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div>
+  </div>
+  <div id="eat" class="col p-3 m-2 rounded-5"><a href="#"><h1 style="color: #00493e; font-weight: bold;" >Eat</h1><h2 style="color: #00493e; font-weight: bold;">anytime</h2>
+    <ul class="link" style="color: #00493e;">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Food</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> DineOut</li>
+    </ul><div class="arrow"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="get" class="col rounded-5 m-2 p-3"> <a href="#"> <h1 style="font-weight: bold;">Get</h1><h2 style="font-weight: bold;">anythings</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Supermarkets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Delivery</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Tickets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Flowers</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pharmacy</li>
+    </ul><div class="arrow2"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="pay" class="col rounded-5 p-3 m-2"><a href="#"><h1 style="font-weight: bold;">Pay</h1><h2 style="font-weight: bold;" >anyone</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pay</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Donation</li>
+    </ul><div class="arrow"><img src="assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+</div>
+
+
+<br><br>
+<app-footer></app-footer>

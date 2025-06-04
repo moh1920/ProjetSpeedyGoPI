@@ -1,0 +1,229 @@
+/* Conteneur principal de la roue */
+.wheel-container {
+  font-family: 'Arial', sans-serif;
+  background-color: #5DEAA8 !important; /* Même vert clair que les publicités */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: none;
+}
+
+/* Titre */
+.card-title.text-success {
+  color: #2F4858 !important; /* Même couleur de texte que les publicités */
+  letter-spacing: 1px;
+}
+
+/* Wrapper de la roue */
+.wheel-wrapper {
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Roue */
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 8px solid white;
+  position: relative;
+  background: conic-gradient(
+      #4DD5A0, /* Vert moyen */
+      #36B37E, /* Vert foncé */
+      #5DEAA8, /* Vert clair */
+      #4DD5A0, /* Vert moyen */
+      #36B37E  /* Vert foncé */
+  );
+  transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour l'animation de la roue */
+.wheel.spinning {
+  transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Segments */
+.segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0% 0%;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(0deg);
+  padding: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.segment span {
+  transform: rotate(-90deg);
+  display: block;
+  font-size: 16px;
+  max-width: 95px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pointeur */
+.pointer {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.pointer i {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  font-size: 2.5rem;
+}
+
+/* Bouton de spin */
+.btn-success {
+  background-color: #4DD5A0 !important;
+  border-color: #4DD5A0 !important;
+  color: #2F4858 !important;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover:not([disabled]) {
+  background-color: #36B37E !important;
+  border-color: #36B37E !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-success[disabled] {
+  background-color: #a8e4cb !important;
+  border-color: #a8e4cb !important;
+  cursor: not-allowed;
+}
+
+/* Résultat */
+.result {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result p {
+  margin: 0;
+  color: #36B37E !important;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Styles pour l'historique */
+.card-header {
+  background-color: #dbf5ea !important;
+  border-bottom: 1px solid #b3e6d5;
+  padding: 12px 20px;
+}
+
+.card-header h5 {
+  color: #2F4858;
+  font-weight: 600;
+}
+
+.table-success th {
+  background-color: #b3e6d5 !important;
+  color: #2F4858;
+  font-weight: 600;
+  border-color: #a8e4cb;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table tr td {
+  border-color: #e9f7f2;
+}
+
+.badge.bg-success {
+  background-color: #4DD5A0 !important;
+  color: #2F4858;
+  font-weight: 500;
+}
+
+.pagination .page-link {
+  color: #36B37E;
+  border-color: #dbf5ea;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #36B37E;
+  border-color: #36B37E;
+  color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #cccccc;
+}
+
+/* Dialog styles */
+.p-dialog-header {
+  background-color: #5DEAA8 !important;
+  color: #2F4858 !important;
+}
+
+.p-button {
+  background-color: #4DD5A0 !important;
+  border-color: #4DD5A0 !important;
+  color: #2F4858 !important;
+}
+
+.p-button.p-button-secondary {
+  background-color: #f4f4f4 !important;
+  border-color: #e0e0e0 !important;
+  color: #2F4858 !important;
+}
+
+/* Alert styles */
+.alert-info {
+  background-color: #B3E6D5 !important;
+  border-color: #86D4C0 !important;
+  color: #2F4858 !important;
+}
+
+/* Bouton Ajouter PV */
+.btn-primary {
+  background-color: #4DD5A0 !important;
+  border-color: #4DD5A0 !important;
+  color: #2F4858 !important;
+  margin: 15px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #36B37E !important;
+  border-color: #36B37E !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

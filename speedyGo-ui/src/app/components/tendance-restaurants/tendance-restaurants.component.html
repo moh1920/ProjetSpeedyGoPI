@@ -1,0 +1,93 @@
+<app-navbar></app-navbar>
+<div class="container my-4 text-center">
+  <img src="/assets/Untitled-design-4.webp" alt="Main banner"
+       class="img-fluid rounded shadow" style="max-height: 500px; object-fit: cover; width: 1000px">
+</div>
+<div class="overflowed-bg">
+  <div class="container" id="box6">
+    <div class="text-container w-100">
+      <h2 class="mb-4">
+        <i class="bi bi-fire text-warning me-2"></i>Trending restaurants near you
+      </h2>
+
+      <div *ngIf="pagedRestaurants.length > 0; else loading">
+        <div class="row">
+          <div *ngFor="let resto of pagedRestaurants" class="col-md-6 col-lg-4 mb-4">
+            <a *ngIf="resto.place_id"
+               [href]="'https://www.google.com/maps/place/?q=place_id:' + resto.place_id"
+               target="_blank"
+               style="text-decoration: none;">
+              <div class="card h-100 border-0 shadow" style="border-radius: 15px;">
+                <img
+                  [src]="resto.photos?.[0]
+                    ? 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' + resto.photos?.[0].photo_reference + '&key=AIzaSyCidD4GBkYXMcyDIRWWUhfkZHT9noeXXzE'
+                    : 'https://source.unsplash.com/400x300/?restaurant'"
+                  class="card-img-top"
+                  alt="Photo de {{ resto.name }}"
+                  style="border-top-left-radius: 15px; border-top-right-radius: 15px; object-fit: cover; height: 200px;">
+
+                <div class="card-body">
+                  <h5 class="card-title text-dark fw-bold">
+                    <i class="bi bi-shop me-2 text-success"></i>{{ resto.name }}
+                  </h5>
+                  <p class="card-text text-muted">
+                    <i class="bi bi-geo-alt-fill me-1 text-danger"></i>{{ resto.vicinity }}
+                  </p>
+                  <p class="card-text d-flex align-items-center">
+                    <ng-container *ngIf="resto.rating; else noRating">
+                      <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                        <ng-container *ngIf="resto.rating >= star">
+                          <i class="bi bi-star-fill text-warning me-1"></i>
+                        </ng-container>
+                        <ng-container *ngIf="resto.rating >= star - 0.5 && resto.rating < star">
+                          <i class="bi bi-star-half text-warning me-1"></i>
+                        </ng-container>
+                        <ng-container *ngIf="resto.rating < star - 0.5">
+                          <i class="bi bi-star text-warning me-1"></i>
+                        </ng-container>
+                      </ng-container>
+                      <span class="text-muted ms-1">({{ resto.rating }})</span>
+                    </ng-container>
+                    <ng-template #noRating>
+                      <span class="text-muted">Non noté</span>
+                    </ng-template>
+                  </p>
+
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Pagination des restaurants" class="mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link bg-success border-0 text-white" (click)="changePage(currentPage - 1)">
+                <i class="bi bi-chevron-left"></i> Précédent
+              </button>
+            </li>
+            <li class="page-item disabled">
+              <span class="page-link bg-light text-dark">
+                Page {{ currentPage }} / {{ Math.ceil(restaurants.length / itemsPerPage) }}
+              </span>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage >= restaurants.length / itemsPerPage">
+              <button class="page-link bg-success border-0 text-white" (click)="changePage(currentPage + 1)">
+                Suivant <i class="bi bi-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <ng-template #loading>
+        <div class="text-center mt-5">
+          <div class="spinner-border text-light" role="status"></div>
+          <p class="mt-3">Loading trending restaurants...</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

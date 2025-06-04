@@ -1,0 +1,41 @@
+<div class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Vehicle Usage Statistics</h2>
+    <p class="chart-description">Rental counts, mileage, and maintenance status</p>
+  </div>
+
+  <div class="chart-content">
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="vehicleStats.length > 0" class="chart-container">
+      <canvas
+        baseChart
+        [type]="barChartType"
+        [options]="barChartOptions"
+        [data]="barChartData">
+      </canvas>
+    </div>
+
+    <div *ngIf="vehicleStats.length === 0 && !errorMessage" class="loading">
+      Loading vehicle statistics...
+    </div>
+  </div>
+
+  <div class="chart-footer">
+    <div class="maintenance-legend">
+      <div class="legend-item">
+        <span class="legend-color" [style.background-color]="rentalCountColor"></span>
+        <span>With Maintenance</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color" style="background-color: rgba(54, 162, 235, 0.5);"></span>
+        <span>No Maintenance</span>
+      </div>
+    </div>
+    <div class="chart-subtitle">
+      Hover over bars to see detailed information including last maintenance date
+    </div>
+  </div>
+</div>

@@ -1,0 +1,389 @@
+// Variables
+$primary-color: #1976d2;
+$secondary-color: #dc004e;
+$success-color: #4caf50;
+$warning-color: #ffa726;
+$danger-color: #f44336;
+$background-color: #f5f5f5;
+$text-primary: #333;
+$text-secondary: #666;
+$border-radius: 8px;
+$transition: all 0.3s ease;
+
+// Global Styles
+.dashboard-container {
+  min-height: 100vh;
+  background: $background-color;
+  padding: 24px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
+
+// Header Section
+.header-section {
+  background: white;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-info, .datetime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text-secondary;
+    font-size: 0.9rem;
+
+    mat-icon {
+      color: $primary-color;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+// Content Container
+.content-container {
+  .action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      color: $text-primary;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    button {
+      height: 48px;
+      padding: 0 24px;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Table Styles
+.table-container {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: $transition;
+
+  &.blur {
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .booking-table {
+    width: 100%;
+
+    .mat-header-row {
+      background: #fafafa;
+    }
+
+    .mat-header-cell {
+      color: $text-secondary;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 16px;
+    }
+
+    .mat-cell {
+      padding: 16px;
+      font-size: 14px;
+      color: $text-primary;
+
+      .location-icon, .time-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        vertical-align: middle;
+        color: $primary-color;
+      }
+    }
+
+    .type-badge {
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+
+      &.standard {
+        background: rgba($primary-color, 0.1);
+        color: $primary-color;
+      }
+
+      &.premium {
+        background: rgba($secondary-color, 0.1);
+        color: $secondary-color;
+      }
+    }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 16px;
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .action-button {
+      margin: 0 4px;
+      
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Edit Form Modal
+.edit-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+  animation: slideIn 0.3s ease-out;
+
+  mat-card {
+    padding: 24px;
+    background: white;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    mat-card-header {
+      margin-bottom: 24px;
+      
+      mat-card-title {
+        color: $text-primary;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+
+      mat-form-field {
+        flex: 1;
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+
+      button {
+        min-width: 120px;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 8px;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Empty State
+.no-data {
+  text-align: center;
+  padding: 48px 24px;
+  color: $text-secondary;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: $text-secondary;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+// Animations
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// Loading Spinner
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+// Snackbar Styles
+::ng-deep {
+  .success-snackbar {
+    background: $success-color;
+    color: white;
+  }
+
+  .error-snackbar {
+    background: $danger-color;
+    color: white;
+  }
+
+  .mat-snack-bar-container {
+    button {
+      color: white;
+    }
+  }
+}
+
+// Responsive Table
+@media (max-width: 1024px) {
+  .mat-table {
+    .mat-cell {
+      font-size: 13px;
+    }
+
+    .action-button {
+      padding: 0;
+      min-width: 36px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mat-table {
+    .mat-header-row {
+      display: none;
+    }
+
+    .mat-row {
+      flex-direction: column;
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+
+      .mat-cell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+        font-size: 14px;
+
+        &:before {
+          content: attr(data-label);
+          font-weight: 500;
+          color: $text-secondary;
+        }
+
+        &.mat-column-actions {
+          justify-content: center;
+          padding-top: 16px;
+          
+          button {
+            margin: 0 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Utils
+.mat-elevation-z8 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-row:hover {
+  background: rgba($primary-color, 0.04);
+}
+
+.mat-form-field {
+  .mat-form-field-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

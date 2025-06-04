@@ -1,0 +1,7 @@
+<p *ngIf="!storeData">⏳ Données en attente...</p>
+<p *ngIf="storeData">✅ Données prêtes à être envoyées à StoreTemplateComponent</p>
+
+<app-store-template *ngIf="storeData" [storeData]="storeData"></app-store-template>
+
+
+

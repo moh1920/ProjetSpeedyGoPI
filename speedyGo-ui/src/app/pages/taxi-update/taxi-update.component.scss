@@ -1,0 +1,148 @@
+/* Style du bouton Update */
+.update-btn {
+    background: #2D2F92;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-right: 10px;
+  }
+  
+  .update-btn:hover {
+    background: #081C3C;
+  }
+  
+  .update-btn i {
+    font-size: 0.8rem;
+  }
+  
+  
+  
+  /* Container du popup */
+  .form-popup {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px;
+    pointer-events: all;
+  }
+  
+  .form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .form-header h3 {
+    color: #2D2F92;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .taxi-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    color: #081C3C;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .form-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .form-group.checkbox input {
+    width: auto;
+  }
+  
+  .submit-btn {
+    background: #2D2F92;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .submit-btn:hover {
+    background: #081C3C;
+  }
+  
+  .submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Empêcher le scroll du body quand le popup est ouvert */
+  :host {
+    display: contents;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .form-popup {
+    animation: fadeIn 0.3s ease-out;
+  }

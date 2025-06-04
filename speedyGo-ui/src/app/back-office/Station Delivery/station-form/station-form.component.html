@@ -1,0 +1,199 @@
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <h5 class="mb-0">
+        <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
+        {{ stationId ? 'Edit Station' : 'Add New Station' }}
+      </h5>
+    </div>
+    
+    <div class="card-body">
+      <form [formGroup]="stationForm" class="row g-3">
+        <!-- Basic Information -->
+        <div class="col-md-6">
+          <label for="name" class="form-label required">Station Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-building"></i></span>
+            <input type="text" 
+                   class="form-control" 
+                   id="name" 
+                   formControlName="name" 
+                   placeholder="Enter station name"
+                   [class.is-invalid]="shouldShowError('name')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('name')">
+            {{ getErrorMessage('name') }}
+          </div>
+          <small class="form-text text-muted">
+            3-50 characters, letters, numbers, spaces, and hyphens only
+          </small>
+        </div>
+
+        <div class="col-md-6">
+          <label for="location" class="form-label required">Location</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+            <input type="text" 
+                   class="form-control" 
+                   id="location" 
+                   formControlName="location" 
+                   placeholder="Enter location"
+                   [class.is-invalid]="shouldShowError('location')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('location')">
+            {{ getErrorMessage('location') }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="capacity" class="form-label required">Capacity</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
+            <input type="number" 
+                   class="form-control" 
+                   id="capacity" 
+                   formControlName="capacity" 
+                   placeholder="Enter capacity"
+                   [class.is-invalid]="shouldShowError('capacity')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('capacity')">
+            {{ getErrorMessage('capacity') }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="contactPerson" class="form-label required">Contact Person</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" 
+                   class="form-control" 
+                   id="contactPerson" 
+                   formControlName="contactPerson" 
+                   placeholder="Enter contact person name"
+                   [class.is-invalid]="shouldShowError('contactPerson')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('contactPerson')">
+            {{ getErrorMessage('contactPerson') }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="contactNumber" class="form-label required">Contact Number</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+            <input type="tel" 
+                   class="form-control" 
+                   id="contactNumber" 
+                   formControlName="contactNumber" 
+                   placeholder="Enter 8-digit number"
+                   [class.is-invalid]="shouldShowError('contactNumber')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('contactNumber')">
+            {{ getErrorMessage('contactNumber') }}
+          </div>
+          <small class="form-text text-muted">Must be exactly 8 digits</small>
+        </div>
+
+        <div class="col-md-6">
+          <label for="workingHours" class="form-label required">Working Hours</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-clock"></i></span>
+            <input type="text" 
+                   class="form-control" 
+                   id="workingHours" 
+                   formControlName="workingHours" 
+                   placeholder="09:00 - 17:00"
+                   [class.is-invalid]="shouldShowError('workingHours')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('workingHours')">
+            {{ getErrorMessage('workingHours') }}
+          </div>
+          <small class="form-text text-muted">Format: HH:MM - HH:MM (24-hour format)</small>
+        </div>
+
+        <!-- Map Section -->
+        <div class="col-12 mb-4">
+          <label class="form-label required">Select Location on Map</label>
+          <div class="map-container">
+            <google-map
+              height="400px"
+              width="100%"
+              [center]="center"
+              [zoom]="zoom"
+              [options]="mapOptions"
+              (mapClick)="onMapClick($event)">
+              <map-marker
+                *ngIf="markerPosition"
+                [position]="markerPosition"
+                [options]="{ draggable: true }">
+              </map-marker>
+            </google-map>
+          </div>
+        </div>
+
+        <!-- Coordinates -->
+        <div class="col-md-6">
+          <label for="latitude" class="form-label required">Latitude</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-geo"></i></span>
+            <input type="number" 
+                   class="form-control" 
+                   id="latitude" 
+                   formControlName="latitude" 
+                   [class.is-invalid]="shouldShowError('latitude')"
+                   step="0.000001">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('latitude')">
+            {{ getErrorMessage('latitude') }}
+          </div>
+          <small class="form-text text-muted">Must be between -90 and 90</small>
+        </div>
+
+        <div class="col-md-6">
+          <label for="longitude" class="form-label required">Longitude</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-geo"></i></span>
+            <input type="number" 
+                   class="form-control" 
+                   id="longitude" 
+                   formControlName="longitude" 
+                   [class.is-invalid]="shouldShowError('longitude')"
+                   step="0.000001">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('longitude')">
+            {{ getErrorMessage('longitude') }}
+          </div>
+          <small class="form-text text-muted">Must be between -180 and 180</small>
+        </div>
+
+        <!-- Status -->
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input type="checkbox" 
+                   class="form-check-input" 
+                   id="isActive" 
+                   formControlName="isActive">
+            <label class="form-check-label required" for="isActive">Station Active Status</label>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="col-12 mt-4">
+          <div class="d-flex gap-2">
+            <button type="submit" 
+                    class="btn btn-primary" 
+                    (click)="onSave()"
+                    [disabled]="stationForm.invalid">
+              <i class="bi bi-check-circle me-2"></i>Save Changes
+            </button>
+            <button type="button" 
+                    class="btn btn-outline-secondary" 
+                    (click)="onCancel()">
+              <i class="bi bi-x-circle me-2"></i>Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="add-carpool-section">
+    <h3>Add a New Carpool Request</h3>
+    <p class="section-description">Fill in the details below to create a new carpool request. Your journey is just a few clicks away!</p>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="departLocation">Depart Location</label>
+        <input id="departLocation" [(ngModel)]="request.departLocation" name="departLocation" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="arrivalLocation">Arrival Location</label>
+        <input id="arrivalLocation" [(ngModel)]="request.arrivalLocation" name="arrivalLocation" required />
+      </div>
+
+      <div class="form-group">
+        <label for="requestedSeats">Requested Seats</label>
+        <input id="requestedSeats" type="number" [(ngModel)]="request.requestedSeats" name="requestedSeats" required />
+      </div>
+
+      <div class="form-group">
+        <label for="requestedPrice">Requested Price</label>
+        <input id="requestedPrice" type="number" [(ngModel)]="request.requestedPrice" name="requestedPrice" required />
+      </div>
+
+      <div class="form-group">
+        <label for="bookingDate">Booking Date</label>
+        <input id="bookingDate" type="datetime-local" [(ngModel)]="request.bookingDate" name="bookingDate" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Request</button>
+      </div>
+    </form>
+  </div>
+</div>

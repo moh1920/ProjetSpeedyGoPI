@@ -1,0 +1,111 @@
+<div class="mb-3 d-flex justify-content-end">
+  <input type="text"
+         class="form-control w-25"
+         placeholder="Search vehicles..."
+         [(ngModel)]="searchText">
+</div>
+
+<main class="pageWrapper maxWidth">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-car-front me-2 text-primary"></i>
+          Station Vehicle Rental
+        </h5>
+        <button class="btn btn-primary" [routerLink]="['/addStationVehicle']">
+          <i class="bi bi-plus-circle me-2"></i>Add Station
+        </button>
+      </div>
+    </div>
+
+    <!-- Display map with stations -->
+      <google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
+        <ng-container *ngFor="let station of stations | searchStation:searchText">
+          <map-marker *ngIf="station.latitude !== undefined && station.longitude !== undefined"
+                      [position]="{ lat: station.latitude!, lng: station.longitude! }"
+                      [title]="station.name || 'Unknown Station'"
+                      (mapClick)="openStationModal(station)">
+          </map-marker>
+        </ng-container>
+      </google-map>
+  </div>
+</main>
+
+<!-- Station Details Modal Template -->
+<ng-template #stationDetailsModal let-data>
+  <div class="modal-header station-modal-header">
+    <h4 class="modal-title">
+      <i class="bi bi-geo-alt-fill me-2"></i>
+      {{ data.name || 'Station Details' }}
+    </h4>
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body station-modal-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="station-info-card">
+          <h5 class="info-section-title">Station Information</h5>
+          <div class="info-item">
+            <i class="bi bi-pin-map me-2 text-primary"></i>
+            <span class="info-label">Location:</span>
+            <span class="info-value">{{ data.location }}</span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-calendar-check me-2 text-primary"></i>
+            <span class="info-label">Created At:</span>
+            <span class="info-value">{{ data.createdAt }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="bi bi-calendar-event me-2 text-primary"></i>
+            <span class="info-label">Updated At:</span>
+            <span class="info-value">{{ data.updatedAt }}</span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-circle-fill me-2" [ngClass]="data.is_active ? 'text-success' : 'text-danger'"></i>
+            <span class="info-label">Status:</span>
+            <span class="status-badge" [ngClass]="data.is_active ? 'status-active' : 'status-inactive'">
+              {{ data.is_active ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="station-stats mt-4">
+            <h5 class="info-section-title">Current Usage</h5>
+            <div class="progress-container">
+              <label>Available Vehicles</label>
+              <div class="progress">
+                <div class="progress-bar bg-primary"
+                     [style.width]="(data.available_vehicles / data.capacity * 100) + '%'">
+                  {{ data.available_vehicles || 0 }}/{{ data.capacity }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="station-image-container">
+          <img src="./assets/scooter5.jpg" alt="Station Image" class="station-image">
+          <div class="image-overlay">
+            <span class="station-id">ID: {{ data.id }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer station-modal-footer">
+    <button class="btn btn-outline-secondary" (click)="closeModal()">
+      <i class="bi bi-x-circle me-2"></i>Close
+    </button>
+    <button class="btn btn-warning"
+            [routerLink]="['/updateStationVehicleRental', data.id]"
+            (click)="closeModal()">
+      <i class="bi bi-pencil me-2"></i>Update
+    </button>
+    <button class="btn btn-danger" (click)="deleteStation(data.id)">
+      <i class="bi bi-trash me-2"></i>Delete
+    </button>
+  </div>
+</ng-template>
+

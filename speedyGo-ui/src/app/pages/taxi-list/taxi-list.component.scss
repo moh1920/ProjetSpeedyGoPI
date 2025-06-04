@@ -1,0 +1,239 @@
+/* Main Container Styles */
+.main-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #2b4162 0%, #12100e 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  /* Taxi Container */
+  .taxi-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Section Styles */
+  .taxi-section {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2b4162;
+  }
+  
+  /* Taxi Type Info */
+  .taxi-type-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .info-content {
+    padding: 1rem;
+  }
+  
+  .info-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #2b4162;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+  
+  .features-list li {
+    margin: 0.5rem 0;
+    color: #555;
+  }
+  
+  .taxi-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .taxi-banner {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .taxi-banner:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Toggle Button */
+  .toggle-btn {
+    background: #2b4162;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .toggle-btn:hover {
+    background: #1a2a3f;
+    transform: translateY(-2px);
+  }
+  
+  /* Taxi List */
+  .taxi-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  /* Taxi Card */
+  .taxi-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+  }
+  
+  .taxi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    padding: 1rem;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .model-name {
+    font-weight: 600;
+    color: #2b4162;
+  }
+  
+  .status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    background: #ff4444;
+    color: white;
+  }
+  
+  .status-badge.available {
+    background: #00C851;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .license-plate {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  /* Action Buttons */
+  .action-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .delete-btn {
+    background: #ff4444;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background: #cc0000;
+  }
+  
+  /* Premium Section Specific Styles */
+  .taxi-section.premium {
+    background: linear-gradient(to right, #ffffff, #f8f9fa);
+    border: 1px solid #e9ecef;
+  }
+  
+  .taxi-card.premium {
+    border: 1px solid #2b4162;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .taxi-type-info {
+      grid-template-columns: 1fr;
+    }
+  
+    .section-header {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  /* Animation */
+  @keyframes slideInOut {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .taxi-list {
+    animation: slideInOut 0.3s ease-out;
+  }

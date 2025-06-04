@@ -1,0 +1,118 @@
+<app-navbar></app-navbar>
+
+<google-map
+  height="100%"
+  width="100%"
+  [center]="mapCenter"
+  [zoom]="zoom"
+  [options]="mapOptions"
+>
+
+  <!-- Livreur Position -->
+  <map-marker
+    *ngIf="livreurPosition.lat && livreurPosition.lng"
+    [position]="{ lat: +livreurPosition.lat, lng: +livreurPosition.lng }"
+    [icon]="livreurIcon"
+    title="You (Livreur)"
+  ></map-marker>
+
+  <!-- Client Real-Time Location -->
+  <map-marker
+    *ngIf="receivedFromWS"
+    [position]="{ lat: +clientPosition.lat, lng: +clientPosition.lng }"
+    [icon]="ClientIcon"
+    title="Client Real-Time Location"
+  ></map-marker>
+
+  <map-marker
+    *ngFor="let marker of getClientOrDeliveryMarkers()"
+    [position]="{ lat: marker.lat, lng: marker.lng }"
+    [icon]="ClientIcon"
+    title="Delivery Location"
+  ></map-marker>
+
+</google-map>
+
+<div class="sidebar">
+  <br />
+
+  <div *ngFor="let d of activeDeliveries">
+    <div class="package-card active">
+      <div class="package-title">Deliver to {{ d?.client?.firstName }}</div>
+      <div class="order-id">Order ID #{{ d?.order?.id }}</div>
+      <div class="status-tag">{{ d?.status }}</div>
+
+      <div class="details-grid">
+        <div>
+          <div class="details-label">Client</div>
+          <div class="details-value">{{ d?.client?.firstName }}</div>
+        </div>
+        <div>
+          <div class="details-label">Address</div>
+          <div class="details-value">{{ d?.deliveryAddress }}</div>
+        </div>
+        <div>
+          <div class="details-label">Type</div>
+          <div class="details-value">{{ d?.deliveryType }}</div>
+        </div>
+        <div>
+          <div class="details-label">Departure</div>
+          <div class="details-value">{{ d?.pickupTime | date:'shortDate' }}</div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-success" (click)="updateDeliveryStatus(d.id, 'PICKED')">📦 </button>
+        <button class="btn btn-success" (click)="updateDeliveryStatus(d.id,'LIVRED')">✅  </button>
+      </div>
+    </div>
+    <br />
+  </div>
+
+  <div *ngIf="notAssignedOrders?.length">
+    <!-- 🕐 Commandes non assignées -->
+    <div class="package-card active">
+      <h6> Orders Not Assigned</h6>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let order of notAssignedOrders" class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>#{{ order.id }}</strong><br />
+            <small>{{ order.deliveryAddress }}</small>
+          </div>
+          <button class="btn btn-sm btn-outline-primary" (click)="assignOrder(order.id)">Assign</button>
+        </li>
+      </ul>
+    </div>
+    <br />
+  </div>
+</div>
+
+<div class="bottom-panel" *ngIf="delivery.length">
+  <div class="panel-header">
+    <div class="panel-title">Order ID #{{ delivery[0]?.order?.id }}</div>
+    <div class="status-tag">{{ delivery[0]?.status }}</div>
+  </div>
+
+  <div class="details-panel">
+    <div class="details-item">
+      <div class="details-label">From</div>
+      <div class="details-value">{{ delivery[0]?.pickupAddress }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">To</div>
+      <div class="details-value">{{ delivery[0]?.deliveryAddress }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Distance</div>
+      <div class="details-value">{{ routeDistance }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Estimated Time</div>
+      <div class="details-value">{{ routeDuration }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Payment</div>
+      <div class="details-value">{{ delivery[0]?.paymentStatus }}</div>
+    </div>
+  </div>
+</div>

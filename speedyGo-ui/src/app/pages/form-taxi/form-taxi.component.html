@@ -1,0 +1,28 @@
+<form [formGroup]="taxiForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="available">Available</label>
+    <input type="checkbox" formControlName="available">
+  </div>
+
+  <div>
+    <label for="licensePlate">License Plate</label>
+    <input id="licensePlate" formControlName="licensePlate" />
+
+  </div>
+
+  <div>
+    <label for="model">Model</label>
+    <input id="model" formControlName="model" />
+
+  </div>
+
+  <div>
+    <label for="typeTaxi">Type of Taxi</label>
+    <select id="typeTaxi" formControlName="typeTaxi">
+      <option value="STANDARD">Standard</option>
+      <option value="PREMIUM">Premium</option>
+    </select>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

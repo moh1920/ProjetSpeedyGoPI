@@ -1,0 +1,17 @@
+
+
+.chat-item:hover, .contact-item:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.badge.unread-msg-badge {
+  background-color: #0d6efd;
+  color: white;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+}

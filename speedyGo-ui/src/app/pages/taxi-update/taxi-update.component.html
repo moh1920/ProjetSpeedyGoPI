@@ -1,0 +1,79 @@
+<!-- Le bouton reste dans la carte -->
+<button class="update-btn" (click)="openForm(); $event.stopPropagation()">
+    <i class="fas fa-edit"></i> Update
+</button>
+
+  
+  <!-- Le formulaire popup doit être à la racine du document -->
+  <div class="form-popup-overlay" *ngIf="isFormOpen">
+    <div class="form-popup">
+      <div class="form-container">
+        <div class="form-header">
+          <h3>Update Taxi</h3>
+          <button class="close-btn" (click)="closeForm()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+  
+        <form [formGroup]="taxiForm" (ngSubmit)="onSubmit()" class="taxi-form">
+          <!-- License Plate -->
+          <div class="form-group">
+            <label for="licensePlate">License Plate *</label>
+            <input 
+              type="text" 
+              id="licensePlate" 
+              formControlName="licensePlate"
+              placeholder="Enter license plate number"
+            >
+          </div>
+  
+          <!-- Model Selection -->
+          <div class="form-group">
+            <label for="model">Vehicle Model *</label>
+            <select id="model" formControlName="model" (change)="onModelChange()">
+              <option value="">Select a model</option>
+              <option value="Toyota Camry">Toyota Camry</option>
+              <option value="Honda Accord">Honda Accord</option>
+              <option value="Tesla Model 3">Tesla Model 3</option>
+              <option value="Mercedes E-Class">Mercedes E-Class</option>
+              <option value="BMW 5 Series">BMW 5 Series</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+  
+          <!-- Other Model Input -->
+          <div class="form-group" *ngIf="isOtherModelSelected">
+            <label for="otherModel">Specify Model *</label>
+            <input 
+              type="text" 
+              id="otherModel" 
+              formControlName="otherModel"
+              placeholder="Enter your vehicle model"
+            >
+          </div>
+  
+          <!-- Taxi Type -->
+          <div class="form-group">
+            <label for="typeTaxi">Taxi Type *</label>
+            <select id="typeTaxi" formControlName="typeTaxi">
+              <option value="STANDARD">Standard</option>
+              <option value="PREMIUM">Premium</option>
+            </select>
+          </div>
+  
+          <!-- Availability -->
+          <div class="form-group checkbox">
+            <label>
+              <input type="checkbox" formControlName="available">
+              Available for Service
+            </label>
+          </div>
+  
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn" [disabled]="!taxiForm.valid">
+            Update Taxi
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,67 @@
+package speedy.go.speedygo.DeliveryManagement.Controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import speedy.go.speedygo.DeliveryManagement.Repository.DeliveryRepository;
+import speedy.go.speedygo.DeliveryManagement.Service.DeliveryService;
+import speedy.go.speedygo.DeliveryManagement.model.Delivery;
+import speedy.go.speedygo.models.Order;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/deliveries")
+@RequiredArgsConstructor
+public class DeliveryController {
+
+
+
+
+    private final DeliveryService deliveryService;
+    private final DeliveryRepository deliveryRepository;
+    @PostMapping("/assign")
+    public ResponseEntity<Delivery> assignOrderToCourier(
+            @RequestParam Long orderId,
+            @RequestParam String courierId
+    ) {
+        Delivery delivery = deliveryService.assignDeliveryToCourier(orderId, courierId);
+        return ResponseEntity.ok(delivery);
+    }
+
+    @GetMapping("/delivery/{clientId}")
+
+    public List<Delivery> getDeliveriesByClientId(@PathVariable String clientId) {
+        return deliveryService.getAllDeliveryOfUser(clientId);
+    }
+
+    @GetMapping("/delivery/order/{id}")
+    public ResponseEntity<Delivery> getDeliveryById(@PathVariable Long id) {
+        return ResponseEntity.ok(deliveryRepository.findById(id).orElseThrow());
+    }
+
+    @GetMapping("/delivery/courier/{id}")
+    public List<Delivery> getDeliveryassigned(@PathVariable String id) {
+        return deliveryRepository.findByCourierId(id);
+    }
+
+    @PostMapping("/update/{deliveryId}")
+    public Delivery updateDeliveryStatus( @PathVariable Long deliveryId,@PathVariable String status) {
+        return deliveryService.updateDeliveryStatus(deliveryId, status);
+    }
+
+    public List<Delivery> getAllDeliveryOfUser(String clientId) {
+        return deliveryService.getAllDeliveryOfUser(clientId);
+    }
+@GetMapping("/ordersnotassigned")
+    public List<Order> getallOrdersnotAssigned() {
+        return deliveryService.getallOrdersnotAssigned();
+    }
+
+@PostMapping("/pickup/{deliveryId}")
+    public Delivery pickupDelivery(@PathVariable Long deliveryId) {
+        return deliveryService.pickupDelivery(deliveryId);
+
+    }
+}

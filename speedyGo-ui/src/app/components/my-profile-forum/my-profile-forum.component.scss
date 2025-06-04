@@ -1,0 +1,257 @@
+/* Main Layout & Container Styles */
+.container {
+  margin-top: 3rem;
+  padding: 0 1.5rem;
+}
+
+/* Post Card Styling */
+.cardWithShadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: none;
+  margin-bottom: 1.5rem;
+  height: 100%;
+}
+
+.cardWithShadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.productcard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.productcard img {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.productcard:hover img {
+  transform: scale(1.03);
+}
+
+/* Card Content Styling */
+.mat-card-content {
+  padding: 1.25rem !important;
+}
+
+.mat-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Action Buttons & Icons */
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: #6c757d;
+  padding: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.btn-icon:hover {
+  color: #007bff;
+}
+
+.action-icons i {
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+}
+
+.fa-heart:hover, .fa-comment:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.fa-share-from-square:hover {
+  color: #28a745;
+  transform: scale(1.2);
+}
+
+/* Add Post Button */
+.add-btn {
+  position: sticky;
+  top: 80px;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+}
+
+.add-btn .btn-primary {
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.add-btn .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Pagination Styling */
+.pagination {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pagination .page-link {
+  border-radius: 4px;
+  margin: 0 0.15rem;
+  color: #495057;
+  border-color: #dee2e6;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+  color: #007bff;
+}
+
+.pagination .page-link.active,
+.pagination .page-link.active:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.pagination .page-link.disabled {
+  color: #ced4da;
+  pointer-events: none;
+}
+
+/* Comment Section */
+.p-card {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.p-card .p-card-header {
+  font-weight: 600;
+  color: #343a40;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px 8px 0 0;
+}
+
+.p-card .p-card-body {
+  padding: 1rem;
+}
+
+/* Comment Form */
+.comment-form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.comment-form textarea {
+  border-radius: 8px;
+  resize: none;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  flex: 1;
+}
+
+.comment-form button {
+  background: #007bff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2);
+}
+
+/* Modal Styling */
+.modal-header.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+/* Empty States */
+.alert-info {
+  background-color: #f0f7ff;
+  border-color: #cce5ff;
+  color: #004085;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+/* Drawer Styles */
+.p-drawer-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .container {
+    margin-left: 0;
+  }
+
+  .add-btn {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+    margin-bottom: 1rem;
+  }
+
+  .pagination .page-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cardWithShadow {
+  animation: fadeIn 0.4s ease;
+}
+
+/* Utility Classes */
+.text-primary { color: #007bff !important; }
+.text-warning { color: #ffc107 !important; }
+.text-danger { color: #dc3545 !important; }
+.text-muted { color: #6c757d !important; }
+
+/* Removed blur class with a smooth transition */
+.blurred {
+  filter: blur(3px);
+  transition: filter 0.3s ease;
+}
+
+.blurred:hover {
+  filter: blur(0);
+}

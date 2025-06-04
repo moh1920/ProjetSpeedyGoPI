@@ -1,0 +1,28 @@
+<form [formGroup]="stationForm" (ngSubmit)="onSubmit()">
+  <label for="name">Nom de la station:</label>
+  <input id="name" formControlName="name" required />
+
+  <label for="location">Emplacement:</label>
+  <input id="location" formControlName="location" required readonly />
+
+  <label for="latitude">Latitude:</label>
+  <input id="latitude" type="number" formControlName="latitude" required readonly />
+
+  <label for="longitude">Longitude:</label>
+  <input id="longitude" type="number" formControlName="longitude" required readonly />
+
+  <label for="capacity">Capacité:</label>
+  <input id="capacity" type="number" formControlName="capacity" required />
+
+  <label for="is_active">Active:</label>
+  <input id="is_active" type="checkbox" formControlName="is_active" />
+
+  <!-- Google Maps -->
+  <google-map [center]="center" [zoom]="zoom" (mapClick)="onMapClick($event)" height="400px" width="100%">
+    <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+  </google-map>
+
+  <button type="submit" [disabled]="stationForm.invalid">Soumettre</button>
+</form>
+
+<p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>

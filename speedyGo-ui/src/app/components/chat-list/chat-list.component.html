@@ -1,0 +1,106 @@
+<!-- Sticky Top Header -->
+<div class="sticky-top bg-white border-bottom shadow-sm">
+  <div class="d-flex justify-content-between align-items-center px-3 py-2">
+    <h5 class="mb-0">Chat</h5>
+   <!-- <button class="btn btn-sm btn-light" (click)="searchNewContact = !searchNewContact">
+      <i class="fas" [ngClass]="searchNewContact ? 'fa-times-circle' : 'fa-comment-medical'"></i>
+    </button>-->
+    @if (!searchNewContact) {
+      <i class="fas fa-comment-medical cursor-pointer" (click)="searchContact()"></i>
+    } @else {
+      <i class="fas fa-times-circle cursor-pointer" (click)="searchNewContact = false"></i>
+    }
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="px-3 pb-2">
+    <div class="input-group input-group-sm mb-2">
+      <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search in the chat" aria-label="Search">
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="badge bg-secondary-subtle text-dark cursor-pointer">All</span>
+      <span class="badge bg-secondary-subtle text-dark cursor-pointer">Unread</span>
+      <span class="badge bg-secondary-subtle text-dark cursor-pointer">Favorites</span>
+    </div>
+  </div>
+</div>
+
+<!-- Chat List -->
+<div class="chat-list mt-2">
+  <!-- Chats View -->
+  <ng-container *ngIf="chats().length && !searchNewContact; else contactList">
+    <div *ngFor="let chat of chats(); trackBy: trackChat"
+         class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom cursor-pointer chat-item"
+         (click)="chatClicked(chat)">
+      <div class="d-flex gap-2 align-items-center">
+        <img src="user.png" class="rounded-circle" width="40" height="40" alt="Avatar">
+        <div>
+          <div class="fw-semibold">{{ chat.name }}</div>
+          <div class="text-muted small">
+            <ng-container *ngIf="chat.lastMessage === 'Attachment'">
+              <i class="fas fa-paperclip me-1"></i>
+            </ng-container>
+            {{ wrapMessage(chat.lastMessage) }}
+          </div>
+        </div>
+      </div>
+      <div class="text-end">
+        <div class="small text-muted" [class.fw-bold]="chat.unreadCount">{{ chat.lastMessageTime | date:'dd.MM.yy HH:mm' }}</div>
+        <div *ngIf="chat.unreadCount" class="badge bg-primary rounded-pill mt-1">{{ chat.unreadCount }}</div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Contacts View -->
+  <ng-template #contactList>
+    <ng-container *ngIf="searchNewContact; else noChats">
+      @if (id===null){
+      <div *ngFor="let contact of contacts; trackBy: trackContact"
+           class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom cursor-pointer contact-item"
+           (click)="selectContact(contact)">
+        <div class="d-flex gap-2 align-items-center">
+          <img src="user.png" class="rounded-circle" width="40" height="40" alt="Avatar">
+          <div>
+            <div class="fw-semibold">{{ contact.firstName + ' ' + contact.lastName }}</div>
+            <div class="small text-muted">
+              <ng-container *ngIf="contact.online; else lastSeen">
+                Online
+              </ng-container>
+              <ng-template #lastSeen>
+                Last seen {{ contact.lastSeen | date:'dd.MM.yyyy HH:mm' }}
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      } @else {
+
+        <div
+             class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom cursor-pointer contact-item"
+             (click)="selectContact(contactById)">
+          <div class="d-flex gap-2 align-items-center">
+            <img src="user.png" class="rounded-circle" width="40" height="40" alt="Avatar">
+            <div>
+              <div class="fw-semibold">{{ contactById.firstName + ' ' + contactById.lastName }}</div>
+              <div class="small text-muted">
+                <ng-container *ngIf="contactById.online; else lastSeen">
+                  Online
+                </ng-container>
+                <ng-template #lastSeen>
+                  Last seen {{ contactById.lastSeen | date:'dd.MM.yyyy HH:mm' }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </ng-container>
+  </ng-template>
+
+  <!-- Empty State -->
+  <ng-template #noChats>
+    <div class="text-center text-muted p-3">No chats yet...</div>
+  </ng-template>
+</div>

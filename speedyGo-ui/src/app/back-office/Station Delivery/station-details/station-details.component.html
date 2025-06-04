@@ -1,0 +1,118 @@
+<div class="container-fluid p-4">
+    <div class="card shadow-sm border-0">
+      <!-- Header -->
+      <div class="card-header bg-white border-bottom">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">
+            <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
+            Station Details
+          </h5>
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" (click)="onEdit()">
+              <i class="bi bi-pencil-square me-2"></i>Edit
+            </button>
+            <button class="btn btn-outline-secondary" (click)="onBack()">
+              <i class="bi bi-arrow-left me-2"></i>Back
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Loading State -->
+      <div class="card-body" *ngIf="loading">
+        <div class="text-center p-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Error State -->
+      <div class="card-body" *ngIf="error">
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+      </div>
+  
+      <!-- Station Details -->
+      <div class="card-body" *ngIf="!loading && !error && station">
+        <div class="row g-4">
+          <!-- Basic Information -->
+          <div class="col-md-6">
+            <div class="detail-card">
+              <h6 class="detail-title">
+                <i class="bi bi-info-circle me-2"></i>Basic Information
+              </h6>
+              <div class="detail-content">
+                <div class="detail-item">
+                  <span class="label">Station Name:</span>
+                  <span class="value">{{ station.name }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Location:</span>
+                  <span class="value">{{ station.location }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Capacity:</span>
+                  <span class="value">{{ station.capacity }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Status:</span>
+                  <span class="value">
+                    <span [class]="station.isActive ? 'badge bg-success' : 'badge bg-danger'">
+                      {{ station.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Contact Information -->
+          <div class="col-md-6">
+            <div class="detail-card">
+              <h6 class="detail-title">
+                <i class="bi bi-person me-2"></i>Contact Information
+              </h6>
+              <div class="detail-content">
+                <div class="detail-item">
+                  <span class="label">Contact Person:</span>
+                  <span class="value">{{ station.contactPerson }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Contact Number:</span>
+                  <span class="value">{{ station.contactNumber }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Working Hours:</span>
+                  <span class="value">{{ station.workingHours }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Map -->
+          <div class="col-12">
+            <div class="detail-card">
+              <h6 class="detail-title">
+                <i class="bi bi-geo me-2"></i>Location on Map
+              </h6>
+              <div class="map-container">
+                <google-map
+                  height="400px"
+                  width="100%"
+                  [center]="center"
+                  [zoom]="zoom"
+                  [options]="mapOptions">
+                  <map-marker
+                    *ngIf="markerPosition"
+                    [position]="markerPosition">
+                  </map-marker>
+                </google-map>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,186 @@
+<div class="container-fluid p-4">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-white border-bottom">
+      <h5 class="mb-0">
+        <i class="bi bi-calendar-event me-2 text-primary"></i>
+        {{ pvId ? 'Edit Promotion & Event' : 'Add New Promotion & Event' }}
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="pvForm" class="row g-4" (ngSubmit)="onSave()">
+
+        <!-- Image Preview -->
+        <div class="col-12">
+          <img class="img-fluid rounded-3 shadow-sm mb-3"
+               [src]="selectedPicture || imageUrls"
+               alt="Preview">
+        </div>
+
+        <!-- Image Upload -->
+        <div class="col-md-6">
+          <label for="imageUrl" class="form-label">Image</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-image"></i></span>
+            <input
+              type="file"
+              class="form-control"
+              id="imageUrl"
+              formControlName="imageUrl"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            >
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-md-6">
+          <label for="description" class="form-label">Description</label>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              id="description"
+              formControlName="description"
+              placeholder="Enter description"
+              style="height: 120px"
+            ></textarea>
+            <label for="description">Enter description</label>
+          </div>
+          <div *ngIf="pvForm.get('description')?.hasError('required') && pvForm.get('description')?.touched" class="text-danger mt-1">
+            Description is required.
+          </div>
+        </div>
+
+        <!-- Discount -->
+        <div class="col-md-6">
+          <label for="discount" class="form-label">Discount (%)</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+            <input type="number"
+                   class="form-control"
+                   id="discount"
+                   formControlName="discount"
+                   min="0" max="100"
+                   placeholder="Enter discount %">
+          </div>
+          <div *ngIf="pvForm.get('discount')?.errors && pvForm.get('discount')?.touched" class="text-danger mt-1">
+            <div *ngIf="pvForm.get('discount')?.hasError('required')">Discount is required.</div>
+            <div *ngIf="pvForm.get('discount')?.hasError('min')">Discount must be at least 0%.</div>
+          </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="col-md-6">
+          <label for="startDate" class="form-label">Start Date</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+            <input type="date"
+                   class="form-control"
+                   id="startDate"
+                   formControlName="startDate">
+          </div>
+          <div *ngIf="pvForm.get('startDate')?.hasError('required') && pvForm.get('startDate')?.touched" class="text-danger mt-1">
+            Start date is required.
+          </div>
+        </div>
+
+
+        <!-- End Date -->
+        <div class="col-md-6">
+          <label for="endDate" class="form-label">End Date</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-calendar-x"></i></span>
+            <input type="date"
+                   class="form-control"
+                   id="endDate"
+                   formControlName="endDate">
+          </div>
+          <div *ngIf="pvForm.get('endDate')?.hasError('required') && pvForm.get('endDate')?.touched" class="text-danger mt-1">
+            End date is required.
+          </div>
+          <div *ngIf="pvForm.hasError('endDateInvalid') && pvForm.touched" class="text-danger mt-1">
+            End date must be after start date.
+          </div>
+        </div>
+
+        <!-- Products
+        <div class="col-md-6">
+          <label for="products" class="form-label">Products</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-box"></i></span>
+            <p-dropdown
+              [options]="productsByOwner"
+              formControlName="productId"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Select a product"
+              styleClass="w-100">
+            </p-dropdown>
+          </div>
+        </div>-->
+
+
+
+        <div class="col-md-6">
+          <label for="products" class="form-label">Product</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-check-circle"></i></span>
+            <select class="form-select"
+                    id="products"
+                    formControlName="products">
+              <option *ngFor="let product of productsByOwner; " [ngValue]="product">
+                {{ product.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+
+        <!-- Status -->
+        <div class="col-md-6">
+          <label for="status" class="form-label">Status</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-check-circle"></i></span>
+            <select class="form-select"
+                    id="status"
+                    formControlName="status">
+              <option value="ACTIVE">Active</option>
+              <option value="EXPIRED">Expired</option>
+              <option value="UPCOMING">Upcoming</option>
+            </select>
+          </div>
+        </div>
+
+
+        <!-- Type of Event -->
+        <div class="col-md-6">
+          <label for="typeEV_ep" class="form-label required">Event Type</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+            <select class="form-select"
+                    id="typeEV_ep"
+                    formControlName="typeEV_ep"
+            >
+              <option value="EVENT">Event</option>
+              <option value="PROMOTION">Promotion</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm" >
+            <i class="bi bi-save me-2"></i> {{ pvId ? 'Update' : 'Create' }}
+          </button>
+          <button type="button"
+                  class="btn btn-outline-secondary"
+                  (click)="onCancel()">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

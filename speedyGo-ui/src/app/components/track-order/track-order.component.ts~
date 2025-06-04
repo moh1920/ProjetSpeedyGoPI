@@ -1,0 +1,165 @@
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as SockJS from 'sockjs-client';
+import { Stomp, IMessage } from '@stomp/stompjs';
+import { HttpClient } from '@angular/common/http';
+import { GoogleMap } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { CommonModule } from '@angular/common';
+import { KeycloakService } from '../../utils/keycloak/keycloak.service';
+import { NavbarComponent } from "../navbar/navbar.component";
+
+@Component({
+  selector: 'app-track-order',
+  standalone: true,
+  imports: [CommonModule, GoogleMapsModule, NavbarComponent],
+  templateUrl: './track-order.component.html',
+  styleUrls: ['./track-order.component.scss']
+})
+export class TrackOrderComponent implements OnInit, OnDestroy {
+  deliveryId!: string;
+  delivery: any = null;
+
+  SocketClient: any;
+  subscription: any;
+  intervalId: any;
+
+  mapCenter = { lat: 0, lng: 0 };
+  zoom = 17;
+  clientPosition = { lat: 36.897922, lng: 10.190753 };
+  livreurPosition = { lat: 0, lng: 0 };
+
+  routeDistance: string = '';
+  routeDuration: string = '';
+  progressValue: number = 0;
+  directionsRenderer?: google.maps.DirectionsRenderer;
+
+  livreurIcon = {
+    url: '/assets/livreurcarimg.png',
+    scaledSize: new google.maps.Size(60, 40)
+  };
+  ClientIcon = {
+    url: '/assets/avatar-men.png',
+    scaledSize: new google.maps.Size(40, 40)
+  };
+  mapOptions = {
+    gestureHandling: 'greedy',
+    disableDoubleClickZoom: true,
+  };
+  @ViewChild(GoogleMap) mapRef!: GoogleMap;
+
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private keycloak: KeycloakService
+  ) {}
+
+  ngOnInit(): void {
+    this.deliveryId = this.route.snapshot.paramMap.get('id') || '';
+    const userId = this.keycloak.userId;
+
+    this.http
+      .get(`http://localhost:8020/api/deliveries/delivery/order/${this.deliveryId}`)
+      .subscribe({
+        next: (data) => {
+          this.delivery = data;
+        },
+        error: (err) => {
+          console.error('Failed to fetch delivery:', err);
+        }
+      });
+
+    const ws = new SockJS('http://localhost:8020/ws');
+    this.SocketClient = Stomp.over(ws);
+
+    this.SocketClient.connect({}, () => {
+      this.subscription = this.SocketClient.subscribe(
+        `/user/${userId}/location`,
+        (msg: IMessage) => {
+          const location = JSON.parse(msg.body);
+          this.livreurPosition = {
+            lat: parseFloat(location.latitude),
+            lng: parseFloat(location.longitude)
+          };
+          this.calculateDistanceAndRoute();
+        }
+      );
+
+      this.intervalId = setInterval(() => this.sendLocation(userId), 5000);
+    });
+  }
+
+  sendLocation(userId: string) {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const loc = {
+        clientid: userId,
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+      };
+
+      fetch(`http://localhost:8020/api/location/update/${this.deliveryId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loc)
+      });
+
+      this.clientPosition = { lat: loc.latitude, lng: loc.longitude };
+      this.mapCenter = this.clientPosition;
+      this.calculateDistanceAndRoute();
+    });
+  }
+
+  calculateDistanceAndRoute() {
+    const totalDistance = this.delivery?.distance || 0;
+    console.log(this.livreurPosition);
+    const R = 6371e3;
+    const φ1 = this.clientPosition.lat * Math.PI / 180;
+    const φ2 = this.livreurPosition.lat * Math.PI / 180;
+    const Δφ = (this.livreurPosition.lat - this.clientPosition.lat) * Math.PI / 180;
+    const Δλ = (this.livreurPosition.lng - this.clientPosition.lng) * Math.PI / 180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    const d = R * c;
+    const km = d / 1000;
+    this.routeDistance = km.toFixed(2) + ' km';
+
+    const estimatedMinutes = (km / 40) * 60;
+    this.routeDuration = estimatedMinutes.toFixed(0) + ' mins';
+
+    if (totalDistance > 0) {
+      const deliveredPercent = 100 - (km / totalDistance) * 100;
+      this.progressValue = Math.min(Math.max(Math.round(deliveredPercent), 0), 100);
+    }
+
+    const directionsService = new google.maps.DirectionsService();
+    if (!this.directionsRenderer) {
+      this.directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+      this.directionsRenderer.setMap(this.mapRef?.googleMap!);
+    }
+
+    directionsService.route(
+      {
+        origin: this.livreurPosition,
+        destination: this.clientPosition,
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status === 'OK' && result && result.routes && result.routes.length > 0) {
+          this.directionsRenderer?.setDirections(result);
+        } else {
+          console.error('❌ Directions request failed:', status);
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    this.SocketClient?.disconnect();
+    clearInterval(this.intervalId);
+  }
+}

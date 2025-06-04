@@ -1,0 +1,18 @@
+package speedy.go.speedygo.DeliveryManagement.Service;
+
+
+import speedy.go.speedygo.models.Vehicule;
+
+import java.util.List;
+
+public interface IVehiculeService {
+    Vehicule addVehicle(Vehicule Vehicule);
+
+    Vehicule getVehicleById(long id);
+
+    List<Vehicule> getAllVehicles();
+
+    Vehicule updateVehicle(long id, Vehicule updatedVehicle);
+
+    void deleteVehicle(long id);
+}

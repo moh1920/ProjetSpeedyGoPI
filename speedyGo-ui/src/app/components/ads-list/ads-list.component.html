@@ -1,0 +1,63 @@
+<div class="container my-5">
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="text-center loading-spinner-container">
+    <div class="spinner-wrapper">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2 loading-text">Loading advertisements...</p>
+    </div>
+  </div>
+
+  <!-- Content when loaded -->
+  <div *ngIf="!loading">
+    <div *ngIf="adverts.length > 0; else noAdverts">
+      <div class="card shadow-lg rounded-4 overflow-hidden p-4">
+        <h4 class="text-center fw-bold mb-4">
+          <i class="bi bi-megaphone-fill me-2"></i>Partner Advertisements
+        </h4>
+
+        <div class="position-relative d-flex align-items-center justify-content-center advert-wrapper">
+          <!-- Left Arrow -->
+          <button class="btn btn-dark btn-sm nav-arrow position-absolute start-0" (click)="prevAdvert()">
+            <i class="bi bi-chevron-double-left"></i>
+          </button>
+
+          <div class="advert-card shadow rounded-3 text-center">
+            <img
+              *ngIf="imageUrls[currentAdvertIndex]"
+              [src]="imageUrls[currentAdvertIndex]"
+              alt="Image Pub"
+              class="img-fluid rounded-top advert-image"
+            />
+
+            <div class="p-3" *ngIf="currentAdvert">
+              <h5 class="text-success mb-2">
+                <i class="bi bi-tag-fill me-1"></i>{{ currentAdvert?.typeEV_ep }}
+              </h5>
+              <p class="text-muted mb-3">{{ currentAdvert?.description }}</p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-success rounded-pill px-3">{{ currentAdvert?.status }}</span>
+                <small class="text-secondary">
+                  {{ currentAdvert?.startDate | date: 'MM/dd' }} <i class="bi bi-arrow-right mx-1"></i> {{ currentAdvert?.endDate | date: 'MM/dd' }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Arrow -->
+          <button class="btn btn-dark btn-sm nav-arrow position-absolute end-0" (click)="nextAdvert()">
+            <i class="bi bi-chevron-double-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noAdverts>
+      <div class="alert alert-info text-center shadow-sm mt-4">
+        <i class="bi bi-info-circle-fill me-2"></i>No partner advertising available at this time.
+      </div>
+    </ng-template>
+  </div>
+</div>

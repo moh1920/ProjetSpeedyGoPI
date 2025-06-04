@@ -1,0 +1,413 @@
+/* Force specific styles for this component */
+:host {
+  display: block;
+}
+
+/* Custom Table Styles */
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Badges */
+.badge.bg-success {
+  background-color: #28a745 !important;
+  color: white !important;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+  color: white !important;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* Buttons */
+.btn-outline-warning {
+  border-color: #ffc107 !important;
+  color: #ffc107 !important;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .table th, .table td {
+    font-size: 14px;
+  }
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+}
+
+.search-wrapper {
+  .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+  }
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.hover-row {
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th, td {
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+  }
+
+  th {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.btn-warning-subtle {
+  background-color: rgba(255, 193, 7, 0.1);
+  border: none;
+
+  &:hover {
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+}
+
+.btn-danger-subtle {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: none;
+
+  &:hover {
+    background-color: rgba(220, 53, 69, 0.2);
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  min-width: 120px;
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 1rem;
+}
+
+.table {
+  margin-bottom: 0;
+
+  th {
+    font-weight: 600;
+    color: #566a7f;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.dropdown-toggle.hide-arrow::after {
+  display: none;
+}
+
+.dropdown-menu {
+  min-width: 120px;
+  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    i {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.badge {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+}
+
+.input-group {
+  .input-group-text {
+    color: #566a7f;
+  }
+
+  .form-control {
+    &:focus {
+      box-shadow: none;
+      border-color: #dee2e6;
+    }
+  }
+}
+
+.btn-outline-primary {
+  &:hover {
+    box-shadow: 0 0.125rem 0.25rem rgba(105, 108, 255, 0.4);
+  }
+}
+
+.btn-icon {
+  padding: 0.25rem;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  color: #697a8d;
+
+  &:hover, &:focus {
+    background-color: #f8f9fa;
+    color: #566a7f;
+  }
+
+  i {
+    font-size: 1.25rem;
+    vertical-align: middle;
+  }
+}
+
+.dropdown-menu {
+  min-width: 120px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0.532rem 1.25rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+:host ::ng-deep {
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
+  .dropdown-menu {
+    font-size: 0.875rem;
+    min-width: 120px;
+    padding: 0.25rem 0;
+    box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+
+      i {
+        font-size: 0.875rem;
+        width: 1rem;
+        text-align: center;
+      }
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      &.text-danger:hover {
+        background-color: #fff5f5;
+      }
+    }
+  }
+
+  .dropdown-divider {
+    margin: 0.25rem 0;
+    border-top: 1px solid #e9ecef;
+  }
+}
+
+.table {
+  th, td {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+
+  i {
+    font-size: 0.875rem;
+  }
+}
+
+.btn-outline-primary {
+  color: #696cff;
+  border-color: #696cff;
+
+  &:hover {
+    background-color: #696cff;
+    border-color: #696cff;
+    color: white;
+  }
+}
+
+.btn-outline-warning {
+  color: #ffab00;
+  border-color: #ffab00;
+
+  &:hover {
+    background-color: #ffab00;
+    border-color: #ffab00;
+    color: white;
+  }
+}
+
+.btn-outline-danger {
+  color: #ff3e1d;
+  border-color: #ff3e1d;
+
+  &:hover {
+    background-color: #ff3e1d;
+    border-color: #ff3e1d;
+    color: white;
+  }
+}
+
+.d-flex.gap-2 {
+  button {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.dropdown {
+  .dropdown-toggle {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+
+    &:after {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .dropdown-menu {
+    font-size: 0.875rem;
+    min-width: 120px;
+    padding: 0.25rem 0;
+
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+
+      i {
+        font-size: 0.875rem;
+      }
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      &.text-danger:hover {
+        background-color: #fff5f5;
+      }
+    }
+
+    .dropdown-divider {
+      margin: 0.25rem 0;
+    }
+  }
+}
+
+// Table styles
+.table {
+  th {
+    font-weight: 600;
+    color: #566a7f;
+    background-color: #f8f9fa;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.badge {
+  padding: 0.5em 0.75em;
+  font-weight: 500;
+}
+
+.coordinates-tooltip {
+  cursor: help;
+  position: relative;
+
+  &:hover {
+    color: #566a7f;
+  }
+}
+
+// Optional: Add a custom tooltip using Bootstrap's tooltip
+::ng-deep {
+  .tooltip {
+    font-size: 0.875rem;
+    .tooltip-inner {
+      background-color: #435971;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+}
+
+
+
+

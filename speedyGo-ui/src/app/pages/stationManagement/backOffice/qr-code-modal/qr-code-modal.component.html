@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>QR Code Vehicle Rental</h2>
+<mat-dialog-content>
+  <img *ngIf="data.qrCode" [src]="data.qrCode" alt="QR Code du véhicule">
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button (click)="printQrCode()">🖨️ Imprimer</button>
+
+</mat-dialog-actions>

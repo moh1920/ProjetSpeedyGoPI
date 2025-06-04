@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<google-map
+  height="100%"
+  width="100%"
+  [center]="mapCenter"
+  [zoom]="zoom"
+  [options]="mapOptions"
+>
+  <map-marker
+    [position]="clientPosition"
+    [icon]="ClientIcon"
+    title="Client"
+  ></map-marker>
+  <map-marker
+    [position]="livreurPosition"
+    [icon]="livreurIcon"
+    title="You (Livreur)"
+  ></map-marker>
+</google-map>
+
+<div class="sidebar" *ngIf="delivery">
+  <div class="header">Your Delivery</div>
+
+  <div class="package-card active">
+    <div class="package-title">Your Package</div>
+    <div class="order-id">Order ID #{{ delivery?.order?.id }}</div>
+    <div class="status-tag">{{ delivery?.status }}</div>
+
+    <div class="progress-bar">
+      <div class="progress" [ngStyle]="{ width: progressValue + '%' }"></div>
+    </div>
+
+    <div class="details-grid">
+      <div>
+        <div class="details-label">Client</div>
+        <div class="details-value">{{ delivery?.client?.firstName }}</div>
+      </div>
+      <div>
+        <div class="details-label">Type</div>
+        <div class="details-value">{{ delivery?.deliveryType }}</div>
+      </div>
+      <div>
+        <div class="details-label">Fee</div>
+        <div class="details-value">{{ delivery?.deliveryFee }} DT</div>
+      </div>
+      <div>
+        <div class="details-label">Departure</div>
+        <div class="details-value">{{ delivery?.pickupTime | date:'shortDate' }}</div>
+      </div>
+    </div>
+
+    <div class="driver-info">
+      <div class="driver">
+        <div class="driver-avatar">
+          <img src="/assets/livreurcarimg.png" alt="You">
+        </div>
+        <div>
+          <div class="driver-name">{{ delivery?.courier?.firstName }} {{ delivery?.courier?.lastName }}</div>
+          <div class="driver-title">You (Courier)</div>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <div class="btn">💬</div>
+        <div class="btn">📞</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-panel" *ngIf="delivery">
+  <div class="panel-header">
+    <div class="panel-title">Order ID #{{ delivery?.order?.id }}</div>
+    <div class="status-tag">{{ delivery?.status }}</div>
+  </div>
+
+  <div class="details-panel">
+    <div class="details-item">
+      <div class="details-label">From</div>
+      <div class="details-value">{{ delivery?.pickupAddress }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">To</div>
+      <div class="details-value">{{ delivery?.deliveryAddress }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Distance</div>
+      <div class="details-value">{{ routeDistance }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Estimated Time</div>
+      <div class="details-value">{{ routeDuration }}</div>
+    </div>
+    <div class="details-item">
+      <div class="details-label">Payment</div>
+      <div class="details-value">{{ delivery?.paymentStatus }}</div>
+    </div>
+  </div>
+</div>

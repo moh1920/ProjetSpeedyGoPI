@@ -1,0 +1,58 @@
+package speedy.go.speedygo.DeliveryManagement.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import speedy.go.speedygo.models.Order;
+import speedy.go.speedygo.user.User;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter@AllArgsConstructor
+@NoArgsConstructor
+public class Delivery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String trackingNumber;
+    private String status;
+
+    private LocalDateTime pickupTime;
+    private LocalDateTime deliveryTime;
+    private Double deliveryFee;
+    private Double distance;
+    private Integer estimatedTime;
+
+    private String deliveryType;
+
+    @ManyToOne
+    private User courier;
+
+    @ManyToOne
+    private User client;
+
+    private String pickupAddress;
+    private String deliveryAddress;
+
+    private Double pickupLatitude;
+    private Double pickupLongitude;
+    private Double deliveryLatitude;
+    private Double deliveryLongitude;
+
+    private String paymentStatus;
+
+    private Boolean isFragile;
+    private Boolean isDeliveredOnTime;
+
+    @OneToOne
+    private Order order;
+
+    private String additionalNotes;
+
+}

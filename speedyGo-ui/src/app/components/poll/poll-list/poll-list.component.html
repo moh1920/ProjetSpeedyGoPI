@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <img src="assets/Engineering_at_careem_jpg_ef7d7b1c0c_2caad2b88b.avif" alt="Poll Creator Banner" class="img-fluid rounded-3" width="450px" height="1200px">
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="bi bi-list-check me-2"></i>Active Polls</h2>
+        <button class="btn btn-outline-primary" (click)="addPoll()">
+          <i class="bi bi-plus-circle me-2"></i>New Poll
+        </button>
+      </div>
+
+      <!-- List of active polls -->
+      <div *ngIf="activePolls.length > 0; else noPolls" class="poll-list">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col" *ngFor="let poll of paginatedPolls">
+            <div class="card h-100 shadow-sm">
+              <div class="card-header bg-light">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title mb-0">
+                    <i class="bi bi-question-circle-fill text-primary me-2"></i>
+                    {{ poll.question }}
+                  </h5>
+                  <button class="btn btn-sm btn-outline-info" (click)="viewResult(poll.id)">
+                    <i class="bi bi-bar-chart-fill me-1"></i>
+                    View Results
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div *ngIf="!hasPollBeenVoted(poll.id)">
+                  <div class="mb-3">
+                    <div *ngFor="let option of poll.options; let i = index" class="form-check mb-2">
+                      <input class="form-check-input"
+                             type="radio"
+                             name="poll{{poll.id}}"
+                             id="option{{poll.id}}-{{i}}"
+                             [value]="option.id"
+                             [(ngModel)]="selectedOptionIds[poll.id]">
+                      <label class="form-check-label" for="option{{poll.id}}-{{i}}">
+                        {{ option.optionText }}
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="d-grid gap-2">
+                    <button class="btn btn-primary"
+                            (click)="vote(poll.id)"
+                            [disabled]="!selectedOptionIds[poll.id]">
+                      <i class="bi bi-check2-circle me-2"></i>Vote
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="hasPollBeenVoted(poll.id)" class="alert alert-success">
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  Thank you for voting! <a href="#" (click)="viewResult(poll.id); $event.preventDefault()">View results</a>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">
+                    <i class="bi bi-calendar me-1"></i>ID: {{poll.id}}
+                  </small>
+                  <small class="text-muted">
+                    <i class="bi bi-person me-1"></i>{{ poll.options?.length || 0 }} options
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+        <nav>
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" href="#" (click)="changePage(currentPage - 1); $event.preventDefault()">Previous</a>
+            </li>
+
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="currentPage === i + 1">
+              <a class="page-link" href="#" (click)="changePage(i + 1); $event.preventDefault()">{{ i + 1 }}</a>
+            </li>
+
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" href="#" (click)="changePage(currentPage + 1); $event.preventDefault()">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+
+      <!-- Message when there are no polls -->
+      <ng-template #noPolls>
+        <div class="card shadow-sm">
+          <div class="card-body text-center py-5">
+            <i class="bi bi-clipboard-x text-muted" style="font-size: 3rem;"></i>
+            <h4 class="mt-3 mb-2">No Active Polls</h4>
+            <p class="text-muted mb-4">There are no polls available at the moment.</p>
+            <button class="btn btn-primary" (click)="addPoll()">
+              <i class="bi bi-plus-circle me-2"></i>Create a Poll
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

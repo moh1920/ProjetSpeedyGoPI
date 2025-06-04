@@ -1,0 +1,149 @@
+<div class="mb-3 d-flex justify-content-end">
+  <input type="text"
+         class="form-control w-25"
+         placeholder="Search vehicles..."
+         [(ngModel)]="searchText">
+</div>
+
+
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-car-front me-2 text-primary"></i> <!-- Icône de voiture -->
+          Vehicle Rental
+        </h5>
+        <button class="btn btn-primary" [routerLink]="['/addVehicleRental']">
+          <i class="bi bi-plus-circle me-2"></i>Add Vehicle Rental
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="table-responsive">
+    <p-table
+      [value]="filteredVehicles"
+      [paginator]="true"
+      [rows]="size"
+      [totalRecords]="totalElements"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
+      [loading]="loading"
+      [responsiveLayout]="'scroll'"
+      [sortField]="sortBy"
+      [sortOrder]="sortOrder === 'ASC' ? 1 : -1"
+      [rowsPerPageOptions]="[5, 10, 20, 50]">
+
+      <!-- Header -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="typeVehicleRental">Type <p-sortIcon field="typeVehicleRental"></p-sortIcon></th>
+          <th pSortableColumn="models">Models <p-sortIcon field="models"></p-sortIcon></th>
+          <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="batteryLevel">Battery Level <p-sortIcon field="batteryLevel"></p-sortIcon></th>
+          <th pSortableColumn="costOfVehicleByKm">Cost (Km) <p-sortIcon field="costOfVehicleByKm"></p-sortIcon></th>
+          <th pSortableColumn="mileage">Mileage <p-sortIcon field="mileage"></p-sortIcon></th>
+          <th pSortableColumn="createdAt">Created At <p-sortIcon field="createdAt"></p-sortIcon></th>
+          <th pSortableColumn="updatedAt">Updated At <p-sortIcon field="updatedAt"></p-sortIcon></th>
+          <th pSortableColumn="lastMaintenanceDate">Last Maintenance <p-sortIcon field="lastMaintenanceDate"></p-sortIcon></th>
+          <th pSortableColumn="station.name">Station</th>
+          <th pSortableColumn="station.imageUrl">image Of Vehicle</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <!-- Body -->
+      <ng-template pTemplate="body" let-rental>
+        <tr (dblclick)="openAssignStationModal(rental)">
+          <td>
+            <mat-icon *ngIf="rental.typeVehicleRental === 'BIKE'">pedal_bike</mat-icon>
+            <mat-icon *ngIf="rental.typeVehicleRental === 'SCOOTER'">electric_scooter</mat-icon>
+          </td>
+          <td>{{ rental.models }}</td>
+          <td>
+        <span [ngClass]="{
+          'status-active': rental.status === 'ACTIVE',
+          'status-inactive': rental.status === 'INACTIVE',
+          'status-maintenance': rental.status === 'MAINTENANCE'
+        }">
+          {{ rental.status }}
+        </span>
+          </td>
+          <td>{{ rental.batteryLevel }}%</td>
+          <td>{{ rental.costOfVehicleByKm }} TND</td>
+          <td>{{ rental.mileage }} KM</td>
+          <td>{{ rental.createdAt | date:'dd/MM/yyyy' }}</td>
+          <td>{{ rental.updatedAt | date:'dd/MM/yyyy' }}</td>
+          <td>{{ rental.lastMaintenanceDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ rental.station?.name }}</td>
+          <img [src]="rental.imageUrl" alt="{{rental.models }}" width="50" height="50" />
+          <td>
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-icon" ngbDropdownToggle>
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem [routerLink]="['/updateVehicleRental', rental.id]">
+                  <i class="bi bi-pencil text-warning me-2"></i>Edit
+                </button>
+                <div class="dropdown-divider"></div>
+                <button ngbDropdownItem class="text-danger" (click)="deleteRental(rental.id)">
+                  <i class="bi bi-trash me-2"></i>Delete
+                </button>
+                <button ngbDropdownItem (click)="openQrCodeDialog(rental.id)">
+                  <mat-icon>qr_code</mat-icon> QR Code
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+
+
+
+
+  </div>
+</div>
+
+
+<ng-template #stationModale let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Assign a Vehicle to a Station</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+
+  <div class="modal-body" *ngIf="selectedRental">
+    <p><strong>Vehicle Model:</strong> {{ selectedRental.models }}</p>
+
+    <!-- Liste déroulante de stations -->
+    <label for="stationSelect">Station:</label>
+    <select id="stationSelect" class="form-select" [(ngModel)]="selectedStationId">
+      <option *ngFor="let station of stationAll" [value]="station.id">
+        {{ station.name }}
+      </option>
+    </select>
+
+    <!-- Carte Google Map -->
+    <google-map [center]="center" [zoom]="zoom" height="400px" width="100%" class="mt-3">
+      <ng-container *ngFor="let station of stationAll">
+        <map-marker
+          *ngIf="station.latitude !== undefined && station.longitude !== undefined"
+          [position]="{ lat: station.latitude, lng: station.longitude }"
+          [title]="station.name || 'Unknown Station'"
+          (mapClick)="onMarkerClick(station)">
+        </map-marker>
+      </ng-container>
+    </google-map>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    <button class="btn btn-primary" (click)="assignVehicleToMaintenance()">Assign</button>
+  </div>
+</ng-template>

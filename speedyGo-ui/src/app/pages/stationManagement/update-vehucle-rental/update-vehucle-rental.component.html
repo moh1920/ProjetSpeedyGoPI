@@ -1,0 +1,88 @@
+<app-topstrip></app-topstrip>
+<mat-sidenav-container class="mainWrapper blue_theme light-theme" autosize autoFocus dir="ltr">
+
+  <!-- =================== Sidebar =================== -->
+  <mat-sidenav #leftsidenav [mode]="isOver ? 'over' : 'side'" [opened]="!isOver"
+               (openedChange)="onSidenavOpenedChange($event)" (closedStart)="onSidenavClosedStart()" class="sidebarNav">
+    <div class="flex-layout">
+      <app-sidebar (toggleMobileNav)="sidenav.toggle()" [showToggle]="isOver"></app-sidebar>
+      <ng-scrollbar class="position-relative" style="height: 100%">
+        <mat-nav-list class="sidebar-list">
+          <mat-list-item [routerLink]="['/MaintenanceList']">
+            <mat-icon>build</mat-icon>
+            <span>    Maintenances</span>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/VehicleRentalList']">
+            <mat-icon>pedal_bike</mat-icon>
+            <span>    Vehicle Rental</span>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/stationVehicleList']">
+            <mat-icon>storefront</mat-icon>
+            <span>    station List</span>
+          </mat-list-item>
+        </mat-nav-list>
+      </ng-scrollbar>
+    </div>
+  </mat-sidenav>
+
+  <!-- ============== Main Content ============== -->
+  <mat-sidenav-content class="contentWrapper" #content>
+    <app-header [showToggle]="!isOver" (toggleMobileNav)="sidenav.toggle()"></app-header>
+
+    <main class="pageWrapper maxWidth">
+      <div class="container">
+
+
+        <mat-card class="mat-elevation-z4">
+          <h2>Ajouter un Véhicule</h2>
+          <form [formGroup]="vehicleRentalForm" (ngSubmit)="updateVehicleRental()">
+            <mat-form-field appearance="fill">
+              <mat-label>Niveau de batterie (%)</mat-label>
+              <input matInput id="batteryLevel" type="number" formControlName="batteryLevel" min="0" max="100" />
+              <mat-error *ngIf="vehicleRentalForm.get('batteryLevel')?.hasError('min')">
+                Le niveau de batterie ne peut pas être inférieur à 0.
+              </mat-error>
+              <mat-error *ngIf="vehicleRentalForm.get('batteryLevel')?.hasError('max')">
+                Le niveau de batterie ne peut pas dépasser 100%.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Kilométrage (km)</mat-label>
+              <input matInput id="mileage" type="number" formControlName="mileage" min="0" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Statut</mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option value="AVAILABLE">Disponible</mat-option>
+                <mat-option value="IN_USE">En cours d'utilisation</mat-option>
+                <mat-option value="MAINTENANCE">En maintenance</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Type de véhicule</mat-label>
+              <mat-select formControlName="typeVehicleRental" required>
+                <mat-option value="BIKE">Vélo</mat-option>
+                <mat-option value="SCOOTER">Trottinette</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Dernière maintenance</mat-label>
+              <input matInput id="lastMaintenanceDate" type="date" formControlName="lastMaintenanceDate" />
+            </mat-form-field>
+
+            <div class="form-buttons">
+              <button mat-raised-button color="primary" type="submit" [disabled]="vehicleRentalForm.invalid">
+                Soumettre
+              </button>
+            </div>
+          </form>
+        </mat-card>
+
+      </div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

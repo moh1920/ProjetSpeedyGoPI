@@ -1,0 +1,108 @@
+<div class="user-info-section">
+  <div class="info-container">
+    <div class="datetime-info">
+      <i class="far fa-clock"></i>
+      <span>{{ currentDateTime }}</span>
+    </div>
+    
+  </div>
+</div>
+
+<section class="become-driver-section">
+  <div class="become-driver-container">
+    <div class="driver-info">
+      <div class="icon-wrapper">
+        <i class="fas fa-star"></i>
+      </div>
+      <h2>Join Our Professional Drivers Network</h2>
+      <p class="driver-description">
+        Start your journey with us and become part of our growing community of professional drivers. 
+        Enjoy flexible hours and competitive earnings.
+      </p>
+      <ul class="benefits-list">
+        <li><i class="fas fa-check-circle"></i> Flexible Working Hours</li>
+        <li><i class="fas fa-check-circle"></i> Competitive Earnings</li>
+        <li><i class="fas fa-check-circle"></i> Professional Support</li>
+      </ul>
+      <button class="register-btn" (click)="openForm()">
+        <i class="fas fa-taxi"></i>
+        Register Your Vehicle
+      </button>
+    </div>
+    <div class="driver-image">
+      <img src="assets/covoiturage/driver.jpg" alt="Professional Driver">
+    </div>
+  </div>
+</section>
+
+<!-- Form Popup -->
+<div class="form-popup" *ngIf="isFormOpen">
+  <div class="form-container">
+    <div class="form-header">
+      <h3>Register Your Taxi</h3>
+      <button class="close-btn" (click)="closeForm()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="taxiForm" (ngSubmit)="onSubmit()" class="taxi-form">
+      <!-- License Plate -->
+      <div class="form-group">
+        <label for="licensePlate">License Plate *</label>
+        <input 
+          type="text" 
+          id="licensePlate" 
+          formControlName="licensePlate"
+          placeholder="Enter license plate number"
+        >
+      </div>
+
+      <!-- Model Selection -->
+      <div class="form-group">
+        <label for="model">Vehicle Model *</label>
+        <select id="model" formControlName="model" (change)="onModelChange()">
+          <option value="">Select a model</option>
+          <option value="Toyota Camry">Toyota Camry</option>
+          <option value="Honda Accord">Honda Accord</option>
+          <option value="Tesla Model 3">Tesla Model 3</option>
+          <option value="Mercedes E-Class">Mercedes E-Class</option>
+          <option value="BMW 5 Series">BMW 5 Series</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <!-- Other Model Input -->
+      <div class="form-group" *ngIf="isOtherModelSelected">
+        <label for="otherModel">Specify Model *</label>
+        <input 
+          type="text" 
+          id="otherModel" 
+          formControlName="otherModel"
+          placeholder="Enter your vehicle model"
+        >
+      </div>
+
+      <!-- Taxi Type -->
+      <div class="form-group">
+        <label for="typeTaxi">Taxi Type *</label>
+        <select id="typeTaxi" formControlName="typeTaxi">
+          <option value="STANDARD">Standard</option>
+          <option value="PREMIUM">Premium</option>
+        </select>
+      </div>
+
+      <!-- Availability -->
+      <div class="form-group checkbox">
+        <label>
+          <input type="checkbox" formControlName="available">
+          Available for Service
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn" [disabled]="!taxiForm.valid">
+        Register Taxi
+      </button>
+    </form>
+  </div>
+</div>

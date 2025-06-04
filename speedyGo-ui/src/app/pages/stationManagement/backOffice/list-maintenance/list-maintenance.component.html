@@ -1,0 +1,138 @@
+<div class="mb-3 d-flex justify-content-end">
+  <input type="text"
+         class="form-control w-25"
+         placeholder="Search maintenances..."
+         [(ngModel)]="searchText">
+</div>
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-car-front me-2 text-primary"></i> <!-- Car icon -->
+          <i class="bi bi-wrench text-primary"></i> <!-- Wrench icon for maintenance -->
+          Maintenance Vehicle Rental
+        </h5>
+        <button class="btn btn-primary" [routerLink]="['/addMaintenance']">
+          <i class="bi bi-plus-circle me-2"></i>Add Maintenance
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <p-table [value]="filterMaintenance" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords"
+             (onPage)="onPageChange($event)" [sortField]="sortBy" (onSort)="onSortChange($event)"  [rowsPerPageOptions]="[5, 10, 20, 50]">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="maintenanceType">Type <p-sortIcon field="maintenanceType"></p-sortIcon></th>
+          <th pSortableColumn="scheduledDate">Scheduled Date <p-sortIcon field="scheduledDate"></p-sortIcon></th>
+          <th pSortableColumn="estimatedCompletionTime">Estimated Completion Time <p-sortIcon field="estimatedCompletionTime"></p-sortIcon></th>
+          <th pSortableColumn="technicianName">Technician <p-sortIcon field="technicianName"></p-sortIcon></th>
+          <th pSortableColumn="vehicleRentalModels">VehicleRental Models <p-sortIcon field="vehicleRentalModels"></p-sortIcon></th>
+          <th>Technician Email</th>
+          <th>Cost</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-maintenance>
+        <tr (dblclick)="openAssignVehicleModal(maintenance)">
+          <td>{{ maintenance.maintenanceType }}</td>
+          <td>{{ maintenance.scheduledDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ maintenance.estimatedCompletionTime | date:'dd/MM/yyyy' }}</td>
+          <td>{{ maintenance.technicianName }}</td>
+          <td>{{ maintenance.vehicleRentalModels }}</td>
+          <td>{{ maintenance.emailTechnician }}</td>
+          <td>{{ maintenance.cost | currency:'EUR' }}</td>
+          <td>
+        <span class="badge rounded-pill" [ngClass]="{
+              'bg-warning-subtle text-warning': maintenance.status === 'Pending',
+              'bg-info-subtle text-info': maintenance.status === 'In_progress',
+              'bg-success-subtle text-success': maintenance.status === 'Completed'}">
+          {{ maintenance.status }}
+        </span>
+          </td>
+          <td>
+            <!-- Menu déroulant avec 3 points -->
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-icon" type="button" ngbDropdownToggle>
+                <i class="bi bi-three-dots-vertical"></i> <!-- Icône des 3 points -->
+              </button>
+              <div ngbDropdownMenu>
+                <!-- Option Éditer -->
+                <button ngbDropdownItem [routerLink]="['/updateMaintenance', maintenance.id]">
+                  <i class="bi bi-pencil text-warning me-2"></i>Edit
+                </button>
+                <div class="dropdown-divider"></div>
+                <!-- Option Supprimer -->
+                <button ngbDropdownItem class="text-danger" (click)="deleteMaintenance(maintenance.id)">
+                  <i class="bi bi-trash me-2"></i>Delete
+                </button>
+              </div>
+            </div>
+          </td>
+
+
+
+        </tr>
+      </ng-template>
+
+    </p-table>
+     <br>
+    <hr>
+    <br>
+    <div class="export-buttons">
+      <button class="btn export csv" (click)="generateCsvFile()">
+        <i class="fa-solid fa-file-csv"></i> CSV
+      </button>
+      <button class="btn export excel"(click)="downloadExcelFile()">
+        <i class="fa-solid fa-file-excel"></i> Excel
+      </button>
+    </div>
+
+
+  </div>
+</div>
+<ng-template #vehicleMaintenanceModal let-modal>
+  <body class="modal-body">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      <i class="bi bi-tools me-2 text-primary"></i> Assign a Vehicle to Maintenance
+    </h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+
+  <div class="modal-body" *ngIf="maintenanceSelected">
+    <div class="mb-3">
+      <p><strong><i class="bi bi-hammer me-2 text-secondary"></i>Maintenance ID:</strong> {{ maintenanceSelected?.id }}</p>
+      <p><strong><i class="bi bi-gear me-2 text-secondary"></i> Type:</strong> {{ maintenanceSelected?.maintenanceType }}</p>
+      <p><strong><i class="bi bi-person me-2 text-secondary"></i> Technician:</strong> {{ maintenanceSelected?.technicianName }}</p>
+      <p><strong><i class="bi bi-envelope me-2 text-secondary"></i> Email:</strong> {{ maintenanceSelected?.emailTechnician }}</p>
+    </div>
+
+    <!-- Sélection du véhicule -->
+    <div class="mb-3">
+      <label class="form-label"><i class="bi bi-car-front me-2 text-primary"></i> Select Vehicle:</label>
+      <select class="form-select" [(ngModel)]="selectedVehicleId">
+        <option *ngFor="let vehicle of vehicleAll" [value]="vehicle.id">
+          {{ vehicle.id }} - {{ vehicle.models }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-outline-secondary" (click)="closeModal()">
+      <i class="bi bi-x-circle me-2"></i> Cancel
+    </button>
+    <button class="btn btn-primary" (click)="assignVehicleToMaintenance()">
+      <i class="bi bi-check-circle me-2"></i> Assign
+    </button>
+  </div>
+  </body>
+
+</ng-template>
+

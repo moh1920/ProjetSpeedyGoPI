@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="my-4">Détails du Véhicule</h2>
+
+  <div *ngIf="vehicleRental; else loading">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Véhicule ID: {{ vehicleRental.id }}</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>Type de Véhicule:</strong> {{ vehicleRental.typeVehicleRental }}</p>
+        <p><strong>Statut:</strong> {{ vehicleRental.status }}</p>
+        <p><strong>Niveau de Batterie:</strong> {{ vehicleRental.batteryLevel }}%</p>
+        <p><strong>Dernière Maintenance:</strong> {{ vehicleRental.lastMaintenanceDate | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Kilométrage:</strong> {{ vehicleRental.mileage }} km</p>
+      </div>
+      <div class="card-footer text-muted">
+        <button class="btn btn-primary" (click)="goBack()">Retour</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="alert alert-info">
+      <strong>Chargement...</strong> Veuillez patienter pendant que les détails du véhicule sont récupérés.
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="paymentStatus" class="payment-status-modal">
+  <img *ngIf="paymentStatus === 'success'" src="./../../../assets/Payment Success.gif" alt="Payment Success" />
+  <img *ngIf="paymentStatus === 'failed'" src=" ./../../../assets/Payment Failed.gif" alt="Payment Failed" />
+</div>
+
+<div class="checkout-wrapper">
+  <div class="checkout-container">
+    <div class="row g-0">
+      <div class="col-md-5 order-summary">
+        <div class="brand-header d-flex align-items-center">
+          <div class="logo-container">
+            <div class="logo-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 12L10 15L17 8" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ms-3">
+            <div class="brand-name">Pay Hawke Bot</div>
+            <span class="test-mode-badge">TEST MODE</span>
+          </div>
+        </div>
+        
+        <div class="total-price">${{selectedPlan.price}}.00</div>
+        
+        <div class="order-details">
+          <div class="line-item">
+            <div class="item-name">{{selectedPlan.name}} - {{selectedPlan.description}}</div>
+            <div class="item-price">${{selectedPlan.price}}.00</div>
+          </div>
+          
+          <div class="line-item">
+            <div>Subtotal</div>
+            <div>${{selectedPlan.price}}.00</div>
+          </div>
+          
+        </div>
+        
+        <div class="total-due">
+          <div>Total due</div>
+          <div>${{selectedPlan.price}}.00</div>
+        </div>
+      </div>
+      
+      <div class="col-md-7 payment-section">
+        <button class="google-pay-btn">
+          <img src="https://www.gstatic.com/instantbuy/svg/dark_gpay.svg" alt="Google Pay" height="24">
+        </button>
+        
+        <div class="divider">
+          <span>Or pay with card</span>
+        </div>
+        
+        <div class="section-title">Shipping information</div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="userEmail" placeholder="your@email.com">
+        </div>
+        <div class="manual-address">
+          <a href="#" class="manual-address-link">Enter address manually</a>
+        </div>
+        
+        <div class="section-title payment-title">Payment details</div>
+        
+        <div class="form-group">
+          <label>Card information</label>
+          <div class="card-container">
+            <div #cardElement class="card-element"></div>
+          </div>
+        </div>
+        
+    
+      
+        <button class="pay-btn" (click)="pay()">Pay</button>
+      </div>
+    </div>
+  </div>
+</div>

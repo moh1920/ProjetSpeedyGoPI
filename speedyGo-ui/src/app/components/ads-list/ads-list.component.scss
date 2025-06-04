@@ -1,0 +1,145 @@
+.advert-wrapper {
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+}
+
+.advert-card {
+  width: 100%;
+  max-width: 550px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.advert-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.advert-image {
+  height: 260px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.nav-arrow {
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  padding: 10px 14px;
+  z-index: 10;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+  opacity: 1;
+  background-color: #4DD5A0 !important; /* Couleur verte plus claire */
+}
+
+/* Nouvelles styles avec des couleurs plus claires */
+.card {
+  border: none;
+  background-color: #5DEAA8 !important; /* Vert clair comme fond principal */
+  color: #2F4858;
+}
+
+h4.text-center {
+  color: #2F4858 !important; /* Texte plus foncé pour meilleur contraste */
+}
+
+.btn-dark {
+  background-color: #4DD5A0 !important; /* Vert moyen pour les boutons */
+  border-color: #4DD5A0 !important;
+  color: #2F4858 !important;
+}
+
+.badge.bg-success {
+  background-color: #4DD5A0 !important; /* Assortir le vert */
+}
+
+.text-success {
+  color: #36B37E !important; /* Vert moyen pour le texte */
+}
+
+.text-primary {
+  color: #2F4858 !important; /* Texte foncé pour meilleur contraste */
+}
+
+.text-secondary, .text-muted {
+  color: #617D89 !important; /* Gris-bleu moyen pour la lisibilité */
+}
+
+/* Style du bouton S'abonner comme dans l'image */
+.btn-subscribe {
+  background-color: #FFFFFF !important;
+  color: #36B37E !important;
+  font-weight: bold;
+  padding: 10px 25px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajout d'une bordure claire pour l'effet de profondeur */
+.advert-card {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Alerte avec couleur plus douce */
+.alert-info {
+  background-color: #B3E6D5 !important;
+  border-color: #86D4C0 !important;
+  color: #2F4858 !important;
+}
+
+/* Styles existants... */
+
+/* Styles pour le spinner de chargement */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.spinner-wrapper {
+  padding: 30px;
+  border-radius: 12px;
+  background-color: rgba(93, 234, 168, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: #36B37E !important;
+}
+
+.loading-text {
+  color: #2F4858;
+  font-weight: 500;
+}
+
+/* Animation pour le spinner pour le rendre plus attrayant */
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(93, 234, 168, 0.5);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(93, 234, 168, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(93, 234, 168, 0);
+  }
+}
+
+.spinner-wrapper {
+  animation: pulse 2s infinite;
+}

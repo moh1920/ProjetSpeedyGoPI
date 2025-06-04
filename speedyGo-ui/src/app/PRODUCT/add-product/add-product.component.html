@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+
+    <label for="name">Nom du produit:</label><br>
+    <input id="name" type="text" formControlName="name" required /><br><br>
+
+    <label for="price">Prix:</label><br>
+    <input id="price" type="number" formControlName="price" min="0" required /><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" formControlName="description" required></textarea><br><br>
+
+    <label for="stockQuantity">Quantité en stock:</label><br>
+    <input id="stockQuantity" type="number" formControlName="stockQuantity" min="0" required /><br><br>
+
+    <label for="available">Disponible:</label><br>
+    <select id="available" formControlName="available" required>
+      <option [value]="true">Oui</option>
+      <option [value]="false">Non</option>
+    </select><br><br>
+
+    <label for="discount">Remise (%):</label><br>
+    <input id="discount" type="number" formControlName="discount" min="0" max="100" /><br><br>
+
+    <label for="rating">Évaluation:</label><br>
+    <input id="rating" type="number" formControlName="rating" min="0" max="5" step="0.1" /><br><br>
+
+    <label for="image">Image du produit:</label><br>
+    <input id="image" type="file" (change)="onFileSelected($event)" required /><br><br>
+
+    <button type="submit" [disabled]="productForm.invalid">Ajouter le produit</button>
+  </fieldset>
+</form>
+
+<p *ngIf="successMessage">{{ successMessage }}</p>

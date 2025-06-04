@@ -1,0 +1,154 @@
+/* Container to apply some padding and margin */
+.container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Section for the requested carpool list */
+  .requested-carpool-section {
+    background: #f1f4f8;
+    border-radius: 12px;
+    padding: 40px;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h3 {
+    text-align: center;
+    font-size: 2rem;
+    color: #004d6f;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* List item styling */
+  .carpool-item {
+    background-color: rgba(0, 0, 0, 0.06); /* Light background */
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .carpool-item:hover {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Buttons styling */
+  .buttons {
+    margin-top: 10px;
+  }
+  
+  .btn-danger, .btn-success {
+    background-color: #ff4757;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .btn-success {
+    background-color: #28a745; /* Green for the accept button */
+  }
+  
+  /* Styling for Modify Price form */
+  .edit-price-form {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="number"] {
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  /* Button style for hover effect */
+  button {
+    margin-right: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsiveness for smaller devices */
+  @media (max-width: 600px) {
+    .container {
+      padding: 15px;
+    }
+  
+    .requested-carpool-section {
+      padding: 20px;
+    }
+  }
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  
+  .search-input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px; /* Make the input smaller */
+    box-sizing: border-box;
+  }
+  
+  .search-btn {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .search-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  

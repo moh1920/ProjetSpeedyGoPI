@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+<div class="orders-container">
+  <div *ngIf="orders.length > 0; else noOrders">
+    <h2 class="page-title">My Orders</h2>
+
+    <div class="orders-grid">
+      <div *ngFor="let order of orders" class="order-card">
+        <div class="order-header">
+          <h3 class="order-id">Order #{{ order.id }}</h3>
+          <span class="order-status" [ngClass]="{
+            'status-pending': order.orderStatus === 'PENDING',
+            'status-paid': order.orderStatus === 'PAID',
+            'status-delivered': order.orderStatus === 'DELIVERED'
+          }">{{ order.orderStatus }}</span>
+        </div>
+
+        <!-- ✅ Buttons positioned below the status -->
+        <div class="button-container">
+          <button (click)="editOrder(order)" class="btn-edit">Edit</button>
+          <button (click)="deleteOrder(order.id!)" class="btn-delete">Delete</button>
+        </div>
+
+        <div *ngIf="order.orderStatus === 'PENDING'" class="cancel-container">
+          <button (click)="cancelOrder(order.id!)" class="btn-cancel">Cancel Order</button>
+        </div>
+
+        <div class="order-details">
+          <div class="detail">
+            <span class="detail-label">Shipping Address</span>
+            <span class="detail-value">{{ order.shippingAddress }}</span>
+          </div>
+          <div class="detail">
+            <span class="detail-label">Phone Number</span>
+            <span class="detail-value">{{ order.phoneNumber }}</span>
+          </div>
+          <div class="detail">
+            <span class="detail-label">Delivery Method</span>
+            <span class="detail-value">{{ order.deliveryMethod }}</span>
+          </div>
+          <div class="detail">
+            <span class="detail-label">Payment Method</span>
+            <span class="detail-value">{{ order.paymentMethod }}</span>
+          </div>
+          <div class="detail">
+            <span class="detail-label">Total Amount</span>
+            <span class="detail-value total-amount">{{ order.totalAmount | currency }}</span>
+          </div>
+        </div>
+
+        <div class="order-items">
+          <h4 class="items-title">Order Items</h4>
+          <div *ngFor="let item of order.orderItems" class="item">
+            <div class="item-info">
+              <span class="item-name">{{ item.productName }}</span>
+              <span class="item-quantity">x{{ item.quantity }}</span>
+            </div>
+            <span class="item-price">{{ item.totalPrice | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="no-orders">
+      <p class="no-orders-message">You haven't placed any orders yet.</p>
+      <button class="shop-now-button" routerLink="/products">Shop Now</button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ✅ Edit Order Modal -->
+<div *ngIf="selectedOrder" class="edit-order-modal-overlay">
+  <div class="edit-order-modal">
+    <div class="modal-header">
+      <h2>Edit Order #{{selectedOrder.id}}</h2>
+      <button class="close-modal" (click)="cancelEdit()">&times;</button>
+    </div>
+    <form (ngSubmit)="saveOrderChanges()" class="modal-form">
+      <div class="form-group">
+        <label>Address:</label>
+        <input type="text" [(ngModel)]="selectedOrder.shippingAddress" name="shippingAddress" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number:</label>
+        <input type="tel" [(ngModel)]="selectedOrder.phoneNumber" name="phoneNumber" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+        <button type="submit" class="btn-save">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

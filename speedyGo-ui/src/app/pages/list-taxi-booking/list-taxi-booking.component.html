@@ -1,0 +1,135 @@
+<app-navbar></app-navbar>
+<div class="booking-container">
+    <div class="header">
+      <h1>Taxi Bookings</h1>
+      <button mat-raised-button color="primary" (click)="navigateToBooking()">
+        <mat-icon>add</mat-icon>
+        New Booking
+      </button>
+    </div>
+  
+    <!-- Formulaire de modification -->
+    <div class="edit-form" *ngIf="showEditForm">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Edit Booking #{{currentBooking?.id}}</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <form [formGroup]="editForm" (ngSubmit)="updateBooking()">
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Pickup Location</mat-label>
+                <input matInput formControlName="departure" placeholder="Enter pickup location">
+                <mat-error *ngIf="editForm.get('departure')?.errors?.['required']">
+                  Pickup location is required
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Destination</mat-label>
+                <input matInput formControlName="arrival" placeholder="Enter destination">
+                <mat-error *ngIf="editForm.get('arrival')?.errors?.['required']">
+                  Destination is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+  
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Date & Time</mat-label>
+                <input matInput type="datetime-local" formControlName="dateTime" [min]="minDateTime">
+                <mat-error *ngIf="editForm.get('dateTime')?.errors?.['required']">
+                  Date and time is required
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Service Type</mat-label>
+                <mat-select formControlName="typeTaxiReservation">
+                  <mat-option *ngFor="let type of taxiTypes" [value]="type">
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <div class="form-actions">
+              <button mat-raised-button color="primary" type="submit" [disabled]="loading || editForm.invalid">
+                <mat-icon>save</mat-icon>
+                {{loading ? 'Updating...' : 'Update Booking'}}
+              </button>
+              <button mat-raised-button type="button" (click)="cancelEdit()">
+                <mat-icon>close</mat-icon>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Table des réservations -->
+    <div class="table-container" [class.blur]="showEditForm">
+      <mat-table [dataSource]="bookings" class="booking-table">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+          <mat-cell *matCellDef="let booking">#{{booking.id}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="departure">
+          <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
+          <mat-cell *matCellDef="let booking">{{booking.departure}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="arrival">
+          <mat-header-cell *matHeaderCellDef>To</mat-header-cell>
+          <mat-cell *matCellDef="let booking">{{booking.arrival}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+          <mat-cell *matCellDef="let booking">€{{booking.price}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="dateTime">
+          <mat-header-cell *matHeaderCellDef>Date & Time</mat-header-cell>
+          <mat-cell *matCellDef="let booking">{{booking.dateTime | date:'medium'}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="typeTaxiReservation">
+          <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+          <mat-cell *matCellDef="let booking">{{booking.typeTaxiReservation}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="statusReservationTaxi">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let booking">
+            <span class="status-badge" [style.background-color]="getStatusColor(booking.statusReservationTaxi)">
+              {{booking.statusReservationTaxi}}
+            </span>
+          </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+          <mat-cell *matCellDef="let booking">
+            <button mat-icon-button color="primary" (click)="editBooking(booking)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteBooking(booking.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+  
+      <div class="no-data" *ngIf="bookings.length === 0">
+        <mat-icon>directions_car</mat-icon>
+        <p>No bookings found</p>
+      </div>
+    </div>
+  </div>

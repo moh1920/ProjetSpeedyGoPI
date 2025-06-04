@@ -1,0 +1,19 @@
+package speedy.go.speedygo.DeliveryManagement.Service;
+
+
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
+import speedy.go.speedygo.user.UserLocation;
+
+@Controller
+public class TrackingController {
+
+    @MessageMapping("/track")
+    @SendTo("/topic/locations")
+    public UserLocation handleLocationUpdate(UserLocation location) {
+        System.out.println("Received location update: " + location);
+
+        return location;
+    }
+}

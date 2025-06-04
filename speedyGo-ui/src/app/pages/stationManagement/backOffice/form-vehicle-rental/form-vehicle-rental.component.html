@@ -1,0 +1,124 @@
+<div class="container-fluid p-4">
+  <form [formGroup]="vehicleRentalForm" (ngSubmit)="onSubmit()">
+    <div class="card shadow-sm border-0">
+
+      <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">
+          <i class="bi bi-car-front me-2 text-primary"></i> <!-- Icône de voiture -->
+          Add Vehicle Rental
+        </h5>
+      </div>
+
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Battery Level -->
+          <div class="col-md-6">
+            <label for="batteryLevel" class="form-label">Battery Level</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-battery-half"></i></span>
+              <input id="batteryLevel" type="number" formControlName="batteryLevel" class="form-control" min="0" max="100" />
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('batteryLevel')?.hasError('min')">
+              Battery level cannot be less than 0.
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('batteryLevel')?.hasError('max')">
+              Battery level cannot be more than 100.
+            </div>
+          </div>
+
+          <!-- Mileage -->
+          <div class="col-md-6">
+            <label for="mileage" class="form-label">Mileage</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-speedometer2"></i></span>
+              <input id="mileage" type="number" formControlName="mileage" class="form-control" min="0" />
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('mileage')?.hasError('min')">
+              Mileage cannot be less than 0.
+            </div>
+          </div>
+
+          <!-- Cost Of Vehicle By Km -->
+          <div class="col-md-6">
+            <label for="costOfVehicleByKm" class="form-label">Cost Of Vehicle By Km (TND)</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-currency-exchange"></i></span>
+              <input id="costOfVehicleByKm" type="number" formControlName="costOfVehicleByKm" class="form-control" min="0" />
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('costOfVehicleByKm')?.hasError('min')">
+              Cost cannot be less than 0.
+            </div>
+          </div>
+
+          <!-- Models -->
+          <div class="col-md-6">
+            <label for="models" class="form-label">Models</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-car-front"></i></span>
+              <input id="models" type="text" formControlName="models" class="form-control" required />
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('models')?.hasError('required') && vehicleRentalForm.get('models')?.touched">
+              Model is required.
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-md-6">
+            <label for="status" class="form-label">Status</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-flag"></i></span>
+              <select id="status" formControlName="status" class="form-select">
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+                <option value="MAINTENANCE">Under Maintenance</option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('status')?.hasError('required')">
+              Status is required.
+            </div>
+          </div>
+
+          <!-- Type of Vehicle Rental -->
+          <div class="col-md-6">
+            <label for="typeVehicleRental" class="form-label">Type of Vehicle Rental</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-bicycle"></i></span>
+              <select id="typeVehicleRental" formControlName="typeVehicleRental" class="form-select">
+                <option value="BIKE">Bike</option>
+                <option value="SCOOTER">Scooter</option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="vehicleRentalForm.get('typeVehicleRental')?.hasError('required')">
+              Vehicle type is required.
+            </div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="col-md-6">
+            <label class="form-label">Upload Image</label>
+            <input type="file" class="form-control" (change)="onFileChange($event)">
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="col-12 mt-4">
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="vehicleRentalForm.invalid">
+                <i class="bi bi-check-circle me-2"></i> Save Changes
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+                <i class="bi bi-x-circle me-2"></i> Cancel
+              </button>
+            </div>
+          </div>
+
+          <!-- Success Message -->
+          <div class="col-12 mt-3" *ngIf="successMessage">
+            <div class="alert alert-success">
+              {{ successMessage }}
+            </div>
+          </div>
+        </div> <!-- End row -->
+      </div> <!-- End card-body -->
+    </div> <!-- End card -->
+  </form>
+</div>

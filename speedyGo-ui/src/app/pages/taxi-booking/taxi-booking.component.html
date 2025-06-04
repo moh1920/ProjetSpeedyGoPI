@@ -1,0 +1,158 @@
+<div class="taxi-booking-container">
+  <!-- Header Section -->
+  <div class="header-info">
+    <div class="user-info">
+      <i class="fas fa-user"></i>
+      <span>Welcome :</span>
+    </div>
+    <div class="current-time">
+      <i class="far fa-clock"></i>
+      <span>{{currentDateTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+    </div>
+  </div>
+
+  <div class="booking-form-container">
+    <h2>Book Your Taxi</h2>
+
+    <!-- Booking Form -->
+    <form *ngIf="!showPriceQuote" [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-form">
+      <div class="form-row">
+        <!-- Departure Location -->
+        <div class="form-group">
+          <label for="departure">
+            <i class="fas fa-map-marker-alt"></i>
+            Pickup Location
+          </label>
+          <div class="location-input-wrapper">
+            <input
+              type="text"
+              id="departure"
+              formControlName="departure"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['departure'].errors }"
+              placeholder="Enter pickup location (e.g., Bab Saadoun, Tunisia)"
+            >
+            <small class="form-text text-muted">
+              Please include area name and city (e.g., Bab Saadoun, Tunisia)
+            </small>
+            <div *ngIf="submitted && f['departure'].errors" class="invalid-feedback">
+              <div *ngIf="f['departure'].errors['required']">Pickup location is required</div>
+              <div *ngIf="f['departure'].errors['minlength']">Location must be at least 3 characters</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Destination -->
+        <div class="form-group">
+          <label for="arrival">
+            <i class="fas fa-flag-checkered"></i>
+            Destination
+          </label>
+          <div class="location-input-wrapper">
+            <input
+              type="text"
+              id="arrival"
+              formControlName="arrival"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['arrival'].errors }"
+              placeholder="Enter destination (e.g., El Ghazela, Tunisia)"
+            >
+            <small class="form-text text-muted">
+              Please include area name and city (e.g., El Ghazela, Tunisia)
+            </small>
+            <div *ngIf="submitted && f['arrival'].errors" class="invalid-feedback">
+              <div *ngIf="f['arrival'].errors['required']">Destination is required</div>
+              <div *ngIf="f['arrival'].errors['minlength']">Location must be at least 3 characters</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Time and Service Type -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dateTime">
+            <i class="far fa-calendar-alt"></i>
+            Pickup Date & Time
+          </label>
+          <input
+            type="datetime-local"
+            id="dateTime"
+            formControlName="dateTime"
+            class="form-control"
+            [min]="minDateTime"
+            [ngClass]="{ 'is-invalid': submitted && f['dateTime'].errors }"
+          >
+          <div *ngIf="submitted && f['dateTime'].errors" class="invalid-feedback">
+            <div *ngIf="f['dateTime'].errors['required']">Date and time is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="typeTaxiReservation">
+            <i class="fas fa-taxi"></i>
+            Service Type
+          </label>
+          <select
+            id="typeTaxiReservation"
+            formControlName="typeTaxiReservation"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['typeTaxiReservation'].errors }"
+          >
+            <option *ngFor="let type of taxiTypes" [value]="type">
+              {{type}} {{type === 'PREMIUM' ? '(1300TND/km)' : '(900TND/km)'}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="submit" [disabled]="loading" class="btn btn-primary">
+          <i class="fas fa-calculator" *ngIf="!loading"></i>
+          <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+          {{loading ? 'Calculating...' : 'Calculate Price'}}
+        </button>
+      </div>
+    </form>
+
+    <!-- Price Quote Section -->
+    <div *ngIf="showPriceQuote && calculatedPrice" class="price-quote">
+      <h3>Price Quote</h3>
+      <div class="reservation-details">
+        <p><i class="fas fa-map-marker-alt"></i> From: {{tempReservation?.departure}}</p>
+        <p><i class="fas fa-flag-checkered"></i> To: {{tempReservation?.arrival}}</p>
+        <p><i class="far fa-calendar-alt"></i> When: {{tempReservation?.dateTime | date:'medium'}}</p>
+        <p><i class="fas fa-taxi"></i> Service: {{tempReservation?.typeTaxiReservation}}</p>
+      </div>
+      <div class="price-amount">
+        <span class="currency">TND</span>
+        <span class="amount">{{calculatedPrice}}</span>
+      </div>
+      <div class="action-buttons">
+        <button (click)="confirmBooking()" [disabled]="loading" class="btn btn-success">
+          <i class="fas fa-check" *ngIf="!loading"></i>
+          <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+          {{loading ? 'Confirming...' : 'Confirm Booking'}}
+        </button>
+        <button (click)="cancelBooking()" [disabled]="loading" class="btn btn-danger">
+          <i class="fas fa-times"></i>
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="alerts-container">
+      <div *ngIf="error" class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>
+        {{error}}
+      </div>
+      
+      <div *ngIf="success" class="alert alert-success">
+        <i class="fas fa-check-circle"></i>
+        {{success}}
+      </div>
+    </div>
+  </div>
+</div>

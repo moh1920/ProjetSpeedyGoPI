@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>Modifier la Maintenance</h2>
+
+  <form [formGroup]="maintenanceForm" (ngSubmit)="updateMaintenance()">
+
+    <!-- Type de maintenance -->
+    <div class="form-group">
+      <label for="maintenanceType">Type :</label>
+      <input id="maintenanceType" formControlName="maintenanceType" class="form-control" required />
+    </div>
+
+    <!-- Date planifiée -->
+    <div class="form-group">
+      <label for="scheduledDate">Date planifiée :</label>
+      <input id="scheduledDate" type="date" formControlName="scheduledDate" class="form-control" required />
+    </div>
+
+    <!-- Durée estimée -->
+    <div class="form-group">
+      <label for="estimatedCompletionTime">Durée estimée :</label>
+      <input id="estimatedCompletionTime" type="text" formControlName="estimatedCompletionTime" class="form-control" />
+    </div>
+
+    <!-- Nom du technicien -->
+    <div class="form-group">
+      <label for="technicianName">Technicien :</label>
+      <input id="technicianName" formControlName="technicianName" class="form-control" required />
+    </div>
+
+    <!-- Coût de la maintenance -->
+    <div class="form-group">
+      <label for="cost">Coût :</label>
+      <input id="cost" type="number" formControlName="cost" class="form-control" min="0" />
+    </div>
+
+    <!-- Statut de la maintenance -->
+    <div class="form-group">
+      <label for="status">Statut :</label>
+      <select id="status" formControlName="status" class="form-control" required>
+        <option value="Planned">Planned</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- Bouton Mettre à jour -->
+    <button type="submit" class="btn btn-success" [disabled]="maintenanceForm.invalid">Mettre à jour</button>
+  </form>
+
+  <!-- Message de succès -->
+  <p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>
+</div>

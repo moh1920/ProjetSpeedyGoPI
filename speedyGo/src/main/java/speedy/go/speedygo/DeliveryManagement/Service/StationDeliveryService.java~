@@ -1,0 +1,4 @@
+package speedy.go.speedygo.DeliveryManagement.Service;
+
+public class StationDeliveryService {
+}

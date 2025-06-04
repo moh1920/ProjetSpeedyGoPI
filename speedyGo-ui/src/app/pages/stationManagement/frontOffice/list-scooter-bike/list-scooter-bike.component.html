@@ -1,0 +1,368 @@
+<app-navbar></app-navbar>
+
+<div id="git" style="position: relative; padding: 5%;">
+  <img
+    id="img"
+    src="./assets/homeRentalScooter.jpg"
+    alt=""
+    width="100%"
+    height="475px"
+    style="border-radius: 12px; display: block;"
+  >
+
+  <!-- Bouton superposé sur l'image -->
+  <button
+    class="btn-overlay"
+    (click)="customerRental()"
+  >
+    My Profile
+  </button>
+</div>
+
+
+<section>
+
+
+
+  <header>
+    <h1 class="brand">Go</h1>
+
+    <nav class="navigation">
+      <ul>
+        <li><a href="#" class="nav-item"><li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Taxi</a></li>
+        <li><a href="#" class="nav-item active"><li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Bike & Scooter</a></li>
+        <li><a href="#" class="nav-item"><li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Carpooling</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="header">
+    <div class="logo">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i>
+      Bike
+    </div>
+    <div class="slogan">Bike your way, every day.</div>
+  </div>
+
+  <div class="steps-container">
+    <div class="step">
+      <div ><img src="./assets/images.pay/Clock_3_bc58e267bd.png" width="50"  height="50" ></div>
+      <div class="step-title">Join</div>
+      <div class="step-text">
+        Download the <span class="highlight">SpeedyGo app</span>, select the
+        Bike tab and choose the perfect pass for
+        you - single trip, daily, weekly, monthly
+        or yearly.
+      </div>
+    </div>
+
+    <div class="step">
+      <div ><img src="./assets/images.pay/Clock1_ed07fb214d_d90851015b.avif" width="50"  height="50" ></div>
+      <div class="step-title">Unlock and ride</div>
+      <div class="step-text">
+        Find the nearest station, unlock the bike
+        by scanning the QR code, and you're set!
+      </div>
+    </div>
+
+    <div class="step">
+      <div ><img src="./assets/images.pay/Icon1_fde609e56d_e5d69ad016.avif" width="50"  height="50"  alt="not service"></div>
+      <div class="step-title">Return</div>
+      <div class="step-text">
+        Dock your bike at any SpeedyGo Bike
+        station, wait for the green light and
+        buzzer sound to make sure it's locked.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<br><br>
+
+
+<div id="bannerOverflowBG-1561" class="overflowed-bg general">
+  <div class="gradient"></div>
+
+  <div id="box6" class="container">
+    <div class="row gx-5">
+      <div class="col text-center p-4">
+        <img src="assets/rentalBake2.jpg" alt="" width="300px">
+      </div>
+    </div>
+    <div class="col">
+      <h1>It's fast.</h1><br>
+      <p>SpeedyGo Bike is perfect for quick trips. A few taps, and you’re off!</p><br>
+      <button class="btn btn-light"  (click)="toggleRideBlock()">Ride now</button>
+    </div>
+
+  </div>
+</div>
+<br>
+<br><br>
+
+<div class="filter-wrapper">
+  <div class="filter-card">
+    <h2 class="filter-title">
+      <!-- Filter SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon-blue" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="3 3 21 3 14 12.94 14 19 10 21 10 12.94 3 3" />
+      </svg>
+      Filter Vehicles
+    </h2>
+    <div class="filter-grid">
+      <!-- Vehicle Type Filter -->
+      <div class="filter-item">
+        <label for="vehicle-type" class="filter-label">
+          <!-- Car SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-gray" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 16V13H19V16" />
+            <path d="M3 10L5 6H19L21 10" />
+            <path d="M7 16V18" />
+            <path d="M17 16V18" />
+            <circle cx="7" cy="18" r="2" />
+            <circle cx="17" cy="18" r="2" />
+          </svg>
+          Vehicle Type:
+        </label>
+        <select
+          [(ngModel)]="filter.type"
+          id="vehicle-type"
+          name="vehicleType"
+          (change)="filteredVehicles()"
+          class="filter-select"
+        >
+          <option value="">All</option>
+          <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Vehicle Status Filter -->
+      <div class="filter-item">
+        <label for="vehicle-status" class="filter-label">
+          <!-- Activity SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-gray" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          Status:
+        </label>
+        <select
+          [(ngModel)]="filter.status"
+          id="vehicle-status"
+          name="vehicleStatus"
+          (change)="filteredVehicles()"
+          class="filter-select"
+        >
+          <option value="">All</option>
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+
+      <!-- Min Cost Filter -->
+      <div class="filter-item">
+        <label for="min-cost" class="filter-label">
+          <!-- Money SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-gray" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+            <path d="M12 18V6" />
+          </svg>
+          Min Cost:
+        </label>
+        <input
+          [(ngModel)]="filter.minCost"
+          type="number"
+          id="min-cost"
+          name="minCost"
+          class="filter-select"
+          placeholder="Min cost"
+          (change)="filteredVehicles()"
+        />
+      </div>
+
+      <!-- Max Cost Filter -->
+      <div class="filter-item">
+        <label for="max-cost" class="filter-label">
+          <!-- Money SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-gray" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+            <path d="M12 18V6" />
+          </svg>
+          Max Cost:
+        </label>
+        <input
+          [(ngModel)]="filter.maxCost"
+          type="number"
+          id="max-cost"
+          name="maxCost"
+          class="filter-select"
+          placeholder="Max cost"
+          (change)="filteredVehicles()"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+  <div id="page" class="hfeed site" #rideBlock>
+    <div data-elementor-type="wp-page" data-elementor-id="400" class="elementor elementor-400">
+      <!-- Filter Section -->
+
+      <!-- Vehicles Section -->
+      <div class="vehicle-container">
+        <div *ngFor="let vehicle of filteredVehicles()" class="rental-card animated-fadein">
+          <div class="rental-card-wrap">
+
+            <!-- Image -->
+            <div class="rental-image">
+              <img [src]="vehicle.imageUrl" alt="{{vehicle.models}}" />
+            </div>
+
+            <!-- Price -->
+            <div class="rental-price">
+              <span class="price-label">Start From</span>
+              <span class="price">{{ vehicle.costOfVehicleByKm }} TND/km</span>
+            </div>
+
+            <!-- Vehicle Type -->
+            <div class="rental-type">
+              <span>{{ vehicle.typeVehicleRental }}</span>
+            </div>
+
+            <!-- Details -->
+            <ul class="rental-details">
+              <li>
+                <!-- Status Icon -->
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" /><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" /></svg>
+                Status: <strong>{{ vehicle.status }}</strong>
+              </li>
+              <li>
+                <!-- Battery Icon -->
+                <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none" /><line x1="22" y1="11" x2="22" y2="13" stroke="currentColor" stroke-width="2" /></svg>
+                Battery: {{ vehicle.batteryLevel }}%
+              </li>
+              <li>
+                <!-- Maintenance Icon -->
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" fill="none" /></svg>
+                Last Maintenance: {{ vehicle.lastMaintenanceDate }}
+              </li>
+            </ul>
+
+            <!-- Buttons -->
+            <div class="rental-buttons">
+              <a class="btn primary" [routerLink]="['/rentalVehicle', vehicle.id]" [class.disabled]="vehicle.status !== 'ACTIVE'">
+                Rent now
+              </a>
+              <a class="btn secondary" [routerLink]="['/detaitsScooterBikeList',vehicle.id]">
+                View Details
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination en bas -->
+      <div class="pagination-container">
+        <p-paginator [rows]="size" [totalRecords]="totalElements"  [rowsPerPageOptions]="[5, 10, 20, 50]"
+                     (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" [showPageLinks]="true">
+        </p-paginator>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<br><br>
+
+
+<div id="bannerOverflowBG-1561" class="overflowed-bg general">
+  <div class="gradient"></div>
+
+  <div id="box6" class="container">
+    <div class="row gx-5">
+      <div class="col text-center p-4">
+        <img src="./assets/scooter.jpg" alt="" width="300px">
+      </div>
+    </div>
+    <div class="col">
+      <h1>It's easy.</h1><br>
+      <p>SpeedyGo Bike is perfect for quick trips. A few taps, and you’re off!</p><br>
+      <button class="btn btn-light"  (click)="toggleRideBlock()">Ride now</button>
+    </div>
+
+  </div>
+</div>
+<br>
+<br><br>
+
+
+
+
+<br><br>
+
+<section class="green-section">
+  <div class="container">
+    <div class="content">
+      <h1 class="h1-0">It's green.</h1>
+      <p class="p-0">Careem BIKE is the most sustainable way to
+        get where you're going while getting exercise and having fun!</p>
+      <br>
+      <button class="ride-now-btn">Ride now</button>
+    </div>
+    <div class="image">
+      <img src="./assets/rental3.jpg" alt="Person riding a green Careem bike">
+    </div>
+  </div>
+</section>
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="box3" class="row rounded-5 d-flex" >
+    <div id="eat" class="col p-3 m-2 rounded-5"><a href="./eat.html"><h1 style="color: #00493e; font-weight: bold;" >Eat</h1><h2 style="color: #00493e; font-weight: bold;">anytime</h2>
+    <ul class="link" style="color: #00493e;">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Food</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> DineOut</li>
+    </ul><div class="arrow"><img src="../../../assets/assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="get" class="col rounded-5 m-2 p-3"> <a href="./get.html"> <h1 style="font-weight: bold;">Get</h1><h2 style="font-weight: bold;">anythings</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Supermarkets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Delivery</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Tickets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Flowers</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pharmacy</li>
+    </ul><div class="arrow2"><img src="../../../assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="pay" class="col rounded-5 p-3 m-2"><a href="./pay.html"><h1 style="font-weight: bold;">Pay</h1><h2 style="font-weight: bold;" >anyone</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pay</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Donation</li>
+    </ul><div class="arrow"><img src="assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

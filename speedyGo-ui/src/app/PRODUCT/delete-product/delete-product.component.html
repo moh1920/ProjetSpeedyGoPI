@@ -1,0 +1,16 @@
+<div class="container">
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="product">
+    <h2>Delete the product</h2>
+    <p>Are you sure you want to delete? <strong>{{ product?.name }}</strong> ?</p>
+    <button (click)="deleteProduct()">Delete</button>
+    <button (click)="router.navigate(['/ProductList'])">Cancel</button>
+  </div>
+
+  <div *ngIf="deleteSuccess" class="success">
+    Product deleted successfully. Redirecting...
+  </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <h5 class="mb-0">
+        <i class="bi bi-clipboard-check me-2 text-primary"></i>
+        {{ subscription ? 'Edit Subscription' : 'Create Subscription' }}
+      </h5>
+    </div>
+    
+    <div class="card-body">
+      <form [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Subscriber Email Field -->
+        <div class="col-md-6 mb-3">
+          <label for="subscriberEmail" class="form-label required">Subscriber Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="subscriberEmail" 
+              formControlName="subscriberEmail" 
+              placeholder="Enter subscriber email" 
+              [class.is-invalid]="shouldShowError('subscriberEmail')">
+          </div>
+          <div class="invalid-feedback" *ngIf="shouldShowError('subscriberEmail')">
+            {{ getErrorMessage('subscriberEmail') }}
+          </div>
+        </div>
+
+        <!-- Display Error Message for Email -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Pack Selection (Static Packs) -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Select a Pack</label>
+          <div *ngFor="let pack of packs" class="form-check">
+            <input 
+              class="form-check-input" 
+              type="radio" 
+              name="packSelection" 
+              [value]="pack" 
+              (change)="onPackSelected(pack)" 
+              [checked]="subscriptionForm.get('packSelection')?.value === pack" />
+            <label class="form-check-label">
+              {{ pack.label }} ({{ pack.durationInDays }} days, {{ pack.price | currency }})
+            </label>
+          </div>
+        </div>
+  
+        <!-- Plan Name Field -->
+        <div class="col-md-6 mb-3">
+          <label for="planName" class="form-label required">Plan Name</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="planName" 
+            formControlName="planName" 
+            placeholder="Enter plan name" 
+            [class.is-invalid]="shouldShowError('planName')">
+          <div class="invalid-feedback" *ngIf="shouldShowError('planName')">
+            {{ getErrorMessage('planName') }}
+          </div>
+        </div>
+        
+        <!-- Price Field -->
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label required">Price</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="price" 
+            formControlName="price" 
+            placeholder="Enter price" 
+            [class.is-invalid]="shouldShowError('price')">
+          <div class="invalid-feedback" *ngIf="shouldShowError('price')">
+            {{ getErrorMessage('price') }}
+          </div>
+        </div>
+        
+        <!-- Duration Field -->
+        <div class="col-md-6 mb-3">
+          <label for="durationInDays" class="form-label required">Duration (days)</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="durationInDays" 
+            formControlName="durationInDays" 
+            placeholder="Enter duration" 
+            [class.is-invalid]="shouldShowError('durationInDays')">
+          <div class="invalid-feedback" *ngIf="shouldShowError('durationInDays')">
+            {{ getErrorMessage('durationInDays') }}
+          </div>
+        </div>
+        
+        <!-- Active Checkbox -->
+        <div class="col-12 mb-3 form-check">
+          <input 
+            type="checkbox" 
+            class="form-check-input" 
+            id="isActive" 
+            formControlName="isActive" />
+          <label for="isActive" class="form-check-label">Active</label>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="col-12 mt-4">
+          <div class="d-flex gap-2">
+            <button 
+              type="submit" 
+              class="btn" 
+              [ngClass]="subscription ? 'btn-success' : 'btn-primary'"
+              [disabled]="subscriptionForm.invalid">
+              <i class="bi bi-check-circle me-2"></i>{{ subscription ? 'Update Subscription' : 'Create Subscription' }}
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-secondary ms-2" 
+              (click)="onCancel()">
+              <i class="bi bi-x-circle me-2"></i>Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

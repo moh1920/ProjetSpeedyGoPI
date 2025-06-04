@@ -1,0 +1,90 @@
+/* Container to apply some padding and margin */
+.container {
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Section for the carpool add form */
+.add-carpool-section {
+  background: #f1f4f8;
+  border-radius: 12px;
+  padding: 40px;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  text-align: center;
+  font-size: 2rem;
+  color: #004d6f;
+  margin-bottom: 10px;
+}
+
+.section-description {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"], input[type="number"], input[type="datetime-local"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* For a clean number input style */
+}
+
+/* Button styling */
+.form-actions {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Button style for hover effect */
+button:active {
+  transform: translateY(2px);
+}
+
+/* Responsiveness for smaller devices */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .add-carpool-section {
+    padding: 20px;
+  }
+}

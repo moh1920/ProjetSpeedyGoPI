@@ -1,0 +1,82 @@
+// Styles globaux
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+// Conteneur principal
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+// Message d'erreur
+.error {
+  color: #d9534f;
+  background: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+// Message de succès
+.success {
+  color: #155724;
+  background: #d4edda;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+// Titre
+h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+// Texte descriptif
+p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+// Boutons
+button {
+  padding: 10px 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:first-of-type {
+    background-color: #d9534f;
+    color: white;
+
+    &:hover {
+      background-color: #c9302c;
+    }
+  }
+
+  &:last-of-type {
+    background-color: #6c757d;
+    color: white;
+
+    &:hover {
+      background-color: #5a6268;
+    }
+  }
+}

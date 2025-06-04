@@ -1,0 +1,280 @@
+<app-navbar></app-navbar>
+
+
+<div id="git" style="padding: 5% ; ">
+
+  <img
+    id="img"
+    src="./assets/web_25e63f5bd9.png"
+    alt=""
+    width="100%"
+    height="475px"
+    style="border-radius: 12px;"
+  >
+</div>
+
+<br>
+<div class="rental-container" >
+  <h2>My Rental Vehicle</h2>
+
+  <div *ngIf="rentalByCustomer.length === 0">
+    <p>No rentals found.</p>
+  </div>
+
+  <div *ngIf="rentalByCustomer.length > 0" class="rental-list">
+    <div *ngFor="let rental of rentalByCustomer" class="rental-card"
+         (dblclick)="goToRentalDetails(rental.id)"
+    >
+      <h3>Vehicle: {{ rental.vehicleModel }}</h3>
+      <p><strong>Start Date:</strong> {{ rental.startTime | date:'short' }}</p>
+      <p><strong>End Date:</strong> {{ rental.endTime | date:'short' }}</p>
+      <p><strong>Cost:</strong> {{ rental.cost | currency:'EUR' }}</p>
+      <p><strong>Distance Traveled:</strong> {{ rental.distanceTraveled }} km</p>
+      <p><strong>Starting Point:</strong> {{ rental.startingPointName.name }}</p>
+      <p><strong>Destination:</strong> {{ rental.destinationName.name }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span class="badge" [ngClass]="rental.rentalStatus ? 'badge-in-progress' : 'badge-completed'">
+          <span class="icon">
+            {{ rental.rentalStatus ? '⏳' : '✅' }}
+          </span>
+          {{ rental.rentalStatus ? 'In progress' : 'Completed' }}
+        </span>
+      </p>
+      <hr>
+      <p class="customer-info">
+        <strong>Customer:</strong> {{ rental.customerName }}<br>
+        <strong>Email:</strong> {{ rental.customerEmail }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div>
+
+</div>
+
+
+<div id="bannerOverflowBG-1561" class="overflowed-bg general">
+  <div class="gradient"></div>
+
+  <div id="box6" class="container">
+    <div class="row gx-5">
+      <div class="col text-center p-4">
+        <img src="assets/scooter4.jpeg" alt="" width="300px">
+      </div>
+    </div>
+    <div class="col">
+      <h1>It's fast.</h1><br>
+      <p>SpeedyGo Bike is perfect for quick trips. A few taps, and you’re off!</p><br>
+      <button class="btn btn-light" (click)="listScooterbiker()">Rental now</button>
+    </div>
+
+  </div>
+</div>
+<br>
+<br><br>
+
+<button (click)="getPositionAndNearestStation()" class="bnt-style">Find the Station proche</button>
+
+
+<div class="map-wrapper">
+  <div class="map-container">
+    <google-map
+      height="500px"
+      width="100%"
+      [center]="mapCenter"
+      [zoom]="zoom"
+      (click)="openStationModal()">
+    </google-map>
+  </div>
+</div>
+
+
+<div class="actions">
+  <button (click)="getVehiclesFromRecommendedStation()" class="bnt-style">Vehicle of station</button>
+</div>
+
+
+<div id="page" class="hfeed site">
+  <div data-elementor-type="wp-page" data-elementor-id="400" class="elementor elementor-400">
+    <!-- Vehicles Section -->
+    <div class="card-rental-list-container">
+      <div *ngFor="let vehicle of vehicleOnStation" class="card-rental-list-card">
+        <div class="card-rental-list-card-wrap">
+
+          <!-- Image -->
+          <div class="card-rental-list-image">
+            <img [src]="vehicle.imageUrl" alt="{{vehicle.models}}" />
+          </div>
+
+          <!-- Prix -->
+          <div class="card-rental-list-price-section">
+            <span class="card-rental-list-price-label">Start From</span>
+            <span class="card-rental-list-price-value">{{ vehicle.costOfVehicleByKm }} TND/km</span>
+          </div>
+
+          <!-- Type de véhicule -->
+          <div class="card-rental-list-type">
+            {{ vehicle.typeVehicleRental }}
+          </div>
+
+          <!-- Détails -->
+          <ul class="card-rental-list-details">
+            <li>
+              <!-- Icône Status -->
+              <span class="card-rental-list-icon-status">⚪</span>
+              Status: <strong>{{ vehicle.status }}</strong>
+            </li>
+            <li>
+              <!-- Icône Batterie -->
+              <span class="card-rental-list-icon-battery">🔋</span>
+              Battery: <strong>{{ vehicle.batteryLevel }}%</strong>
+            </li>
+            <li>
+              <!-- Icône Maintenance -->
+              <span class="card-rental-list-icon-maintenance">📈</span>
+              Last Maintenance: <strong>{{ vehicle.lastMaintenanceDate }}</strong>
+            </li>
+          </ul>
+
+          <!-- Boutons -->
+          <div class="card-rental-list-buttons">
+            <a
+              class="card-rental-list-btn card-rental-list-btn-primary"
+              [routerLink]="vehicle.status === 'ACTIVE' ? ['/rentalVehicle', vehicle.id] : null"
+              [class.card-rental-list-btn-disabled]="vehicle.status !== 'ACTIVE'"
+              [class.disabled]="vehicle.status !== 'ACTIVE'"
+              (click)="vehicle.status !== 'ACTIVE' ? $event.preventDefault() : null"
+            >
+              Rent now
+            </a>
+
+            <a class="card-rental-list-btn card-rental-list-btn-secondary" [routerLink]="['/detaitsScooterBikeList',vehicle.id]">
+              View Details
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="card-rental-list-pagination">
+      <p-paginator [rows]="size" [totalRecords]="totalElements" [rowsPerPageOptions]="[5, 10, 20, 50]"
+                   (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" [showPageLinks]="true">
+      </p-paginator>
+    </div>
+  </div>
+</div>
+
+<ng-template #stationDetailsModal let-data>
+  <div class="modal-header station-modal-header">
+    <h4 class="modal-title">
+      <i class="bi bi-geo-alt-fill me-2"></i>
+      {{ data.name || 'Station Details' }}
+    </h4>
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body station-modal-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="station-info-card">
+          <h5 class="info-section-title">Station Information</h5>
+          <div class="info-item">
+            <i class="bi bi-pin-map me-2 text-primary"></i>
+            <span class="info-label">Location:</span>
+            <span class="info-value">{{ data.location }}</span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-calendar-check me-2 text-primary"></i>
+            <span class="info-label">Created At:</span>
+            <span class="info-value">{{ data.createdAt }}</span>
+          </div>
+
+          <div class="info-item">
+            <i class="bi bi-calendar-event me-2 text-primary"></i>
+            <span class="info-label">Updated At:</span>
+            <span class="info-value">{{ data.updatedAt }}</span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-circle-fill me-2" [ngClass]="data.is_active ? 'text-success' : 'text-danger'"></i>
+            <span class="info-label">Status:</span>
+            <span class="status-badge" [ngClass]="data.is_active ? 'status-active' : 'status-inactive'">
+              {{ data.is_active ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="station-stats mt-4">
+            <h5 class="info-section-title">Current Usage</h5>
+            <div class="progress-container">
+              <label>Available Vehicles</label>
+              <div class="progress">
+                <div class="progress-bar bg-primary"
+                     [style.width]="(data.available_vehicles / data.capacity * 100) + '%'">
+                  {{ data.available_vehicles || 0 }}/{{ data.capacity }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="station-image-container">
+          <img src="./assets/scooter5.jpg" alt="Station Image" class="station-image">
+          <div class="image-overlay">
+            <span class="station-id">ID: {{ data.id }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer station-modal-footer">
+    <button class="btn btn-outline-secondary" (click)="closeModal()">
+      <i class="bi bi-x-circle me-2"></i>Close
+    </button>
+    <button class="btn btn-warning"
+            (click)="closeModal()">
+      <i class="bi bi-pencil me-2"></i>Update
+    </button>
+
+  </div>
+</ng-template>
+<div id="box3" class="row rounded-5 d-flex" >
+  <div id="go" class="col p-3 m-2 rounded-5">
+    <h1 style="font-weight: bold;">Go</h1><h2 style="font-weight: bold;">anywhere</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i><a href="/scooterBikeList">Scooter</a></li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Taxl</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i><a href="/scooterBikeList">Bike</a></li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> CarRental</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> SchoolRides</li>
+    </ul><div class="arrow1"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div>
+  </div>
+  <div id="eat" class="col p-3 m-2 rounded-5"><a href="#"><h1 style="color: #00493e; font-weight: bold;" >Eat</h1><h2 style="color: #00493e; font-weight: bold;">anytime</h2>
+    <ul class="link" style="color: #00493e;">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Food</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> DineOut</li>
+    </ul><div class="arrow"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="get" class="col rounded-5 m-2 p-3"> <a href="#"> <h1 style="font-weight: bold;">Get</h1><h2 style="font-weight: bold;">anythings</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Supermarkets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Delivery</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Tickets</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Flowers</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pharmacy</li>
+    </ul><div class="arrow2"><img src="./assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+  <div id="pay" class="col rounded-5 p-3 m-2"><a href="#"><h1 style="font-weight: bold;">Pay</h1><h2 style="font-weight: bold;" >anyone</h2>
+    <ul class="link">
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Pay</li>
+      <li><i class="fa-sharp fa-solid fa-face-smile-wink"></i> Donation</li>
+    </ul><div class="arrow"><img src="assets/images/Arrow_Right_9944c7222f.png" alt="">  </div></a>
+  </div>
+</div>
+
+
+<br><br>
+
+<app-footer></app-footer>

@@ -1,0 +1,262 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <!-- Posts Column -->
+    <div class="col-md-8">
+      <div class="container">
+        <div class="row">
+          <!-- Posts List -->
+          <div *ngIf="postResponse.content?.length !== 0">
+            <div class="col-md-6 col-lg-4" *ngFor="let post of postResponse.content; let i = index">
+              <!-- Post Card with Sentiment Analysis -->
+              <mat-card class="cardWithShadow productcard overflow-hidden" [ngClass]="{'border-red': post.sentimentScore === 'NEGATIVE'}">
+                <!-- Post Image -->
+                <div class="post-image-container">
+                  <img width="100%" height="190px" *ngIf="imageUrls[i]" [src]="imageUrls[i]" alt="Post Image" />
+                </div>
+
+                <mat-card-content class="p-3">
+                  <!-- Post Drawer -->
+                  <div class="d-flex justify-content-end align-items-center mb-2">
+                    <p-drawer header="Post Details" [(visible)]="visiblePost" position="full" [modal]="true">
+                      <!-- Featured Image -->
+                      <div class="d-flex justify-content-center my-4">
+                        <p-image *ngIf="imageUrls[i]" [src]="imageUrls[i]" alt="Post image" [preview]="true" width="450">
+                          <ng-template #indicator>
+                            <i class="pi pi-search"></i>
+                          </ng-template>
+                        </p-image>
+                      </div>
+
+                      <!-- Post Title -->
+                      <h2 class="text-center fw-bold mb-3">
+                        <i class="bi bi-file-earmark-text me-2 text-primary"></i>{{ selectedPost.title }}
+
+                        <!-- Sentiment Badge -->
+                        <span *ngIf="selectedPost.sentimentScore === 'NEGATIVE'"
+                              class="badge bg-danger ms-2 align-middle"
+                              style="font-size: 0.7rem; vertical-align: middle;">
+                          <i class="bi bi-exclamation-triangle me-1"></i>Negative Content
+                        </span>
+                      </h2>
+
+                      <!-- Post Content -->
+                      <div class="card mb-4 p-4 shadow-sm">
+                        <p class="fs-5 mb-0">
+                          <i class="bi bi-chat-left-text me-2 text-secondary"></i>{{ selectedPost.content }}
+                        </p>
+                      </div>
+
+                      <!-- Comments Section -->
+                      <div class="px-4">
+                        <h4 class="text-primary mb-3"><i class="bi bi-chat-dots me-2"></i>Comments</h4>
+
+                        <div *ngIf="selectedPost?.comments?.length !== 0; else noComments">
+                          <div *ngFor="let comment of selectedPost.comments" class="mb-3">
+                            <p-card>
+                              <ng-template pTemplate="header">
+                                <div class="d-flex justify-content-between align-items-center p-3">
+                                  <span class="fw-semibold">
+                                    <i class="bi bi-person-circle me-2 text-primary"></i>{{ comment.user?.firstName || 'User' }}
+                                  </span>
+                                </div>
+                              </ng-template>
+                              <p class="m-0 p-2">{{ comment.content }}</p>
+                            </p-card>
+                          </div>
+                        </div>
+
+                        <!-- No Comments Message -->
+                        <ng-template #noComments>
+                          <div class="alert alert-info text-center">
+                            <i class="bi bi-info-circle me-2"></i>No comments for this post.
+                          </div>
+                        </ng-template>
+                      </div>
+                    </p-drawer>
+                  </div>
+
+                  <!-- Post Title -->
+                  <mat-card-title class="mat-headline-2 mb-3">
+                    {{ post.title }}
+                    <!-- Small Sentiment Badge for Card -->
+                    <span *ngIf="post.sentimentScore === 'NEGATIVE'"
+                          class="badge bg-danger ms-2 align-middle"
+                          style="font-size: 0.65rem;">
+                      <i class="bi bi-exclamation-triangle-fill me-1"></i>Negative
+                    </span>
+                  </mat-card-title>
+
+                  <!-- Post Actions -->
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex gap-4 text-center">
+                      <!-- Likes -->
+                      <div class="d-flex flex-column align-items-center">
+                        <i class="fa-regular fa-heart" (click)="makeReactionForPost(post)"></i>
+                        <span class="small text-muted">{{ post.reactions?.length || 0 }}</span>
+                      </div>
+
+                      <!-- Comments -->
+                      <div class="d-flex flex-column align-items-center">
+                        <i class="fa-regular fa-comment" (click)="showDialog(post)"></i>
+                        <span class="small text-muted">{{ post.comments?.length || 0 }}</span>
+                      </div>
+
+                      <!-- Share -->
+                      <div class="d-flex flex-column align-items-center">
+                        <i class="fa-regular fa-share-from-square" (click)="shareAPostInYourProfile(post)"></i>
+                        <span class="small text-muted">{{ post.sharingList?.length || 0 }}</span>
+                      </div>
+                    </div>
+
+                    <!-- Post Menu -->
+                    <div ngbDropdown class="d-inline-block" [autoClose]="'outside'" placement="top">
+                      <button class="btn btn-icon" type="button" ngbDropdownToggle>
+                        <i class="bi bi-three-dots-vertical"></i>
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="actionDropdown" class="shadow-sm">
+                        <button ngbDropdownItem (click)="openPostDrawer(post)">
+                          <i class="bi bi-eye text-primary me-2"></i>View
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <!-- Posts Pagination -->
+          <div class="d-flex justify-content-center mt-3" *ngIf="postResponse.content?.length!==0">
+            <nav aria-label="Posts pagination">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a (click)="goToFirstPagePost()" class="page-link" href="javascript:void(0)"
+                     [class.disabled]="pagePost === 0">
+                    <i class="fa-solid fa-angles-left"></i>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a (click)="goToPreviousPagePost()" class="page-link" href="javascript:void(0)"
+                     [class.disabled]="pagePost === 0">
+                    <i class="fa-solid fa-angle-left"></i>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let pageIndex of pagesForPosts">
+                  <a (click)="gotToPagePost(pageIndex)" class="page-link" href="javascript:void(0)"
+                     [class.active]="pagePost === pageIndex">{{ pageIndex + 1 }}</a>
+                </li>
+                <li class="page-item">
+                  <a (click)="goToNextPagePost()" class="page-link" href="javascript:void(0)"
+                     [class.disabled]="isLastPagePost">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a (click)="goToLastPagePost()" class="page-link" href="javascript:void(0)"
+                     [class.disabled]="isLastPagePost">
+                    <i class="fa-solid fa-angles-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments Dialog -->
+    <div>
+      <p-dialog header="Comments" [modal]="true" [(visible)]="visible"
+                [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <!-- Comments List -->
+        <div class="comments-container p-3">
+          <div *ngFor="let comment of comments.content" class="mb-3">
+            <p-card>
+              <ng-template pTemplate="header">
+                <div class="d-flex justify-content-between align-items-center p-2 bg-light">
+                  <span class="fw-semibold">
+                    <i class="bi bi-person-circle me-2 text-primary"></i>{{ comment.user?.firstName }}
+                  </span>
+                  <div *ngIf="getUserId() === comment.user?.id" ngbDropdown class="d-inline-block">
+                    <button class="btn btn-icon" type="button" ngbDropdownToggle>
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="actionDropdown" class="shadow-sm">
+                      <button ngbDropdownItem (click)="editComment(comment)">
+                        <i class="bi bi-pencil text-warning me-2"></i>Edit
+                      </button>
+                      <div class="dropdown-divider"></div>
+                      <button ngbDropdownItem (click)="deleteComment(comment)" class="text-danger">
+                        <i class="bi bi-trash me-2"></i>Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <p class="m-0 p-2">{{ comment.content }}</p>
+            </p-card>
+          </div>
+
+          <!-- Empty Comments State -->
+          <div *ngIf="!comments.content || comments.content.length === 0" class="alert alert-info text-center">
+            <i class="bi bi-info-circle me-2"></i>No comments yet. Be the first to comment!
+          </div>
+        </div>
+
+        <!-- Comments Pagination -->
+        <div class="d-flex justify-content-center mt-3">
+          <nav aria-label="Comments pagination">
+            <ul class="pagination">
+              <li class="page-item">
+                <a (click)="goToFirstPage()" class="page-link" href="javascript:void(0)"
+                   [class.disabled]="page === 0">
+                  <i class="fa-solid fa-angles-left"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToPreviousPage()" class="page-link" href="javascript:void(0)"
+                   [class.disabled]="page === 0">
+                  <i class="fa-solid fa-angle-left"></i>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let pageIndex of pagesForComments">
+                <a (click)="gotToPage(pageIndex)" class="page-link" href="javascript:void(0)"
+                   [class.active]="page === pageIndex">{{ pageIndex + 1 }}</a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToNextPage()" class="page-link" href="javascript:void(0)"
+                   [class.disabled]="isLastPage">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
+              <li class="page-item">
+                <a (click)="goToLastPage()" class="page-link" href="javascript:void(0)"
+                   [class.disabled]="isLastPage">
+                  <i class="fa-solid fa-angles-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Comment Form -->
+        <div class="card flex justify-between items-center gap-3 p-3 border rounded shadow-sm">
+          <textarea rows="3" cols="30" pTextarea [(ngModel)]="newComment" placeholder="Write a comment..."
+                    class="p-inputtext w-full" [value]="newComment"></textarea>
+          <button pButton icon="bi bi-send" class="p-button-rounded p-button-primary"
+                  (click)="postComment()"></button>
+        </div>
+      </p-dialog>
+    </div>
+  </div>
+</div>
+
+<!-- No Posts State -->
+<div *ngIf="postResponse.content?.length === 0">
+  <div class="container mt-5">
+    <div class="alert alert-info text-center shadow-sm" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      No posts available at the moment.
+    </div>
+  </div>
+</div>

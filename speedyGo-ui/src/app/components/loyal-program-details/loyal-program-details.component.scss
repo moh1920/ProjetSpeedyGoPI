@@ -1,0 +1,90 @@
+// Custom styles for loyalty program details
+
+.card {
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.text-truncate {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.5em 0.75em;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+
+  .nav-link {
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+
+    &:hover {
+      border-color: #e9ecef #e9ecef #dee2e6;
+    }
+
+    &.active {
+      color: #495057;
+      background-color: #fff;
+      border-color: #dee2e6 #dee2e6 #fff;
+    }
+  }
+}
+
+.table {
+  thead th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+  }
+}
+
+// Labels and values styling
+label.text-muted {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+// Alert status styling
+.alert {
+  border-left: 4px solid;
+
+  &.alert-success {
+    border-left-color: #28a745;
+  }
+
+  &.alert-info {
+    border-left-color: #17a2b8;
+  }
+
+  &.alert-warning {
+    border-left-color: #ffc107;
+  }
+
+  &.alert-secondary {
+    border-left-color: #6c757d;
+  }
+
+  i.bi {
+    font-size: 1.25rem;
+  }
+}
+
+// For code display
+code {
+  background-color: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #e83e8c;
+}

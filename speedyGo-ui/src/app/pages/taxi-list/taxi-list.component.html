@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="main-container">
+    
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <h1>Choose Your Perfect Ride</h1>
+    <p class="hero-subtitle">Experience comfort and luxury with our diverse fleet of taxis</p>
+  </div>
+  
+<!-- Taxi Form Section -->
+<app-taxi-form></app-taxi-form>
+
+</div>
+  <div class="taxi-container">
+    <!-- Standard Taxi Section -->
+    <section class="taxi-section">
+      <div class="section-header">
+        <h2>Standard Taxi</h2>
+        <button class="toggle-btn" (click)="toggleStandardTaxis()">
+          <span class="btn-text">{{ showStandardTaxis ? 'Hide Details' : 'View Fleet' }}</span>
+          <i class="fas fa-chevron-{{ showStandardTaxis ? 'up' : 'down' }}"></i>
+        </button>
+      </div>
+
+      <div class="taxi-type-info">
+        <div class="info-content">
+          <h3>Reliable & Affordable</h3>
+          <p>Perfect for daily commutes and regular trips around the city</p>
+          <ul class="features-list">
+            <li>✓ Competitive rates</li>
+            <li>✓ Professional drivers</li>
+            <li>✓ Clean vehicles</li>
+          </ul>
+        </div>
+        <div class="taxi-image">
+          <img src="assets/covoiturage/standardTaxi (1).jpg" alt="Standard Taxi" class="taxi-banner">
+        </div>
+      </div>
+
+      <div class="taxi-list" *ngIf="showStandardTaxis" [@slideInOut]>
+        <div class="taxi-card" *ngFor="let taxi of standardTaxis">
+          <div class="card-header">
+            <span class="model-name">{{ taxi.model }}</span>
+            <span class="status-badge" [class.available]="taxi.available">
+              {{ taxi.available ? 'Available' : 'Occupied' }}
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="license-plate">{{ taxi.licensePlate }}</p>
+            <div class="action-buttons">
+              <app-taxi-update [taxi]="taxi"></app-taxi-update>
+            <button class="action-btn delete-btn" (click)="deleteTaxi(taxi.id)">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Premium Taxi Section -->
+    <section class="taxi-section premium">
+      <div class="section-header">
+        <h2>Premium Taxi</h2>
+        
+        <button class="toggle-btn" (click)="togglePremiumTaxis()">
+          <span class="btn-text">{{ showPremiumTaxis ? 'Hide Details' : 'View Fleet' }}</span>
+          <i class="fas fa-chevron-{{ showPremiumTaxis ? 'up' : 'down' }}"></i>
+        </button>
+      </div>
+
+      <div class="taxi-type-info">
+        <div class="info-content">
+          <h3>Luxury & Comfort</h3>
+          <p>Experience premium service with our luxury fleet</p>
+          <ul class="features-list">
+            <li>✓ Premium vehicles</li>
+            <li>✓ Executive service</li>
+            <li>✓ Priority booking</li>
+          </ul>
+        </div>
+        <div class="taxi-image">
+            <img src="assets/covoiturage/standardTaxi (2).jpg" alt="Standard Taxi" class="taxi-banner">
+          </div>
+      </div>
+
+      <div class="taxi-list" *ngIf="showPremiumTaxis" [@slideInOut]>
+        <div class="taxi-card premium" *ngFor="let taxi of premiumTaxis">
+          <div class="card-header">
+            <span class="model-name">{{ taxi.model }}</span>
+            <span class="status-badge" [class.available]="taxi.available">
+              {{ taxi.available ? 'Available' : 'Occupied' }}
+            </span>
+          </div>
+          <div class="card-body">
+            <p class="license-plate">{{ taxi.licensePlate }}</p>
+            <div class="action-buttons">
+              <app-taxi-update [taxi]="taxi"></app-taxi-update>
+
+            <button class="action-btn delete-btn" (click)="deleteTaxi(taxi.id)">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  </div>

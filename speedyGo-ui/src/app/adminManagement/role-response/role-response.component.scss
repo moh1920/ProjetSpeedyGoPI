@@ -1,0 +1,57 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+.role-request-card {
+  border-left: 4px solid #6c757d;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+}
+
+.btn-action {
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #495057;
+}
+
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: #6c757d;
+}
+
+// Custom spinner size
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+// Improve responsiveness for button layout on mobile
+@media (max-width: 767px) {
+  .d-flex.flex-wrap.gap-2 {
+    justify-content: center;
+
+    button {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

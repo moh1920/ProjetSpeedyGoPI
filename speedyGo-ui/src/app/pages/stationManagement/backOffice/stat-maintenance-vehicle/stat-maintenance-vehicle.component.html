@@ -1,0 +1,37 @@
+<div class="dashboard-grid">
+  <!-- Maintenance by Vehicle Widget -->
+  <div class="widget">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">Maintenance by Vehicle</h2>
+        <p class="chart-description">Maintenance Statistics</p>
+      </div>
+
+      <div class="chart-content">
+        <div *ngIf="errorMessage" class="error">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="maintenanceCounts.length > 0" class="chart-container">
+          <canvas #pieChart
+                  baseChart
+                  [type]="pieChartType"
+                  [data]="pieChartData"
+                  [options]="pieChartOptions">
+          </canvas>
+        </div>
+      </div>
+
+      <div class="chart-footer">
+        <div class="trending-info">
+          <span class="trending-text">Trending up by {{ trendingPercentage }}% this month</span>
+          <span class="trending-icon">↑</span>
+        </div>
+        <div class="chart-subtitle">
+          Displaying the total number of maintenances per vehicle
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

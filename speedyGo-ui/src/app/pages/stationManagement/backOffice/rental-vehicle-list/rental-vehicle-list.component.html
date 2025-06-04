@@ -1,0 +1,107 @@
+<div class="mb-3 d-flex justify-content-end">
+  <input type="text"
+         class="form-control w-25"
+         placeholder="Search vehicles..."
+         [(ngModel)]="searchText">
+</div>
+
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-car-front me-2 text-primary"></i> <!-- Icône de voiture -->
+          <i class="bi bi-wrench text-primary"></i> <!-- Icône de clé pour la maintenance -->
+          Rental List
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table des Locations -->
+  <div class="table-responsive">
+    <p-table
+      [value]="filterRental"
+      [paginator]="true"
+      [rows]="size"
+      [totalRecords]="totalElements"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
+      [loading]="loading"
+      [responsiveLayout]="'scroll'"
+      [sortField]="sortBy"
+      [sortOrder]="sortOrder === 'ASC' ? 1 : -1"
+      [rowsPerPageOptions]="[5, 10, 20, 50]"
+      class="p-datatable-sm">
+
+      <!-- Header -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="startingPointName">Point de départ <p-sortIcon field="startingPointName"></p-sortIcon></th>
+          <th pSortableColumn="destinationName">Destination <p-sortIcon field="destinationName"></p-sortIcon></th>
+          <th pSortableColumn="distanceTraveled">Distance (km) <p-sortIcon field="distanceTraveled"></p-sortIcon></th>
+          <th pSortableColumn="cost">Coût (TND) <p-sortIcon field="cost"></p-sortIcon></th>
+          <th pSortableColumn="startTime">Début <p-sortIcon field="startTime"></p-sortIcon></th>
+          <th pSortableColumn="endTime">Fin <p-sortIcon field="endTime"></p-sortIcon></th>
+          <th>Vehicle Rental</th>
+          <th>Email Client</th>
+          <th>Nom Client</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+
+      <!-- Body -->
+      <ng-template pTemplate="body" let-rental>
+        <tr>
+          <td>{{ rental.startingPointName?.name }}</td>
+          <td>{{ rental.destinationName?.name }}</td>
+          <td>{{ rental.distanceTraveled }}</td>
+          <td>{{ rental.cost | currency:'TND':'symbol':'1.2-2' }}</td>
+          <td>{{ rental.startTime | date:'short' }}</td>
+          <td>{{ rental.endTime | date:'short' }}</td>
+          <td>{{ rental.vehicleModel }}</td>
+          <td>{{ rental.customerEmail }}</td>
+          <td>{{ rental.customerName }}</td>
+          <td>
+        <span class="badge"
+              [ngClass]="rental.rentalStatus ? 'bg-info-subtle text-info' : 'bg-success-subtle text-success'">
+          <i class="bi"
+             [ngClass]="rental.rentalStatus ? 'bi-clock' : 'bi-check-circle'"></i>
+          {{ rental.rentalStatus ? 'In progress' : 'Completed' }}
+        </span>
+          </td>
+          <td>
+          <td>
+            <!-- Menu déroulant avec 3 points -->
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-icon" type="button" ngbDropdownToggle>
+                <i class="bi bi-three-dots-vertical"></i> <!-- Icône des 3 points -->
+              </button>
+              <div ngbDropdownMenu>
+                <!-- Option Éditer -->
+                <button ngbDropdownItem (click)="editRental(rental.id)">
+                  <i class="bi bi-pencil text-warning me-2"></i>Edit
+                </button>
+                <div class="dropdown-divider"></div>
+                <!-- Option Supprimer -->
+                <button ngbDropdownItem class="text-danger" (click)="deleteRentale(rental.id)">
+                  <i class="bi bi-trash me-2"></i>Delete
+                </button>
+              </div>
+            </div>
+          </td>
+
+
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <div class="export-buttons">
+    <button class="btn export excel" (click)="triggerJob()">
+      <i class="fa-solid fa-file-excel"></i> Archived Rental
+    </button>
+  </div>
+
+</div>

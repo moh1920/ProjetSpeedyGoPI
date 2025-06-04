@@ -1,0 +1,621 @@
+/* Global */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+
+
+
+
+
+
+/* Form Section */
+form {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.card-form{
+  padding-bottom: 20px;
+
+}
+
+.rental-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.rental-buttons .btn {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+}
+.container-form{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.primary {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.secondary {
+  background-color: #6c757d;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Google Map and Overlay */
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Station */
+.station-info {
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mat-card-header {
+  background-color: #007bff !important;
+  color: white;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.mat-card-actions .btn {
+  width: 100%;
+  font-weight: bold;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rental-buttons {
+    flex-direction: column;
+  }
+
+  #box6 .row {
+    flex-direction: column;
+  }
+
+  #box6 .col {
+    text-align: center;
+  }
+}
+
+
+
+
+form .form-label {
+  font-weight: 500;
+  color: #34495e;
+}
+
+form .form-control {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease-in-out;
+}
+
+form .form-control:focus {
+  border-color: #00b864;
+  box-shadow: none;
+}
+
+.btn.primary {
+  background-color: #00d474;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.primary:hover {
+  background-color: #0A5C36FF;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+}
+
+
+///////////////////////////////////////////////
+.nav {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  margin-left: 40%;
+
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  color: #0a5c36;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #e0f5e9;
+}
+
+
+.go-button {
+  color: #0a5c36;
+  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  margin-left: 47%;
+  font-size: 80px;
+}
+.logo {
+  font-size: 50px;
+  font-weight: bold;
+  color: #0a5c36;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slogan {
+   color: #0a5c36;
+   margin-top: 5px;
+ }
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+.col{
+  margin-left: 15%;
+
+}
+
+
+/* Full-width Gradient Background for Captains */
+.overflowed-bg {
+  position: relative;
+  width: 100%; /* Ensure full width */
+  min-height: 500px; /* Adjust height as necessary */
+  background: rgb(90, 104, 242);
+  background: linear-gradient(135deg, #5a68f2 0%, #4c65e3 50%, #3a6cf4 100%);
+  clip-path: polygon(0 7%, 14% 6%, 21% 12%, 51% 4%, 57% 10%, 87% 10%, 93% 18%, 100% 16%, 100% 84%, 0% 100%);  padding: 50px 0; /* Adds spacing inside */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gradient Layer */
+.gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(31, 89, 248);
+  background: linear-gradient(135deg, #606ef1 0%, #3c5af1 50%, #1f59f8 100%);
+  z-index: 1;
+}
+
+/* Content inside Gradient */
+#box6 {
+  position: relative;
+  z-index: 2; /* Ensures content is visible over the gradient */
+  color: white; /* Adjust text color for readability */
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: 100%; /* Ensure it takes full width */
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 50px 10px;
+  justify-content: flex-start; /* Align content to the left */
+}
+
+#box6 img {
+  width: 450px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Text Alignment */
+.text-container {
+  max-width: 650px;
+}
+
+/* Style for Buttons */
+.rental-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  margin-top: auto;
+  gap: 12px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn.primary {
+  background-color: #00d474;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.primary:hover {
+  background-color: #0A5C36FF;
+}
+
+.btn.secondary {
+  background-color: #f1f1f1;
+  color: #333;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+}
+
+
+
+.btn.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+.map-overlay {
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+/* === Modale Station Style === */
+.station-info {
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.station-info:hover {
+  transform: translateY(-2px);
+}
+
+/* Header personnalisé */
+.mat-card-header {
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  padding: 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.mat-card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Contenu de la carte */
+.mat-card-content p {
+  font-size: 15px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.mat-card-content i {
+  color: #007bff;
+}
+
+/* Actions (Boutons) */
+.mat-card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mat-card-actions .btn {
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 20px;
+  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.mat-card-actions .btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.mat-card-actions .btn-info:hover {
+  background-color: #138496;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .station-info {
+    margin: 10px;
+  }
+
+  .mat-card-title {
+    font-size: 18px;
+  }
+
+  .mat-card-content p {
+    font-size: 14px;
+  }
+}
+
+/* Base */
+.btn-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 24px;
+  width: 100%;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton Calculate Cost */
+.btn-cost {
+  background-color: #00d474;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cost:hover {
+  background-color: #0a5c36;
+  color: white;
+  transform: scale(1.02);
+}
+
+/* Bouton Trip Recommendation */
+.btn-recommend {
+  background-color: #f1f1f1;
+  color: #333;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-recommend:hover {
+  background-color: #86e9c4;
+  transform: scale(1.02);
+}
+
+/* Icônes */
+.btn-custom i {
+  font-size: 18px;
+}
+.nav-item.active {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #00d474;
+  color: white;
+}
+///////////////////////////////
+.green-section {
+  padding: 80px 20px;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.content {
+  flex: 1;
+  padding-right: 20px;
+}
+
+h1-0 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #232222;
+  margin-bottom: 20px;
+}
+
+p-0 {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #232222;
+  margin-bottom: 30px;
+}
+
+.ride-now-btn {
+  background-color: #00d474;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ride-now-btn:hover {
+  background-color: #00b864;
+}
+
+.image {
+  flex: 1;
+  max-width: 50%;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .content {
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
+
+  .image {
+    max-width: 100%;
+  }
+}
+/////////////////////////////////////////
+
+/* CSS File (styles.css) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background-color: #f1f5f8;
+  border-radius: 10px;
+  padding: 30px 20px;
+  width: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-circle {
+  background-color: #004d40;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  fill: none;
+}
+
+.h2-chause {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.p-chause {
+  color: #666;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 350px;
+  }
+}

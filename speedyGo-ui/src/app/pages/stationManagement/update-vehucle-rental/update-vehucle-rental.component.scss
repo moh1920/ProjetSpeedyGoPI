@@ -1,0 +1,114 @@
+/* General container settings */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Card container styling */
+mat-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+mat-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Title styling */
+h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Input Fields */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Select and input field styling */
+mat-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+mat-select, input {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+/* Styling for error messages */
+mat-error {
+  font-size: 12px;
+  color: red;
+}
+
+/* Button Styling */
+.form-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button.mat-raised-button {
+  width: 100%;
+  max-width: 250px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007BFF;
+  color: #fff;
+}
+
+button.mat-raised-button[disabled] {
+  background-color: #ccc;
+}
+
+button.mat-raised-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for the form layout and positioning */
+.pageWrapper {
+  padding: 30px;
+}
+
+/* No border on the form */
+mat-form-field.mat-form-field-appearance-fill {
+  border: none;
+  box-shadow: none;
+}
+
+/* Removing borders from inputs */
+input, mat-select {
+  border: none;
+  box-shadow: none;
+}
+
+/* Add a subtle hover effect for the input fields */
+input:hover, mat-select:hover {
+  background-color: #eef1f6;
+}
+
+/* Disabled input fields */
+input[disabled], mat-select[disabled] {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+/* Form fields focus effects */
+input:focus, mat-select:focus {
+  outline: none;
+  box-shadow: 0 0 5px 0 rgba(0, 123, 255, 0.5);
+}

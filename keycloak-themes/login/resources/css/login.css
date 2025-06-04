@@ -1,0 +1,252 @@
+/* Suppression de l'arrière-plan par défaut de Patternfly */
+.login-pf {
+    background: none;
+}
+
+/* Arrière-plan personnalisé pour le corps de la page */
+.login-pf body {
+    background: url("../img/keycloak-bg.png") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+/* Mise à jour des éléments de formulaire */
+textarea.pf-c-form-control {
+    height: auto;
+}
+
+.pf-c-alert__title {
+    font-size: var(--pf-global--FontSize--xs);
+}
+
+p.instruction {
+    margin: 5px 0;
+}
+
+/* Personnalisation du bouton de contrôle */
+.pf-c-button.pf-m-control {
+    border-color: rgba(230, 230, 230, 0.5);
+}
+
+h1#kc-page-title {
+    margin-top: 10px;
+}
+
+/* Locale (langue) dropdown */
+#kc-locale ul {
+    background-color: var(--pf-global--BackgroundColor--100);
+    display: none;
+    top: 20px;
+    min-width: 100px;
+    padding: 0;
+}
+
+#kc-locale-dropdown{
+    display: inline-block;
+}
+
+#kc-locale-dropdown:hover ul {
+    display:block;
+}
+
+#kc-locale-dropdown a {
+    color: var(--pf-global--Color--200);
+    text-align: right;
+    font-size: var(--pf-global--FontSize--sm);
+}
+
+#kc-locale-dropdown button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--pf-global--Color--200);
+    text-align: right;
+    font-size: var(--pf-global--FontSize--sm);
+}
+
+/* Mise à jour du logo Keycloak */
+#kc-logo {
+    width: 100%;
+}
+
+div.kc-logo-text {
+    background-image: url(../img/keycloak-logo-text.png);
+    background-repeat: no-repeat;
+    height: 63px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+div.kc-logo-text span {
+    display: none;
+}
+
+#kc-header {
+    color: #ededed;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+#kc-header-wrapper {
+    font-size: 29px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 1.2em;
+    padding: 62px 10px 20px;
+    white-space: normal;
+}
+
+#kc-content {
+    width: 100%;
+}
+
+/* Formulaire de connexion */
+#kc-username {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+#kc-form-wrapper {
+    margin-top: 10px;
+}
+
+/* Styles de bouton */
+#kc-form-buttons {
+    margin-top: 20px;
+}
+
+/* Refonte des liens sociaux */
+.kc-social-links {
+    margin-top: 20px;
+}
+
+.kc-social-links li {
+    width: 100%;
+}
+
+.kc-social-provider-logo {
+    font-size: 23px;
+    width: 30px;
+    height: 25px;
+    float: left;
+}
+
+.kc-social-gray {
+    color: var(--pf-global--Color--200);
+}
+
+.kc-social-item {
+    margin-bottom: var(--pf-global--spacer--sm);
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Grille pour les liens sociaux */
+.kc-social-grid {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+    grid-column-end: span 6;
+    --pf-l-grid__item--GridColumnEnd: span 6;
+}
+
+.kc-social-grid .kc-social-icon-text {
+    left: -10px;
+}
+
+.kc-login-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.kc-social-section {
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .login-pf body {
+        background: white;
+    }
+
+    #kc-header {
+        padding-left: 15px;
+        padding-right: 15px;
+        float: none;
+        text-align: left;
+    }
+
+    #kc-header-wrapper {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 20px 60px 0 0;
+        color: #72767b;
+        letter-spacing: 0;
+    }
+
+    div.kc-logo-text {
+        margin: 0;
+        width: 150px;
+        height: 32px;
+        background-size: 100%;
+    }
+
+    #kc-form {
+        float: none;
+    }
+
+    #kc-info-wrapper {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: transparent;
+    }
+
+    .login-pf .container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    #kc-locale {
+        position: absolute;
+        width: 200px;
+        top: 20px;
+        right: 20px;
+        text-align: right;
+        z-index: 9999;
+    }
+}
+
+/* Adaptation pour une meilleure visibilité */
+#kc-form-wrapper {
+    margin-top: 10px;
+}
+
+.card-pf {
+    margin: 0 auto;
+    box-shadow: var(--pf-global--BoxShadow--lg);
+    padding: 0 20px;
+    max-width: 500px;
+    border-top: 4px solid;
+    border-color: var(--pf-global--primary-color--100);
+}
+
+/* Styles de sécurité pour les codes TOTP */
+.kc-recovery-codes-warning {
+    margin-bottom: 32px;
+}
+
+.kc-recovery-codes-list {
+    list-style: none;
+    columns: 2;
+    margin: 16px 0;
+    padding: 16px 16px 8px 16px;
+    border: 1px solid #D2D2D2;
+}
+
+.kc-recovery-codes-actions {
+    margin-bottom: 24px;
+}
+
+.kc-recovery-codes-actions button {
+    padding-left: 0;
+}

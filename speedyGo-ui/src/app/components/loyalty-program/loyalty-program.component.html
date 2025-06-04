@@ -1,0 +1,146 @@
+<div class="container-fluid p-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+          <i class="bi bi-award me-2 text-primary"></i>
+          Loyalty Programs
+        </h5>
+
+      </div>
+    </div>
+
+    <!-- Search Header -->
+    <div class="card-header d-flex justify-content-between align-items-center bg-light">
+      <h6 class="mb-0">Search Programs</h6>
+      <div class="w-25">
+        <div class="input-group">
+          <span class="input-group-text border-end-0 bg-transparent">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text"
+                 class="form-control border-start-0"
+                 placeholder="Search programs..."
+                 [(ngModel)]="searchQuery"
+                 (input)="applyFilter()"
+                 name="search">
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-hover table-striped align-middle mb-0">
+        <thead class="table-light">
+        <tr>
+          <th class="text-center">#</th>
+          <th>
+            <div class="d-flex align-items-center">
+              Program Name
+              <button class="btn btn-sm ms-2 p-0" (click)="sortByName()">
+                <i class="bi" [ngClass]="sortDirection === 'asc' ? 'bi-sort-alpha-down' : 'bi-sort-alpha-up'"></i>
+              </button>
+            </div>
+          </th>
+          <th>Description</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reward Type</th>
+          <th>Promo Code</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="filteredPrograms.length !== 0; else noData">
+        <tr *ngFor="let program of paginatedPrograms; let i = index">
+          <td class="text-center"><span class="badge bg-secondary">{{ i + 1 + (currentPage - 1) * itemsPerPage }}</span></td>
+          <td><strong>{{ program.programName }}</strong></td>
+          <td>
+              <span class="text-truncate d-inline-block" style="max-width: 150px;" [title]="program.description">
+                {{ program.description }}
+              </span>
+          </td>
+          <td>{{ program.startDate | date: 'MMM d, yyyy' }}</td>
+          <td>{{ program.endDate | date: 'MMM d, yyyy' }}</td>
+          <td><span class="badge" [ngClass]="program.rewardType === 'POINTS' ? 'bg-success' : 'bg-info'">{{ program.rewardType }}</span></td>
+          <td>
+            <code *ngIf="program.promoCode">{{ program.promoCode }}</code>
+            <span *ngIf="!program.promoCode" class="text-muted">—</span>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-sm btn-outline-primary me-2" (click)="viewDetails(program.id)">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="openConfirmModal(program, deleteModal)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+
+        <!-- Pagination -->
+        <tfoot *ngIf="filteredPrograms.length > itemsPerPage">
+        <tr>
+          <td colspan="8">
+            <nav aria-label="Loyalty program pagination">
+              <ul class="pagination justify-content-center mb-0 py-3">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="currentPage = currentPage - 1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                    [class.active]="currentPage === i + 1">
+                  <a class="page-link" (click)="currentPage = i + 1">{{ i + 1 }}</a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="currentPage = currentPage + 1" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<ng-template #deleteModal let-modal>
+  <div class="modal-header bg-danger text-white">
+    <h5 class="modal-title">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      Delete Confirmation
+    </h5>
+    <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete the loyalty program <strong>{{ selectedProgram?.programName }}</strong>?</p>
+    <p class="text-danger"><small>This action cannot be undone.</small></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss('cancel')">
+      <i class="bi bi-x me-1"></i>Cancel
+    </button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+      <i class="bi bi-trash me-1"></i>Delete
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <tr>
+    <td colspan="8">
+      <div class="alert alert-info text-center my-3 shadow-sm" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
+        No loyalty programs found. Create your first program to get started!
+      </div>
+    </td>
+  </tr>
+</ng-template>

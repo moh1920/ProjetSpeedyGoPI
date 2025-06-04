@@ -1,0 +1,8 @@
+.bg-bronze {
+  background-color: #cd7f32;
+}
+
+.list-group-item-action:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}

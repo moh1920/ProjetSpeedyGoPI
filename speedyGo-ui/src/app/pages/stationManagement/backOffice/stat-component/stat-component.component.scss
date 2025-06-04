@@ -1,0 +1,80 @@
+// Variables pour une cohérence visuelle
+$card-bg: #ffffff;
+$card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+$card-border-radius: 10px;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$layout-breakpoint-md: 768px;
+$layout-breakpoint-lg: 1200px;
+
+// Container principal des statistiques
+.stats-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+
+  @media (min-width: $layout-breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: $spacing-lg;
+  }
+
+  @media (min-width: $layout-breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Style commun pour toutes les cartes de statistiques
+.stats-card {
+  background-color: $card-bg;
+  border-radius: $card-border-radius;
+  box-shadow: $card-shadow;
+  padding: $spacing-md;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  // Style pour les cartes qui prennent plus de place
+  &.wide {
+    @media (min-width: $layout-breakpoint-md) {
+      grid-column: span 2;
+    }
+  }
+}
+
+// Styles pour le titre de chaque carte
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+// Styles pour améliorer les scrollbars si nécessaire
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c9d6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3afc4;
+}

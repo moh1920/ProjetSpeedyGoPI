@@ -1,0 +1,92 @@
+<div class="card shadow p-4">
+  <div class="card-header bg-primary text-white">
+    <h4 class="mb-0">
+      <i class="bi bi-pencil-square me-2"></i> Update Station
+    </h4>
+  </div>
+
+  <form [formGroup]="stationForm" (ngSubmit)="updateStation()" class="p-3">
+
+    <!-- Station Name -->
+    <div class="mb-3">
+      <label for="name" class="form-label">
+        <i class="bi bi-building me-2 text-primary"></i> Station Name:
+      </label>
+      <input id="name" class="form-control input-custom" formControlName="name" required />
+      <div *ngIf="stationForm.get('name')?.invalid && stationForm.get('name')?.touched" class="text-danger">
+        <i class="bi bi-exclamation-circle me-1"></i> Station name is required.
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+      <label for="location" class="form-label">
+        <i class="bi bi-map me-2 text-primary"></i> Location:
+      </label>
+      <input id="location" class="form-control input-custom" formControlName="location" required readonly />
+    </div>
+
+    <!-- Latitude & Longitude -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="latitude" class="form-label">
+          <i class="bi bi-compass me-2 text-primary"></i> Latitude:
+        </label>
+        <input id="latitude" type="number" class="form-control input-custom" formControlName="latitude" required readonly />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="longitude" class="form-label">
+          <i class="bi bi-compass me-2 text-primary"></i> Longitude:
+        </label>
+        <input id="longitude" type="number" class="form-control input-custom" formControlName="longitude" required readonly />
+      </div>
+    </div>
+
+    <!-- Capacity -->
+    <div class="mb-3">
+      <label for="capacity" class="form-label">
+        <i class="bi bi-box-seam me-2 text-primary"></i> Capacity:
+      </label>
+      <input id="capacity" type="number" class="form-control input-custom" formControlName="capacity" required />
+      <div *ngIf="stationForm.get('capacity')?.invalid && stationForm.get('capacity')?.touched" class="text-danger">
+        <i class="bi bi-exclamation-circle me-1"></i> Capacity must be greater than 0.
+      </div>
+    </div>
+
+    <!-- Active Status -->
+    <div class="form-check form-switch mb-3">
+      <input id="is_active" type="checkbox" class="form-check-input" formControlName="is_active" />
+      <label for="is_active" class="form-check-label">
+        Active
+      </label>
+    </div>
+
+    <!-- Google Maps -->
+    <div class="mb-3">
+      <label class="form-label">
+        <i class="bi bi-map-fill me-2 text-primary"></i> Update location on the map:
+      </label>
+      <div class="map-container">
+        <google-map [center]="center" [zoom]="zoom" (mapClick)="onMapClick($event)">
+          <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+        </google-map>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-success btn-lg" [disabled]="stationForm.invalid">
+        <i class="bi bi-check-circle me-2"></i> Update
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-lg" (click)="onCancel()">
+        <i class="bi bi-x-circle me-2"></i> Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- Success Message -->
+<p *ngIf="successMessage" class="alert alert-success mt-3">
+  <i class="bi bi-check2-circle me-2 text-primary"></i> {{ successMessage }}
+</p>

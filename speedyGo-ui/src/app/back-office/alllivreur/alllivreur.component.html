@@ -1,0 +1,191 @@
+<div class="sidebar">
+  <div class="header">
+    <div class="menu-icon">
+      <span class="material-icons">menu</span>
+    </div>
+    <div class="view-toggle">
+      <span class="material-icons">view_list</span>
+    </div>
+    <div class="location-badge">
+      <span class="material-icons location-dot">location_on</span>
+      <span>New York, US</span>
+    </div>
+  </div>
+  <button (click)="redirectToChat()">Go to Chat</button>
+
+  <!-- Delivery Item 1 -->
+  <div class="delivery-item">
+    <div class="delivery-header">
+      <div class="delivery-id">CA-12321-US</div>
+      <div class="delivery-status status-in-progress">In Progress</div>
+    </div>
+    <div class="route-info">
+      <div class="location-points">
+        <div class="point"></div>
+        <div class="progress-line"></div>
+        <div class="point"></div>
+      </div>
+      <div class="locations">
+        <div class="location">
+          <div class="location-name">California, US</div>
+          <div class="location-date">10/17/2024</div>
+        </div>
+        <div class="location">
+          <div class="location-name">Michigan, US</div>
+          <div class="location-date">10/19/2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="driver-info">
+      <div class="driver">
+        <img src="/api/placeholder/32/32" alt="Driver" class="driver-avatar">
+        <div>
+          <div class="driver-name">= Ethan</div>
+          <div class="driver-role">Driver / Courier</div>
+        </div>
+      </div>
+      <div class="contact-buttons">
+        <div class="contact-btn">
+          <span class="material-icons icon-small">phone</span>
+        </div>
+        <div class="contact-btn">
+          <span class="material-icons icon-small">email</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delivery Item 2 -->
+  <div class="delivery-item">
+    <div class="delivery-header">
+      <div class="delivery-id">NY-12321-SF</div>
+      <div class="delivery-status status-in-progress">In Progress</div>
+    </div>
+    <div class="route-info">
+      <div class="location-points">
+        <div class="point"></div>
+        <div class="progress-line"></div>
+        <div class="point"></div>
+      </div>
+      <div class="locations">
+        <div class="location">
+          <div class="location-name">New York, US</div>
+          <div class="location-date">10/17/2024</div>
+        </div>
+        <div class="location">
+          <div class="location-name">San Francisco, US</div>
+          <div class="location-date">10/20/2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="driver-info">
+      <div class="driver">
+        <img src="/api/placeholder/32/32" alt="Driver" class="driver-avatar">
+        <div>
+          <div class="driver-name">= Ricky</div>
+          <div class="driver-role">Driver / Courier</div>
+        </div>
+      </div>
+      <div class="contact-buttons">
+        <div class="contact-btn">
+          <span class="material-icons icon-small">phone</span>
+          <a (click)="redirectToChat()"></a>
+        </div>
+        <div class="contact-btn">
+          <span class="material-icons icon-small">email</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delivery Item 3 -->
+  <div class="delivery-item">
+    <div class="delivery-header">
+      <div class="delivery-id">COK-12321-NY</div>
+      <div class="delivery-status status-delivered">Delivered</div>
+    </div>
+    <div class="route-info">
+      <div class="location-points">
+        <div class="point"></div>
+        <div class="progress-line"></div>
+        <div class="point"></div>
+      </div>
+      <div class="locations">
+        <div class="location">
+          <div class="location-name">Austin, TX</div>
+          <div class="location-date">10/17/2024</div>
+        </div>
+        <div class="location">
+          <div class="location-name">New York, US</div>
+          <div class="location-date">10/19/2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="driver-info">
+      <div class="driver">
+        <img src="/api/placeholder/32/32" alt="Driver" class="driver-avatar">
+        <div>
+          <div class="driver-name">= Louis</div>
+          <div class="driver-role">Driver / Courier</div>
+        </div>
+      </div>
+      <div class="contact-buttons">
+        <div class="contact-btn">
+          <span class="material-icons icon-small">phone</span>
+        </div>
+        <div class="contact-btn">
+          <span class="material-icons icon-small">email</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delivery Item 4 -->
+  <div class="delivery-item">
+    <div class="delivery-header">
+      <div class="delivery-id">UK-12321-NY</div>
+      <div class="delivery-status status-pending">Pending</div>
+    </div>
+    <div class="route-info">
+      <div class="location-points">
+        <div class="point"></div>
+        <div class="progress-line"></div>
+        <div class="point"></div>
+      </div>
+      <div class="locations">
+        <div class="location">
+          <div class="location-name">London, UK</div>
+          <div class="location-date">10/17/2024</div>
+        </div>
+        <div class="location">
+          <div class="location-name">New York, US</div>
+          <div class="location-date">2/10/2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="driver-info">
+      <div class="driver">
+        <img src="/api/placeholder/32/32" alt="Driver" class="driver-avatar">
+        <div>
+          <div class="driver-name">TBD</div>
+          <div class="driver-role"></div>
+        </div>
+      </div>
+      <div class="contact-buttons">
+        <div class="contact-btn">
+          <span class="material-icons icon-small">phone</span>
+        </div>
+        <div class="contact-btn">
+          <span class="material-icons icon-small">email</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="map-container">
+  <div class="map">
+    <div class="map-dot dot-1"></div>
+    <div class="map-dot dot-2"></div>
+  </div>
+</div>

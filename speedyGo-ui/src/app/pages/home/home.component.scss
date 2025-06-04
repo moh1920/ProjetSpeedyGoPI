@@ -1,0 +1,60 @@
+/* Full-width Gradient Background for Captains */
+.overflowed-bg {
+    position: relative;
+    width: 100%; /* Ensure full width */
+    min-height: 500px; /* Adjust height as necessary */
+  background: rgb(0,73,62);
+  background: linear-gradient(45deg, rgba(0,73,62,1) 0%, rgba(0,140,92,1) 59%, rgba(0,231,132,1) 100%);
+    clip-path: polygon(0 7%, 14% 6%, 21% 12%, 51% 4%, 57% 10%, 87% 10%, 93% 18%, 100% 16%, 100% 84%, 0% 100%);  padding: 50px 0; /* Adds spacing inside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Gradient Layer */
+  .gradient {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(0,73,62);
+    background: linear-gradient(45deg, rgba(0,73,62,1) 0%, rgba(0,140,92,1) 59%, rgba(0,231,132,1) 100%);
+      z-index: 1;
+  }
+  
+  /* Content inside Gradient */
+  #box6 {
+    position: relative;
+    z-index: 2; /* Ensures content is visible over the gradient */
+    color: white; /* Adjust text color for readability */
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%; /* Ensure it takes full width */
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    justify-content: flex-start; /* Align content to the left */
+  }
+  
+  #box6 img {
+    width: 450px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Text Alignment */
+  .text-container {
+    max-width: 650px;
+  }
+  
+  /* Style for Buttons */
+  .btn-danger {
+    background-color: #ff4757;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  

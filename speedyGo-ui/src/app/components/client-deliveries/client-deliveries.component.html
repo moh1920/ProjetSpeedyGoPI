@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+
+<div class="container p-4">
+    <h2 class="mb-4">Your Delivery Orders</h2>
+
+    <div *ngIf="deliveries.length === 0" class="alert alert-info">
+      No deliveries yet.
+    </div>
+
+    <div class="row" *ngIf="deliveries.length > 0">
+      <div class="col-md-6 mb-4" *ngFor="let delivery of deliveries">
+        <div class="card shadow-sm rounded p-3 border">
+          <p><strong>Status:</strong> {{ delivery.status }}</p>
+          <p><strong>Delivery Address:</strong> {{ delivery.deliveryAddress }}</p>
+          <p><strong>Pickup Address:</strong> {{ delivery.pickupAddress }}</p>
+          <p><strong>Fee:</strong> {{ delivery.deliveryFee }} TND</p>
+          <p><strong>Delivered on Time:</strong> {{ delivery.isDeliveredOnTime ? 'Yes' : 'No' }}</p>
+          <p><strong>Delivery Time:</strong> {{ delivery.deliveryTime | date:'short' }}</p>
+
+          <a [routerLink]="['/tracking', delivery.id]" class="btn btn-primary mt-2">
+            Track Order
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>

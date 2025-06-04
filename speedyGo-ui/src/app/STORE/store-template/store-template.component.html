@@ -1,0 +1,17 @@
+<div *ngIf="storeData">
+  <div class="store-container"
+       [ngStyle]="{'background-image': storeData?.backgroundImageUrl ? 'url(' + storeData.backgroundImageUrl + ')' : 'none'}">
+    <div class="store-header">
+      <img *ngIf="storeData?.logoUrl" [src]="storeData.logoUrl" alt="Logo" class="store-logo">
+      <h1>{{ storeData?.name || 'Nom non disponible' }}</h1>
+    </div>
+
+    <div class="store-info">
+      <p><strong>Description :</strong> {{ storeData?.description || 'Non disponible' }}</p>
+      <p><strong>Contact :</strong> {{ storeData?.contact || 'Non disponible' }}</p>
+      <p><strong>Adresse :</strong> {{ storeData?.address || 'Non disponible' }}</p>
+      <p><strong>Type :</strong> {{ storeData?.type || 'Non disponible' }}</p>
+    </div>
+  </div>
+</div>
+

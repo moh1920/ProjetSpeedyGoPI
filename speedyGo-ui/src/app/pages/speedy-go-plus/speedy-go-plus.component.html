@@ -1,0 +1,218 @@
+<app-navbar></app-navbar>
+
+<div class="container overflow-hidden my-5">
+  <div class="row gx-5 align-items-center">
+    <div class="col">
+      <div class="p-3 text-center">
+        <img src="./../../../assets/speedygo.gif" alt="Speedy Go Plus Banner" class="img-fluid rounded-5 mb-4" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Free Text Section -->
+<div class="container overflow-hidden my-5">
+  <div class="row gx-5 align-items-center">
+    <div class="col">
+      <div class="p-3 text-center">
+        <h1>Most members save 200 DT monthly with Speedy Go Plus</h1>
+        <p>
+          At only DT 19/month, enjoy unlimited savings on rides, food and groceries, dining out, plus more.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- First Diagonal Section -->
+<div class="section-container">
+  <div class="diagonal-section green-gradient">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5">
+          <div class="image-card">
+            <img src="https://careem-public-web-media.imgix.net/Rides_and_Hala_Taxi_240902_C_Plus_T1_Campaign_Website_Image_902x691_AE_c01939ec3b_82ba486a10.webp"
+                 alt="Rides &amp; Hala Taxi"
+                 class="img-fluid rounded-3" />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="content-area">
+            <h2 class="text-white">Unlimited free delivery on groceries</h2>
+            <p class="text-white">
+              And exclusive discountd including 5% off fruits and veg.
+            </p>
+            <button class="btn btn-light rounded-pill">Subscribe now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br>
+<!-- Second Diagonal Section -->
+<div class="section-container">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <div class="content-area">
+            <h2>Buy 1 Get 1 deals &amp; discounts on DineOut</h2>
+            <p>
+              Discover 800+ brunches, buffets, restaurants and more.
+            </p>
+            <button class="btn btn-success rounded-pill">Subscribe now</button>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="image-card">
+            <img src="https://careem-public-web-media.imgix.net/Food_240902_C_Plus_T1_Campaign_Website_Image_902x691_AE_4992b833f2_d8601dbfb2.webp"
+                 alt="Food"
+                 class="img-fluid rounded-3" />
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<br><br><br><br><br><br><br>
+<!-- Third Diagonal Section -->
+<div class="section-container">
+  <div class="diagonal-section green-gradient">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5">
+          <div class="image-card">
+            <img src="https://careem-public-web-media.imgix.net/Groceries_240902_C_Plus_T1_Campaign_Website_Image_902x691_AE_3acbad64ff_ab6c772e0d.webp"
+                 alt="Groceries"
+                 class="img-fluid rounded-3" />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="content-area">
+            <h2 class="text-white">10% back on 10 rides</h2>
+            <p class="text-white">
+              On Rides &amp; Hala Taxi, credited to your wallet.
+            </p>
+            <button class="btn btn-light rounded-pill">Subscribe now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br>
+<div class="container">
+  <!-- faq.component.html -->
+<div class="faq-container">
+  <h1 class="faq-title">Top Questions</h1>
+  
+  <div class="faq-item" [class.active]="activeIndex === 0">
+    <div class="faq-question" (click)="activeIndex = activeIndex === 0 ? -1 : 0">
+      <span>What is Speedy Go Plus?</span>
+      <span class="faq-toggle">{{activeIndex === 0 ? '−' : '+'}}</span>
+    </div>
+    <div class="faq-content">
+      Speedy Go Plus is a premium subscription service that offers exclusive benefits such as discounted rides, priority customer support, and special promotions for subscribers.
+    </div>
+  </div>
+  
+  <div class="faq-item" [class.active]="activeIndex === 1">
+    <div class="faq-question" (click)="activeIndex = activeIndex === 1 ? -1 : 1">
+      <span>Can I use my Speedy Go Plus benefits with other promos and discounts?</span>
+      <span class="faq-toggle">{{activeIndex === 1 ? '−' : '+'}}</span>
+    </div>
+    <div class="faq-content">
+      Yes, in most cases Speedy Go Plus benefits can be combined with other promotions. However, some specific promotional offers may have exclusions. Check the terms and conditions of each promotion for details.
+    </div>
+  </div>
+  
+  <div class="faq-item" [class.active]="activeIndex === 2">
+    <div class="faq-question" (click)="activeIndex = activeIndex === 2 ? -1 : 2">
+      <span>What happens when I cancel my Speedy Go Plus subscription?</span>
+      <span class="faq-toggle">{{activeIndex === 2 ? '−' : '+'}}</span>
+    </div>
+    <div class="faq-content">
+      When you cancel your Speedy Go Plus subscription, you will continue to enjoy benefits until the end of your current billing cycle. After that, your subscription will be terminated and you will no longer have access to Careem Plus benefits.
+    </div>
+  </div>
+</div>
+</div>
+<div class="container">
+
+<div id="plansRow" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+
+  <!-- Basic Plan -->
+  <div class="col">
+    <div class="plan-card bg-basic text-white d-flex flex-column" (click)="selectPlan(1)">
+      <div class="p-3 flex-grow-1">
+        <h1>Basic</h1>
+        <h2>Essential</h2>
+        <ul class="list-unstyled mt-3">
+          <li><i class="fa-solid fa-check"></i> 10 Rides/Month</li>
+          <li><i class="fa-solid fa-check"></i> 5% Discount on Food</li>
+          <li><i class="fa-solid fa-check"></i> Basic Support</li>
+        </ul>
+      </div>
+      <div class="plan-arrow text-end p-3">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard Plan -->
+  <div class="col">
+    <div class="plan-card bg-standard text-dark d-flex flex-column" (click)="selectPlan(2)">
+      <div class="p-3 flex-grow-1">
+        <h1>Standard</h1>
+        <h2>Popular</h2>
+        <ul class="list-unstyled mt-3">
+          <li><i class="fa-solid fa-check"></i> 20 Rides/Month</li>
+          <li><i class="fa-solid fa-check"></i> 10% Discount on Food</li>
+          <li><i class="fa-solid fa-check"></i> Priority Support</li>
+        </ul>
+      </div>
+      <div class="plan-arrow text-end p-3">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+<!-- Premium Plan -->
+  <div class="col">
+    <div class="plan-card bg-premium text-dark d-flex flex-column" (click)="selectPlan(3)">
+      <div class="p-3 flex-grow-1">
+        <h1>Premium</h1>
+        <h2>All-Inclusive</h2>
+      <ul class="list-unstyled mt-3">
+        <li><i class="fa-solid fa-check"></i> Unlimited Rides</li>
+        <li><i class="fa-solid fa-check"></i> 15% Discount on Food</li>
+        <li><i class="fa-solid fa-check"></i> 24/7 Premium Support</li>
+      </ul>
+    </div>
+    <div class="plan-arrow text-end p-3">
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Ultimate Plan -->
+  <div class="col">
+    <div class="plan-card bg-ultimate text-white d-flex flex-column" (click)="selectPlan(4)">
+      <div class="p-3 flex-grow-1">
+        <h1>Ultimate</h1>
+        <h2>Exclusive</h2>
+        <ul class="list-unstyled mt-3">
+          <li><i class="fa-solid fa-check"></i> Unlimited Rides &amp; Deliveries</li>
+          <li><i class="fa-solid fa-check"></i> 20% Discount on All Services</li>
+          <li><i class="fa-solid fa-check"></i> Concierge Support</li>
+        </ul>
+      </div>
+      <div class="plan-arrow text-end p-3">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<app-footer></app-footer>

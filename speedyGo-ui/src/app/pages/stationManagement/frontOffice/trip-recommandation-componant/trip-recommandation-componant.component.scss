@@ -1,0 +1,204 @@
+/* styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 15px;
+}
+
+.header {
+  background-color: #ffffff;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 35px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.modal-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.modal-body {
+  padding: 1.5rem 2rem;
+}
+
+/* Trip-Weather Container Styles */
+.trip-weather-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  width: 100%;
+}
+
+/* Weather Card Styles */
+.weather-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.weather-card {
+  background-color: #3c3c3c;
+  color: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 350px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.location-name {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.current-time {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.temperature {
+  font-size: 72px;
+  font-weight: 300;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.weather-condition {
+  text-align: center;
+  color: #b0b0b0;
+  font-size: 18px;
+  margin: 10px 0 30px 0;
+}
+
+.weather-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.weather-data {
+  flex: 0.7;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  color: #b0b0b0;
+}
+
+.weather-info i {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.weather-icon {
+  flex: 0.3;
+  text-align: right;
+}
+
+.icon-img {
+  width: 80px;
+  height: 80px;
+}
+
+.additional-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #555;
+  color: #b0b0b0;
+}
+
+.additional-info p {
+  margin-bottom: 8px;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .trip-weather-container {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .map-container {
+    flex: 2;
+  }
+
+  .weather-container {
+    flex: 1;
+    padding: 0 2rem 2rem 0;
+  }
+}
+
+/* Footer Styles */
+app-footer {
+  margin-top: auto;
+  width: 100%;
+}
+.btn-overlay {
+  position: absolute;
+  top: 70%; /* centre verticalement */
+  left: 20%; /* centre horizontalement */
+  transform: translate(-50%, -50%);
+  background-color: rgb(0, 230, 118); /* bouton semi-transparent */
+  color: #ffffff;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-overlay:hover {
+  background-color: rgb(9, 92, 74);
+}

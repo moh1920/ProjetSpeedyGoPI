@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="checkout-container">
+  <h2>Finalize Order</h2>
+  <form [formGroup]="checkoutForm" (ngSubmit)="confirmOrder()" class="checkout-form">
+    <!-- Shipping Address -->
+    <div class="form-group">
+      <label for="shippingAddress">Shipping Address</label>
+      <input type="text" id="shippingAddress" formControlName="shippingAddress" required>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="tel" id="phoneNumber" formControlName="phoneNumber" required>
+    </div>
+
+    <!-- Delivery and Payment Methods -->
+    <div class="methods-container">
+      <!-- Delivery Method -->
+      <div class="form-group">
+        <label for="deliveryMethod">Delivery Method</label>
+        <select id="deliveryMethod" formControlName="deliveryMethod" required>
+          <option value="standard">Standard (3-5 days)</option>
+          <option value="express">Express (24h)</option>
+          <option value="sameDay">Same-day delivery</option>
+        </select>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="form-group">
+        <label for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod" formControlName="paymentMethod" required>
+          <option value="credit">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash">Cash on Delivery</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Confirm Order</button>
+  </form>
+</div>

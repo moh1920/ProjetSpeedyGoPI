@@ -1,0 +1,137 @@
+<app-navbar></app-navbar>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow border-0 rounded-3 overflow-hidden">
+        <div class="card-header bg-primary text-white p-3">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-substack fs-4 me-2"></i>
+            <h4 class="mb-0 fw-bold">{{ postId ? 'Edit Article' : 'New Article' }}</h4>
+          </div>
+        </div>
+
+        <div class="card-body p-4">
+          <form [formGroup]="postForm" class="row g-4">
+
+            <!-- Image Preview -->
+            <div class="col-12 position-relative mb-3">
+              <div class="ratio ratio-21x9 bg-light rounded-3 overflow-hidden mb-2">
+                <img class="object-fit-cover" [src]="selectedPicture || imageUrls" alt="Cover image">
+              </div>
+              <div class="position-absolute top-0 end-0 m-3">
+                <label for="mediaUrl" class="btn btn-light btn-sm shadow-sm" data-bs-toggle="tooltip" title="Change image">
+                  <i class="bi bi-camera-fill me-1"></i> Edit
+                </label>
+                <input
+                  id="mediaUrl"
+                  type="file"
+                  class="d-none"
+                  formControlName="mediaUrl"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                >
+              </div>
+              <div *ngIf="postForm.get('mediaUrl')?.touched && postForm.get('mediaUrl')?.invalid" class="text-danger small mt-1">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                <span *ngIf="postForm.get('mediaUrl')?.errors?.['required']">An image is required</span>
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div class="col-md-12">
+              <div class="form-floating mb-1">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="title"
+                  formControlName="title"
+                  placeholder="Article title"
+                >
+                <label for="title"><i class="bi bi-pencil-fill me-2 text-primary"></i>Article title</label>
+              </div>
+              <div *ngIf="postForm.get('title')?.touched && postForm.get('title')?.invalid" class="text-danger small">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                <span *ngIf="postForm.get('title')?.errors?.['required']">Title is required</span>
+                <span *ngIf="postForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters long</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-12">
+              <div class="form-floating mb-1">
+                <textarea
+                  class="form-control"
+                  id="content"
+                  formControlName="content"
+                  placeholder="Article content"
+                  style="min-height: 200px"
+                ></textarea>
+                <label for="content"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Article content</label>
+              </div>
+              <div *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid" class="text-danger small">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                <span *ngIf="postForm.get('content')?.errors?.['required']">Content is required</span>
+                <span *ngIf="postForm.get('content')?.errors?.['minlength']">Content must be at least 10 characters long</span>
+              </div>
+            </div>
+
+            <!-- Status & Visibility -->
+            <div class="col-md-6">
+              <div class="card h-100 border-0 bg-light rounded-3">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3"><i class="bi bi-check-circle-fill me-2 text-success"></i>Status</h6>
+                  <select class="form-select form-select-lg" id="status" formControlName="status">
+                    <option value="ACTIF">Active</option>
+                    <option value="DELETED">Deleted</option>
+                    <option value="ARCHIVED">Archived</option>
+                  </select>
+                  <div *ngIf="postForm.get('status')?.touched && postForm.get('status')?.invalid" class="text-danger small mt-1">
+                    <i class="bi bi-exclamation-circle me-1"></i>Status is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card h-100 border-0 bg-light rounded-3">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3"><i class="bi bi-eye-fill me-2 text-primary"></i>Visibility</h6>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="visibility"
+                      formControlName="visibility"
+                      style="width: 3rem; height: 1.5rem;"
+                    >
+                    <label class="form-check-label ps-2 fs-5" for="visibility">
+                      {{ postForm.get('visibility')?.value ? 'Visible' : 'Not visible' }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="col-12 mt-4">
+              <div class="d-flex gap-3 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="onCancel()">
+                  <i class="bi bi-x-circle me-2"></i>Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg px-4"
+                  [disabled]="postForm.invalid"
+                  (click)="onSave()"
+                >
+                  <i class="bi bi-save me-2"></i>Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

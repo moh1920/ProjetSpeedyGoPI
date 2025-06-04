@@ -1,0 +1,40 @@
+.page-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 6rem; /* Hauteur du header */
+  padding-bottom: 1rem; /* Padding en bas */
+  background: linear-gradient(to right, #f0f4f8, #e0e8f0); /* Dégradé */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+.section-title {
+  font-family: 'Careem Sans', sans-serif; /* Si vous avez ce type de police */
+  font-size: 2rem; /* Taille du texte */
+  font-weight: bold; /* Texte en gras */
+  color: #333333; /* Couleur du texte */
+  text-transform: capitalize; /* Transforme la première lettre en majuscule */
+  letter-spacing: 0.5px; /* Espacement des lettres */
+}
+
+.heading-wrapper {
+  position: relative;
+  clip-path: polygon(0 1%, 100% 1%, 100% 100%, 0 77%);
+}
+
+.bg-header-off-white {
+  background-color: #f8f8f8; /* La couleur de fond de ton header */
+}
+
+.page-header {
+  padding-bottom: 1rem; /* Ajuste ce padding pour le texte */
+  height: 6rem; /* Ajuste la hauteur de l'en-tête */
+}
+
+.bg-page-heading {
+  //background-image: url('path/to/image.jpg'); /* Image de fond si tu en as besoin */
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+

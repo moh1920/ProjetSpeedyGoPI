@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/speedy_go
+    username: onlyDev
+    password: onlyDev
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: sayarim558@gmail.com
+    password: gcvp dlux hezi qxdw
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: "*"
+        starttls:
+          enable: true
+    protocol: smtp
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/speedyGo"
+  stripe:
+    secret-key: sk_test_51Qvs9UKkZcbZ088UXOs7ZTssWINfgXQ1MeNdN0qykE6vvN50GppeKN4DrYSzlh0Rys3w3zqT1Sr4mZvDi6LxrYF800fVcAVAB4
+  batch:
+    job:
+      enabled: false
+application:
+  file:
+    uploads:
+      photos-output-path: ./uploads
+springdoc:
+  default-produces-media-type: application/json
+google:
+  maps:
+    api:
+      key: AIzaSyCidD4GBkYXMcyDIRWWUhfkZHT9noeXXzE
+server:
+  port: 8020
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: speedyGo
+
+keycloak-admin:
+  username: onlyDev
+  password: onlyDev
+azure:
+  ai:
+    contentsafety:
+      endpoint: https://speedygo.cognitiveservices.azure.com/
+      api-key: 4gxsKgJtSUpqnDwNWYn8EP3cjCgAI5pWQiOMzScd9ukL3YPsDDoSJQQJ99BDACYeBjFXJ3w3AAAHACOG485O
+
+
+spring.batch.jdbc.initialize-schema: always

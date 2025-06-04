@@ -1,0 +1,215 @@
+// Color Variables
+$primary: #FF3B30; // Red (main accent color)
+$secondary: #333333; // Dark Grey (for text and backgrounds)
+$accent: #FF6F61; // Lighter Red for highlights, kept minimal
+$background: #F2F2F2; // Light grey background
+$grey: #D1D1D1; // Light Grey for borders and dividers
+$dark-grey: #4A4A4A; // Darker grey for more subtle elements
+$black: #000000; // Black for text or darker accents
+$white: #FFFFFF; // White for text or background contrasts
+$light-grey: #E4E4E4; // Very light grey for more background contrasts
+
+
+
+.checkout-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: $white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid $light-grey;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, $primary 0%, $white 100%);
+  }
+
+  h2 {
+    text-align: center;
+    color: $secondary; // Dark grey for the header text
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: $accent; // Light red underline, minimal red
+    }
+  }
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: $dark-grey; // Dark grey for the labels to contrast with the background
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid $grey; // Light grey borders for inputs
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: $white;
+
+    &:hover {
+      border-color: $dark-grey; // Subtle hover effect with dark grey
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary; // Focus border in red (but minimal)
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23{$dark-grey}'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+  }
+}
+
+.methods-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-group {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -1rem;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 80%;
+      background: $grey; // Light grey divider line
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+  }
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, $secondary 0%, $grey 100%); // Darker, minimal gradient effect
+  color: $white;
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%) rotate(45deg);
+    transition: all 0.5s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($primary, 0.3);
+
+    &::after {
+      transform: translateX(100%) rotate(45deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Improved Validation
+.ng-invalid.ng-touched {
+  border-color: $accent !important; // Light red for invalid fields, minimal impact
+  animation: shake 0.4s ease;
+
+  + label {
+    color: $accent; // Light red for label on invalid fields
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+// Decorative Icons
+.form-group {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    opacity: 0.6;
+  }
+
+  &#shippingAddress::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23{$dark-grey}"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>');
+  }
+
+  &#phoneNumber::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23{$dark-grey}"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>');
+  }
+
+  input, select {
+    padding-left: 3rem;
+  }
+}

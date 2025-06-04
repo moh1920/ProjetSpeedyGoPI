@@ -1,0 +1,495 @@
+.orders-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    transform: translateX(-50%);
+  }
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.order-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .order-id {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #34495e;
+  }
+
+  .order-status {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    animation: pulse 1.5s infinite;
+
+    &.status-pending {
+      background: #f39c12;
+      color: #ffffff;
+    }
+
+    &.status-paid {
+      background: #27ae60;
+      color: #ffffff;
+    }
+
+    &.status-delivered {
+      background: #3498db;
+      color: #ffffff;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1.2rem;
+      color: #3498db;
+    }
+
+    .detail-label {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      font-weight: 500;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .total-amount {
+      color: #e74c3c;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.order-items {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #ecf0f1;
+
+  .items-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover i {
+      transform: rotate(180deg);
+    }
+  }
+
+  .items-list {
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #ecf0f1;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      .item-name {
+        font-size: 1rem;
+        color: #2c3e50;
+        font-weight: 500;
+      }
+
+      .item-quantity {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+      }
+    }
+
+    .item-price {
+      font-size: 1rem;
+      color: #27ae60;
+      font-weight: 600;
+    }
+  }
+}
+
+.no-orders {
+  text-align: center;
+  padding: 2rem;
+
+  .no-orders-message {
+    font-size: 1.25rem;
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+  }
+
+  //boutons update et delete
+  .order-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .edit-order-btn, .delete-order-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .edit-order-btn {
+      background: #f1c40f;
+      color: #ffffff;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(241, 196, 15, 0.5);
+      }
+    }
+
+    .delete-order-btn {
+      background: #e74c3c;
+      color: #ffffff;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(231, 76, 60, 0.5);
+      }
+    }
+  }
+
+
+  .shop-now-button {
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.edit-order-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease-in-out;
+
+  .edit-order-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform-origin: center;
+    animation: modalScale 0.3s ease-out;
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 1rem;
+
+      h2 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin: 0;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #7f8c8d;
+        transition: transform 0.2s ease, color 0.2s ease;
+        line-height: 1;
+        padding: 0 0.5rem;
+
+        &:hover {
+          color: #e74c3c;
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .modal-form {
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #34495e;
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.8rem 1rem;
+          border: 2px solid #ecf0f1;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+          }
+
+          &::placeholder {
+            color: #bdc3c7;
+          }
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+
+      button {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-cancel {
+        background-color: #95a5a6;
+        color: white;
+
+        &:hover {
+          background-color: darken(#95a5a6, 10%);
+          transform: translateY(-1px);
+        }
+      }
+
+      .btn-save {
+        background-color: #e74c3c;
+        color: white;
+
+        &:hover {
+          background-color: darken(#E74C3CFF, 10%);
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScale {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .edit-order-modal-overlay .edit-order-modal {
+    padding: 1.5rem;
+
+    .modal-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+/* =================== Styles des boutons Modifier, Supprimer, Annuler =================== */
+
+.button-container {
+  display: flex;
+  justify-content: flex-start; // Aligner les boutons à gauche
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cancel-container {
+  margin-top: 5px;
+  text-align: left;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+}
+
+.btn-edit {
+  background-color: #f1c40f; // Jaune
+  color: white;
+
+  &:hover {
+    background-color: darken(#f1c40f, 10%);
+    transform: scale(1.05);
+  }
+}
+
+.btn-delete {
+  background-color: #e74c3c; // Rouge
+  color: white;
+
+  &:hover {
+    background-color: darken(#e74c3c, 10%);
+    transform: scale(1.05);
+  }
+}
+
+.btn-cancel {
+  background-color: #3498db; // Bleu
+  color: white;
+
+  &:hover {
+    background-color: darken(#3498db, 10%);
+    transform: scale(1.05);
+  }
+}
+
+/* =================== Responsive Design =================== */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column; // Empiler les boutons sur mobile
+    align-items: center;
+  }
+
+  button {
+    width: 100%;
+    text-align: center;
+  }
+}
+

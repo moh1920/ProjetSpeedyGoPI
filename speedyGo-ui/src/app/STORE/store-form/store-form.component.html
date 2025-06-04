@@ -1,0 +1,32 @@
+<form [formGroup]="storeForm" (ngSubmit)="onSubmit()">
+
+  <label for="name">Nom de la boutique</label>
+  <input id="name" formControlName="name" />
+
+  <label for="description">Description</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="contact">Contact</label>
+  <input id="contact" formControlName="contact" />
+
+  <label for="address">Adresse</label>
+  <input id="address" formControlName="address" />
+
+  <label for="type">Type</label>
+  <select id="type" formControlName="type">
+    <option value="MAGASIN">Magasin</option>
+    <option value="RESTAURANT">Restaurant</option>
+    <option value="PHARMACY">Pharmacy</option>
+    <option value="ELECTRONICS">Electronics</option>
+  </select>
+
+  <label for="logoUrl">Logo</label>
+  <input type="file" id="logoUrl" (change)="onLogoFileChange($event)" />
+
+  <label for="backgroundImageUrl">Image de Fond</label>
+  <input type="file" id="backgroundImageUrl" (change)="onBackgroundFileChange($event)" />
+
+  <button type="submit" [disabled]="storeForm.invalid">Créer</button>
+</form>
+
+

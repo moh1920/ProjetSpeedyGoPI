@@ -1,0 +1,56 @@
+
+<!-- Navbar existante -->
+<app-navbar></app-navbar>
+<div class="cart-header">
+  <a [routerLink]="['/panier']" class="cart-icon-container">
+    <img ngSrc="../../../assets/icone.png" alt="Panier" class="cart-icon" height="225" width="225"/>
+    <span class="cart-total">{{ totalPrice | number:'1.3-3' }} DT</span>
+    <span class="cart-badge">{{ itemCount }}</span>
+  </a>
+</div>
+
+
+
+<!-- Liste des produits ici -->
+
+
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">🛍️ Nos Produits</h2>
+  <button class="btn btn-delete" [routerLink]="['/addProduct']"> add product</button>
+
+
+  <div *ngIf="products.length > 0; else noProducts" class="row g-4">
+    <div *ngFor="let product of products" class="col-md-4">
+      <div class="card product-card">
+        <!-- Image du produit avec effet de zoom -->
+        <div class="image-container">
+          <img ngSrc="product.imageUrl" class="card-img-top product-image"
+               [alt]="'Image de ' + product.name" height="225" width="225">
+        </div>
+
+        <!-- Contenu du produit -->
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text product-price"><strong>Prix:</strong> {{ product.price | currency:'EUR' }}</p>
+          <p class="card-text">{{ product.description }}</p>
+
+          <!-- Boutons d'actions -->
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-detail" [routerLink]="['/detail-product', product.id]">👁️ Voir Détail</button>
+            <button class="btn btn-update" [routerLink]="['/update-product', product.id]">✏️ Modifier</button>
+            <button class="btn btn-delete" [routerLink]="['/delete-product', product.id]">🗑️ Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun produit -->
+  <ng-template #noProducts>
+    <div class="text-center mt-5">
+      <h4 class="text-danger">Aucun produit disponible 😔</h4>
+      <p>Ajoutez des produits pour les voir ici.</p>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,146 @@
+
+<div class="container-body">
+
+  <p-toolbar styleClass="mb-6">
+    <ng-template #start>
+      <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()"/>
+      <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedPromotions()"
+                [disabled]="!selectedPromotions || !selectedPromotions.length"/>
+    </ng-template>
+    <ng-template #end>
+      <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()"/>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="promotions"
+    [rows]="10"
+    [columns]="cols"
+    [paginator]="true"
+    [globalFilterFields]="['description', 'status', 'typeEV_ep']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedPromotions"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} promotions"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Manage Promotions</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search"/>
+          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."/>
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox/>
+        </th>
+        <th style="min-width: 16rem">Description</th>
+        <th style="min-width: 8rem">Discount</th>
+        <th style="min-width: 12rem">Start Date</th>
+        <th style="min-width: 12rem">End Date</th>
+        <th style="min-width: 10rem">Status</th>
+        <th style="min-width: 10rem">Type</th>
+        <th style="min-width: 12rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-promotion>
+      <tr >
+        <td style="width: 3rem">
+          <p-tableCheckbox [value]="promotion.id"/>
+        </td>
+        <td>{{ promotion.description }}</td>
+        <td>{{ promotion.discount }}%</td>
+        <td>{{ promotion.startDate  | date:'yyyy-MM-dd'}}</td>
+        <td>{{ promotion.endDate  | date:'yyyy-MM-dd'}}</td>
+        <td>
+          <p-tag [value]="promotion.status" />
+        </td>
+        <td>{{ promotion.typeEV_ep }}</td>
+        <td>
+          <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true"
+                    (click)="editPromotion(promotion)"/>
+          <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"
+                    (click)="deletePromotion(promotion)"/>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
+    <ng-template #content>
+      <div class="flex flex-col gap-6">
+        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + pv.imageUrl" [alt]="pv.typeEV_ep"
+             class="block m-auto pb-4" *ngIf="pv.typeEV_ep"/>
+        <div>
+          <label for="name" class="block font-bold mb-3">Name</label>
+          <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid/>
+          <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
+        </div>
+        <div>
+          <label for="description" class="block font-bold mb-3">Description</label>
+          <textarea id="description" pTextarea [(ngModel)]="pv.description" required rows="3" cols="20"
+                    fluid></textarea>
+        </div>
+
+        <div>
+          <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
+          <p-select [(ngModel)]="pv.status" inputId="inventoryStatus" [options]="statuses"
+                    optionLabel="label" optionValue="label" placeholder="Select a Status" fluid/>
+        </div>
+
+        <div >
+          <label for="productPromoted" class="block font-bold mb-3">Products</label>
+          <div class="card flex justify-center">
+
+            <p-select [options]="productsByOwner" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="Select a Product" class="w-full md:w-56">
+              <ng-template #selectedItem let-selectedOption>
+                <div class="flex items-center gap-2">
+
+                  <div>{{ selectedOption.name }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-country #item>
+                <div class="flex items-center gap-2">
+
+                  <div>{{ country.name }}</div>
+                </div>
+              </ng-template>
+            </p-select>
+          </div>
+        </div>
+
+
+
+
+        <div class="card flex justify-center">
+          <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
+        </div>
+
+
+        <div class="grid grid-cols-12 gap-4">
+
+          <div class="col-span-6">
+            <label for="discount" class="block font-bold mb-3">Discount</label>
+            <p-inputnumber id="quantity" [(ngModel)]="product.discount" fluid/>
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
+
+    <ng-template #footer>
+      <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()"/>
+      <p-button label="Save" icon="pi pi-check" (click)="saveProduct()"/>
+    </ng-template>
+  </p-dialog>
+
+  <p-confirmdialog [style]="{ width: '450px' }"/>
+
+</div>

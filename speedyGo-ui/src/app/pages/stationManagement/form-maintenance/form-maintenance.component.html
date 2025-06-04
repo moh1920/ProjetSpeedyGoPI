@@ -1,0 +1,28 @@
+<form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()">
+  <label for="maintenanceType">Type de maintenance:</label>
+  <input id="maintenanceType" formControlName="maintenanceType" required />
+
+  <label for="scheduledDate">Date planifiée:</label>
+  <input id="scheduledDate" type="date" formControlName="scheduledDate" required />
+
+  <label for="estimatedCompletionTime">Temps estimé de complétion:</label>
+  <input id="estimatedCompletionTime" type="date" formControlName="estimatedCompletionTime" />
+
+  <label for="technicianName">Technicien:</label>
+  <input id="technicianName" formControlName="technicianName" required />
+
+  <label for="cost">Coût (€):</label>
+  <input id="cost" type="number" formControlName="cost" />
+
+  <label for="status">Statut:</label>
+  <select id="status" formControlName="status" required>
+    <option value="pending">En attente</option>
+    <option value="in_progress">En cours</option>
+    <option value="completed">Terminé</option>
+  </select>
+
+  <button type="submit" [disabled]="maintenanceForm.invalid">Soumettre</button>
+</form>
+
+<p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>
+

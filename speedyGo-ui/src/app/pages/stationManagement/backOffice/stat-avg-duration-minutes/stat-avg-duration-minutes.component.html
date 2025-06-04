@@ -1,0 +1,39 @@
+<div class="stats-card">
+  <h2 class="stats-title">Evolution of Average Rental Duration</h2>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading statistics...</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="chart-container">
+    <canvas baseChart
+            [data]="chartData"
+            [options]="chartOptions"
+            [type]="'line'">
+    </canvas>
+  </div>
+
+  <div class="legend-container">
+    <div class="legend-item">
+      <span class="legend-dot croissance"></span>
+      <span>Growth</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot decroissance"></span>
+      <span>Decline</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot stable"></span>
+      <span>Stable</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot na"></span>
+      <span>N/A</span>
+    </div>
+  </div>
+</div>

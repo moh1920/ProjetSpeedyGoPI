@@ -1,0 +1,145 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section with Background Image -->
+<div class="hero-section">
+  <h1 class="text-3xl font-bold text-white text-center">
+    Carpool to thousands of destinations at low prices
+  </h1>
+
+  <!-- Search Bar inside the Hero Section -->
+  <div class="search-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Leaving from" class="search-input border-r" />
+      <input type="text" placeholder="Going to" class="search-input border-r" />
+      <input type="date" class="search-input border-r" />
+      <select class="search-input border-r">
+        <option>1 passenger</option>
+        <option>2 passengers</option>
+        <option>3 passengers</option>
+        <option>4 passengers</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Button to Show Favorites -->
+<div class="text-center mt-6">
+  <button (click)="toggleFavoritesView()" class="toggle-favorites-button">
+    {{ showFavorites ? 'Show All Offers' : 'Show Your Favorites' }}
+  </button>
+</div>
+
+<!-- Offers List -->
+<div class="container mx-auto mt-8 px-4">
+  <h2 class="text-2xl font-semibold mb-4 text-center">
+    {{ showFavorites ? 'Your Favorite Offers' : 'Available Carpool Offers' }}
+  </h2>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let offer of (showFavorites ? favorites : carpoolOffers)" class="offer-card">
+      <h3 class="text-lg font-bold text-gray-800">
+        {{ offer.departLocation }} → {{ offer.arrivalLocation }}
+      </h3>
+      <p class="text-gray-600"><strong>Time:</strong> {{ offer.time }}</p>
+      <p class="text-gray-600"><strong>Seats Available:</strong> {{ offer.seatsAvailable }}</p>
+      <p class="text-gray-600"><strong>Price per Seat:</strong> {{ offer.pricePerSeat }} TND</p>
+
+      <!-- Buttons -->
+      <div class="flex justify-between items-center mt-4">
+        <button (click)="openBookingModal(offer)" class="book-button">
+          Book Seat
+        </button>
+
+        <span class="heart-icon" (click)="toggleFavorite(offer)">
+          {{ isFavorite(offer) ? '❤️' : '🤍' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Seat Booking -->
+<div *ngIf="isModalOpen" class="modal">
+  <div class="modal-content">
+    <h3>Select Seats to Book</h3>
+    <p *ngIf="selectedOffer?.seatsAvailable > 0">
+      There are {{ selectedOffer?.seatsAvailable }} seats available for this offer.
+    </p>
+
+    <!-- Seat Selection: Checkbox for each available seat -->
+    <div *ngFor="let seat of availableSeats; let i = index">
+      <label>
+        <input type="checkbox" [(ngModel)]="availableSeats[i]" name="seat{{ i }}" />
+        Seat {{ i + 1 }}
+      </label>
+    </div>
+
+    <!-- Confirm and Cancel Buttons -->
+    <button (click)="submitBooking()" [disabled]="!seatsSelected()">Confirm Booking</button>
+    <button (click)="closeBookingModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Modal Styles -->
+<style>
+  /* Fond flou */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Application du flou léger */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assurer que le modal est toujours au-dessus des autres éléments */
+  }
+
+  /* Contenu du modal */
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombre légère pour un effet flottant */
+    transition: transform 0.3s ease-in-out; /* Animation fluide pour l'apparition */
+  }
+
+  /* Animation d'apparition du modal */
+  .modal-content {
+    transform: translateY(-20px);
+  }
+
+  .modal-content.ng-enter, .modal-content.ng-leave {
+    transform: translateY(0);
+  }
+
+  .modal-content.ng-enter-active, .modal-content.ng-leave-active {
+    transform: translateY(0);
+  }
+
+  /* Boutons */
+  button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #0056b3; /* Couleur au survol */
+  }
+
+  button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+</style>

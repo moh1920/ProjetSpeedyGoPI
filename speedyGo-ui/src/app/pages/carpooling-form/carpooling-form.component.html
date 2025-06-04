@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+
+<!-- Conteneur principal -->
+<div class="container" [class.blur]="showForm">
+  <!-- Info Section (Toujours Visible) -->
+  <section class="info-section">
+    <div class="info">
+      <img src="assets/covoiturage/5901.jpg" alt="Travel icon">
+      <h3>Travel at low prices</h3>
+      <p>Wherever you’re going, there’s a carpool that will get you there for less.</p>
+    </div>
+    <div class="info">
+      <img src="assets/covoiturage/5892.jpg" alt="Trust icon">
+      <h3>Trustworthy and simple</h3>
+      <p>We check reviews, profiles and IDs, so you know who you’re traveling with.</p>
+    </div>
+    <div class="info">
+      <img src="assets/covoiturage/proximity.jpg" alt="Proximity icon">
+      <h3>Proximity makes it easier</h3>
+      <p>There is always a ride close to you. Now you can find the closest ride easily.</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <img src="assets/covoiturage/carpooling.jpg" alt="Carpool illustration" class="illustration">
+    <div class="text-content">
+      <h2>Where do you want to drive to?</h2>
+      <p>Sharing a carpool is a great way to travel. It's affordable, comfortable, and eco-friendly!</p>
+      <button class="offer-button" (click)="toggleForm()">Offer your ride</button>
+      <!-- Button to show all offers -->
+      <button class="show-all-button" [routerLink]="['/listCarpoolOffers']">Show All Offers</button>
+    </div>
+  </section>
+</div>
+
+<!-- Modal (Popup) -->
+<div class="modal" *ngIf="showForm">
+  <div class="modal-content">
+    <span class="close-button" (click)="toggleForm()">&times;</span>
+    
+    <h2>Offer a Ride</h2>
+    <form [formGroup]="carpoolingForm" (ngSubmit)="onSubmit()">
+      
+      <label for="departLocation">Departure Location:</label>
+      <input id="departLocation" formControlName="departLocation" type="text" required />
+      
+      <label for="arrivalLocation">Arrival Location:</label>
+      <input id="arrivalLocation" formControlName="arrivalLocation" type="text" required />
+      
+      <label for="time">Time:</label>
+      <input id="time" formControlName="time" type="datetime-local" required />
+      
+      <label for="seatsAvailable">Seats Available:</label>
+      <input id="seatsAvailable" formControlName="seatsAvailable" type="number" min="1" required />
+      
+      <label for="pricePerSeat">Price per Seat:</label>
+      <input id="pricePerSeat" formControlName="pricePerSeat" type="number" min="0" required />
+      
+      <button type="submit" [disabled]="carpoolingForm.invalid">Submit Offer</button>
+    </form>
+  </div>
+</div>
+

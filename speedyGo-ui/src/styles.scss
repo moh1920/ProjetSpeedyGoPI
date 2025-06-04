@@ -1,0 +1,643 @@
+@use '@angular/material' as mat;
+@import "ngx-toastr/toastr";
+/* Import Bootstrap CSS */
+@import "bootstrap/dist/css/bootstrap.min.css";
+/* Import Bootstrap Icons */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import '@ctrl/ngx-emoji-mart/picker';
+
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+*{ padding:0;
+  margin: 0%;
+}
+#navbar{
+  position: sticky;
+  top: 20px;
+}
+#box1{
+  width: 100%;
+  border: 2px;
+  box-shadow: 2px solid 10px ;
+}
+#box1 a{
+  width: max-content;
+  font-size: 20px;
+  position: relative;
+  cursor: pointer;
+}
+#box1 a::after{
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  background-color:rgb(30,233,138);
+  color:rgb(30,233,138) ;
+  z-index: 10px;
+  transition: 0.3s;
+  transition-timing-function: ease-in-out;
+  transform: scale(0);
+}
+#box1 a:hover::after{
+  background-color:rgb(30,233,138) ;
+  color:rgb(30,233,138);
+  z-index: 10px;
+  transform: scale(1);
+  background-color: rgb(6,173,95);
+
+}
+
+span:hover{
+  color: rgb(30,233,138)
+}
+button{
+  background-color:rgb(30,233,138) ;
+  border: none;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.button{
+  background-color: white;
+}
+
+.ordernow{
+  position: absolute;
+  left: 200px;
+  bottom: 200px;
+
+}
+
+/* #box2{
+  width: 50%;
+  height: 30%;
+  background-color: blue;
+} */
+#careem_logo{
+  width: 100px;
+}
+#git{
+  width: 100%;
+  /* height: 60%; */
+  /* margin: 20px;
+  padding: 20px; */
+}
+/* video{
+  width: 60%;
+  height: ;
+} */
+#img{
+  box-shadow:2px 2px 10px green;
+}
+/* service-panels.component.css */
+#box3 {
+  width: 90%;
+  margin: 50px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#go {
+  height: 400px;
+  background-color: #4546EE;
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+  transition: transform 0.2s ease;
+}
+
+#eat {
+  height: 400px;
+  background-color: #d2ffd5;
+  color: #00493e;
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+  transition: transform 0.2s ease;
+}
+
+#get {
+  height: 400px;
+  background-color: #8E6DF3;
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+  transition: transform 0.2s ease;
+}
+
+#pay {
+  height: 400px;
+  background-color: #0A1B39;
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+  transition: transform 0.2s ease;
+}
+
+#go:hover, #eat:hover, #get:hover, #pay:hover {
+  transform: translateY(-5px);
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+a:link {
+  color: white;
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+.link {
+  color: white;
+  list-style-type: none;
+  padding: 3px;
+  margin-top: 20px;
+}
+
+.link li {
+  padding: 8px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+i.fa-sharp {
+  margin-right: 10px;
+}
+
+.arrow, .arrow1, .arrow2 {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+#eat .link {
+  color: #00493e;
+}
+
+#eat a:link {
+  color: #00493e;
+}
+
+.rounded-5 {
+  border-radius: 20px;
+}
+
+.col {
+  position: relative;
+}
+
+.p-3 {
+  padding: 15px;
+}
+
+.m-2 {
+  margin: 8px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.d-flex {
+  display: flex;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  #box3 {
+    width: 95%;
+    margin: 20px;
+    justify-content: center;
+  }
+
+  #go, #eat, #get, #pay {
+    flex-basis: 45%;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  #go, #eat, #get, #pay {
+    flex-basis: 100%;
+  }
+}
+
+ul{
+  list-style-type: none;
+}
+.arrow1{
+  position: relative;
+  padding-top: 95px;
+  padding-left:170px;
+}
+.arrow2{
+  position:relative;
+  padding-top: 0px;
+  padding-left: 170px;
+}
+.arrow{
+  position:relative;
+  padding-top: 165px;
+  padding-left: 170px;
+}
+
+/* .C{
+  /* width: 200px;
+  height: 400px; */
+/* background-color: red; */
+/* position: absolute; */
+/*
+#box4{
+  height: 400px;
+  background-color: blue
+}
+#Carousel{
+
+}
+.carousel2{
+  position: relative;
+  padding-left: 900px;
+
+} */
+#box4{
+  width: 100%;
+  height: 250px;
+  background: hsla(171, 100%, 14%, 1);
+
+  background: linear-gradient(90deg, hsla(171, 100%, 14%, 1) 0%, hsla(165, 100%, 19%, 1) 41%, hsla(158, 100%, 31%, 1) 83%);
+
+
+
+
+  padding: 20px;
+  border: 10px;
+  border-radius: 20px;
+  border-color: rgb(255, 255, 255);
+
+}
+#box4 .C{
+  padding: 10px;
+  position: relative;
+  left: 800px;
+  bottom: 100px;
+
+}
+#carousel{
+  width: 100%;
+  height: 200px;
+}
+#box5,#box7,#box8,.box10{
+  width: 90%;
+  /* height: 300px; */
+  margin-top: 100px;
+  text-align: left;
+}
+#box6{
+  width:100% ;
+  /* height: 300px; */
+  margin-top: 100px;
+  text-align: left;
+  background-size: cover;
+
+
+}
+#box9{
+  width:100%;
+
+  background-size: cover;
+}
+/* page go */
+
+.heading{
+  color:rgb(15, 98, 15);
+  font-weight: bold;
+}
+.box{
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+}
+.box11{
+  width: 20%;
+  margin: 30px;
+  padding: 10px;
+}
+#Comfort, #max{
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  background-color: rgb(84, 84, 246);
+}
+#ontime{
+  width: 100%;
+  margin: 10px;
+  padding: 20px;
+  background-color: rgb(80, 200, 80);
+}
+#everything, #skip{
+  width: 100%;
+  margin: 10px;
+  padding: 20px;
+  background-color:rgb(121, 56, 182);
+}
+#paybox, #send{
+  width: 100%;
+  margin: 10px;
+  padding: 20px;
+  background-color:rgb(41, 41, 149);
+
+}
+.Question {
+  width: 60%;
+  height: 400px;
+  margin: 20px auto;
+  border-radius: 20px;
+  background-color: rgb(110, 110, 232);
+  text-align: center;
+}
+.eatQuestion {
+  width: 90%;
+  height: 400px;
+  margin:20px auto;
+  border-radius: 20px;
+  background-color: rgb(80, 200, 80);
+  text-align: center;
+}
+.getQuestion{
+  width: 80%;
+  height: 400px;
+  margin:20px auto;
+  border-radius: 20px;
+  background-color:rgb(92, 38, 142);
+  text-align: center;
+}
+.payQuestion {
+  width: 80%;
+  height: 400px;
+  margin: 20px auto;
+  border-radius: 20px;
+  background-color:rgb(41, 41, 149);
+  text-align: center;
+}
+.heading2{
+  color: white;
+  font-weight: bold;
+  padding-top: 50px;
+}
+.para{
+  padding: 10px;
+  text-align: left;
+  position:relative;
+  left: 80px;
+  color: white;
+  font-weight: bold;
+}
+.icon1{
+  font-size: 20px;
+  position: relative;
+  left: 600px;
+}
+
+.icon2{
+  font-size: 20px;
+  position: relative;
+  left: 570px;
+}
+.icon3{
+  font-size: 20px;
+  position: relative;
+  left: 520px;
+}
+.icon4{
+  font-size: 20px;
+  position: relative;
+  left: 520px;
+}
+.icon5{
+  font-size: 20px;
+  position: relative;
+  left: 360px;
+}
+#golink, #getlink, #eatlink, #paylink{
+  width: 70%;
+  margin: auto;
+}
+#eatlink a{
+  text-align: left;
+}
+
+@media only screen and (max-width: 600px){
+  body{
+    width: 400px;
+  }
+  #box3, #eatlink{
+    width: 300px;
+  }
+  #box4{
+    height: 200px;
+  }
+  #box4 .C{
+    width: 150px;
+    padding: 10px;
+    position: relative;
+    left: 200px;
+    bottom:60px;
+
+  }
+  #box9 img{
+    width: 200px;
+  }
+  .box10{
+    width: 400px;
+  }
+  .goimg{
+    width: 300px;
+  }
+  .box10 .box11{
+    width: 200px;
+    text-align: center;
+  }
+  .Question{
+    width: 100%;
+  }
+  .para{
+    position: relative;
+    left:auto;
+  }
+  .icon1{
+    position: relative;
+    left: 150px;
+  }
+  .icon2{
+    position: relative;
+    left: 110px;
+  }
+  .icon3{
+    position: relative;
+    left: 70px;
+  }
+  .icon4{
+    position: relative;
+    left: 60px;
+  }
+  .icon5{
+    position: relative;
+    left: 50px;
+  }
+  .eatQuestion{
+    width: 600px;
+    height: 600px;
+  }
+  .getQuestion, .payQuestion{
+    width: 400px;
+  }
+  .getQuestion .icon1{
+    position: relative;
+    left: 40px;
+  }
+  .eatimg{
+    width: 200px;
+  }
+  .ordernow{
+    position: relative;
+    left: 20px;
+    bottom: 50px;
+  }
+  .bg-img{
+    width: 400px;
+    height: 300px;
+
+  }
+}
+
+/* Button styles */
+button {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* Dropdown styles */
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-menu {
+  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.532rem 1.25rem;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+.navbar {
+  background-color: white; /* White background */
+  padding: 15px 20px; /* Increased padding for a more spacious look */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.fixed-top {
+  position: fixed; /* Fix the navbar to the top */
+  top: 0; /* Align to the top */
+  width: 100%; /* Full width */
+}
+
+.navbar-brand {
+  font-size: 24px; /* Larger font size for the brand */
+  font-weight: bold; /* Bold text */
+  color: rgb(0, 203, 34); /* Black text color */
+  display: flex;
+  align-items: center;
+}
+
+#careem_logo {
+  width: 50px; /* Adjust logo size */
+  margin-right: 10px; /* Space between logo and text */
+}
+
+.nav-link {
+  color: rgb(55, 233, 20); /* Text color */
+  font-weight: 500; /* Medium weight */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-link:hover {
+  color: #FFD700; /* Gold color on hover */
+  text-decoration: underline; /* Underline effect on hover */
+}
+
+.navbar-toggler {
+  border: none; /* Remove border */
+}
+
+.navbar-toggler-icon {
+  background-color: black; /* Change toggle icon color */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.btn-outline-dark {
+  color: black; /* Button text color */
+  border-color: black; /* Button border color */
+  margin-left: 20px; /* Space between button and language selector */
+}
+
+.language-selector {
+  color: black; /* Language text color */
+  margin-left: 10px; /* Space between button and language text */
+}
+
+/* Add some padding to the top of the body to prevent content from being hidden behind the navbar */
+body {
+  padding-top: 70px; /* Adjust based on navbar height */
+}

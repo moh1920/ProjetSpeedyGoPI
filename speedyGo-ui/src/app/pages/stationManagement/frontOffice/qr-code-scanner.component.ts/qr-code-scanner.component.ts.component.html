@@ -1,0 +1,11 @@
+<div class="qr-code-scanner-container">
+  <button mat-raised-button color="primary" (click)="startScanning()">
+    Start Scanning QR Code
+  </button>
+
+  <!-- Scanner container -->
+  <div id="qr-reader" style="width: 100%; height: 500px;"></div>
+
+  <!-- Button to stop the scanner -->
+  <button mat-raised-button color="warn" (click)="stopScanning()">Stop Scanning</button>
+</div>
